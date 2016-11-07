@@ -21,12 +21,12 @@ User survey: [UserSurvey.csv](/UserSurvey.csv)
 #*_Guest_*
 
 1. Search for doctors using any of the following query conditions:
-	a. Doctor's Name
-	b. Clinic's Name
-	c. Clinic's Address
-	d. Topic (that relates to Doctor's expertise). E.g: search for "examine child's fever" bring up list of Doctors that are specialized in Pediatric.
-	e. Open time. E.g: search for Doctor that provide service at 8pm tomorrow.
-	f. By default, system shows all doctors with default sorting conditions.
+	*. Doctor's Name
+	*. Clinic's Name
+	*. Clinic's Address
+	*. Topic (that relates to Doctor's expertise). E.g: search for "examine child's fever" bring up list of Doctors that are specialized in Pediatric.
+	*. Open time. E.g: search for Doctor that provide service at 8pm tomorrow.
+	*. By default, system shows all doctors with default sorting conditions.
 2. Sorting doctors with the following conditions:
 	a. Nearest distance to current location. In this first phase, we focus on Saigon and Hanoi.
 		i. Current location is detected automatically if allowed.
@@ -36,20 +36,23 @@ User survey: [UserSurvey.csv](/UserSurvey.csv)
 	d. Price range of deposit cost for booking.
 	e. By default, system sort doctors by nearest distance (if allowed), soonest available opening time, higher Up vote Doctor first. 
 3. For each Doctor being display ON THE RESULT PAGE (defaul/after search/after sort), the following information are shown:
-	a. Clinic's Name (Note to team: ussually Doctor will use their name as the clinic name. E.g: "Phòng khám bác sĩ Hùng").
-	b. Doctor's Name.
-	c. Doctor's expertise.
-	d. Next opentime (day, time) NEXT TO A "BOOK NOW" button.
-	e. Service price (for checkup only).
-	f. Clinic's Address. NEXT TO A "SHOW MAP" button.
-	g. Current rating result (Average rate) and Total Number of Comment (Click on total Number of Comment show Doctor details page with comment section opended).
+	*. Clinic's Name (Note to team: ussually Doctor will use their name as the clinic name. E.g: "Phòng khám bác sĩ Hùng").
+	*. Doctor's Name.
+	*. Doctor's expertise.
+	*. Next opentime (day, time) NEXT TO A "BOOK NOW" button.
+	*. Service price (for checkup only).
+	*. Clinic's Address. NEXT TO A "SHOW MAP" button.
+	*. Current rating result (Average rate) and Total Number of Comment (Click on total Number of Comment show Doctor details page with comment section opended).
 4. View a Doctor's Profile (described in Doctor Stories below) 
 5. Register to become *_User_* Only User can Vote/Comment on a Doctor and Book for a checkup. 
 	a. Guest can chose to register using: Facebook OR Google OR Phone number
 	b. After FB/G/Phone authentication, the additional info for User to input are(optional):
-		i. Display name. By default, we fill in this form with data receive from authentication step (Name OR Email OR SMS). User can edit this to their preferred value.
-		ii. Citis where User lives.
-		iii. Payment information (Optional until they want to BOOK)
+		*. Display name. By default, we fill in this form with data receive from authentication step (Name OR Email OR SMS). User can edit this to their preferred value.
+		*. Citis where User lives.
+		*. Payment information (Optional until they want to BOOK)
+		*. Date of Birth
+		*. Gender
+		*. Address
 
 #*_User_*
 
@@ -59,9 +62,9 @@ User survey: [UserSurvey.csv](/UserSurvey.csv)
 	a. When viewing the Opening schedule of a Doctor, system allows User to see which timeslot are reserved and which are still available for booking.
 	b. User click on the timeslot they prefer. System shows the Booking Info Page.
 	c. The Booking Info Page shows:
-		i.
-		ii.
-		iii. BOOK NOW button. 
+		*.
+		*.
+		*. BOOK NOW button. 
 	d. When click on BOOK NOW. 
 		** If there is NO payment method saved: User is required to enter payment method.
 			i. After input payment method. User click PAY NOW to start payment process.
@@ -94,11 +97,12 @@ User survey: [UserSurvey.csv](/UserSurvey.csv)
 
 #*_CLINIC_*
 1. We pupulate a list of predefined Clinic available. Each clinic has the following info:
-	i. Clinic's Name.
-	ii. Address.
-	iii. Phone Number.
-	iv. Location on Map.
-	v. License number 
+	*. Clinic's Name.
+	*. Address.
+	*. Phone Number.
+	*. Location on Map.
+	*. License number 
+	*. System Admin account is set as Owner account of each Clinic.
 (NOTE TO TEAM: for phase 1. We leave it this way. In later phase we will implement a better management function for Clinic Owner Account)
 
 #*_DOCTOR_*
@@ -106,27 +110,28 @@ User survey: [UserSurvey.csv](/UserSurvey.csv)
 all of the registration process for opening a doctor account/ clinic account)
 
 1. Creates account using FB/G/Email. The registration form includes the following madantory fields:
-		i. Email(get from authentication or manual input) *
-		ii. Phone number *
-		iii. Name * 
+		*. Email(get from authentication or manual input) *
+		*. Phone number *
+		*. Name * 
 	After input, verify Doctor's Phone number.
 	Additional information (can edit later)	
-		iv. Short introduction
-		v. Expertise
-		vi. Experiences
-		vii. Certification
-		viii. Photo
+		*. Short introduction
+		*. Expertise
+		*. Experiences
+		*. Certification
+		*. Photo
 2. Uploads certification documents for approval.
 3. Select the Clinic where Doctor works at from existing list. If Clinic not exist. Create a Clinic account.
-	 Create Clinic process:
-		i. Clinic's Name.
-		ii. Address.
-		iii. Phone Number (can be and should be different from Doctor's verification phone number).
-		iv. Location on Map.
-		v. License number.
+	a. Create Clinic with the following info:
+		*. Clinic's Name.
+		*. Address.
+		*. Phone Number (can be and should be different from Doctor's verification phone number).
+		*. Location on Map.
+		*. License number.
+	b. Doctor account is set as Owner account of this Clinic.
 4. Create Opening Time Schedule at this Clinic (remember later on one Doctor can work at different Clinics on different days).
-	i. Setups working days of the week. Set if these available days will repeat weekly
-	i. Setups working hours of each day/everyday.
+	a. Setups working days of the week. Set if these available days will repeat weekly
+	b. Setups working hours of each day/everyday.
 5. Setups booking fee (deposit amount ) at the selected Clinic. 
 6. Define Service Cost for checkup.
 7. Views rating result.
@@ -134,10 +139,15 @@ all of the registration process for opening a doctor account/ clinic account)
 9. Replies to comment from User.
 10. Write "article" to publish on my profile page/public page.
 11. Using Client Booking Dashboard:
-	i. View the dahboard showing list of upcoming User and their booked timeslot.
-	ii. When there are client come without booking. Easily enter their name into the next available timeslot.
-	iii. When a User with BOOKING show up. Enter their booking code to verify. If the code is correct. BOOKING TIME SLOT update status as "ARRIVED" (change color to green maybe)
-	iv. If a User not show up after BOOKED time has passed. Status of that timeslot update to not show up (color changes to RED)
+	a. View the dahboard showing list of upcoming User and their booked timeslot.
+	b. When there are client come without booking. Easily enter their name into the next available timeslot.
+	c. When a User with BOOKING show up. 
+		i. Enter their booking code to verify. If the code is correct. BOOKING TIME SLOT update status as "ARRIVED" (change color to green maybe)
+		ii. If there is no information on User profile. Doctor can add the following additional (optional) info about User:
+			*. Date of Birth
+			*. Gender
+			*. Address
+	d. If a User not show up after BOOKED time has passed. Status of that timeslot update to not show up (color changes to RED)
 12. View Reports:
 	i. Summary Report showing all client served in day/week/month. Client are seperated by online booking and no booking
 	ii. More additional report here...
