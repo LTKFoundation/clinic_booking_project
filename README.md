@@ -16,14 +16,8 @@ Submitted by: Datkham.online team
 
 User survey: [UserSurvey.csv](/UserSurvey.csv)
 
-Time spent:
-* Milestone 1:
-* Milestone 2:
-* Milestone 3:
-* Milestone 4:
-
 ### User Stories
-=====PHASE 1=====
+=====PHASE 0=====
 #*_Guest_*
 
 1. Search for doctors using any of the following query conditions:
@@ -98,6 +92,15 @@ Time spent:
 		ii. When contacted for REPORT BAD SERVICE. We contact client immediately and try to resolve with Doctor right away. (NOTE TO TEAM: A customer support DASHBOARD needed). 
 	h. In case Doctor has sudden situation and can not provide service in booked time. User receive a notification via Emails/SMS. We process to REFUNDS the Booking Deposit.
 
+#*_CLINIC_*
+1. We pupulate a list of predefined Clinic available. Each clinic has the following info:
+	i. Clinic's Name.
+	ii. Address.
+	iii. Phone Number.
+	iv. Location on Map.
+	v. License number 
+(NOTE TO TEAM: for phase 1. We leave it this way. In later phase we will implement a better management function for Clinic Owner Account)
+
 #*_DOCTOR_*
 (NOTE TO TEAM: in production. At the begining we/our staff will be the one contacting Doctor and collect info and do 
 all of the registration process for opening a doctor account/ clinic account)
@@ -114,12 +117,13 @@ all of the registration process for opening a doctor account/ clinic account)
 		vii. Certification
 		viii. Photo
 2. Uploads certification documents for approval.
-3. Select the Clinic where Doctor works at. If Clinic not exist. Create a Clinic account.
+3. Select the Clinic where Doctor works at from existing list. If Clinic not exist. Create a Clinic account.
 	 Create Clinic process:
 		i. Clinic's Name.
 		ii. Address.
 		iii. Phone Number (can be and should be different from Doctor's verification phone number).
 		iv. Location on Map.
+		v. License number.
 4. Create Opening Time Schedule at this Clinic (remember later on one Doctor can work at different Clinics on different days).
 	i. Setups working days of the week. Set if these available days will repeat weekly
 	i. Setups working hours of each day/everyday.
@@ -146,16 +150,16 @@ _CUSTOMER_SUPPORT_
 _SYSTEM_ADMIN_
 
 
-//END OF PHASE 1
+//END OF PHASE 0
+=====PHASE 1=====
+
+* User can add multiple patient (wife,kid, etc..).
+* Doctor can enter prescription given to a patient.
+* User and Doctor can communicate directly via chat.
+* User and Doctor can view treatment history.
+* A clinic can add multiple doctors. Can add different calendar for each doctor.
+* One doctor can chose to be working at different clinic in different time/day. 
+
 =====PHASE 2=====
-
-* Allow a user to add multiple patient (wife,kid, etc..)
-* Allow doctor to enter prescription given to a patient
-* Direct communication between client and doctor via chat
-* View medical history
-* Allow one clinic to manage multiple doctors.
-* Allow one doctor to work at multiple clinics in different time/day. 
-* Provide home service
-
-=====PHASE 3=====
-Open to all medical services 
+* User can request for and Doctor can provide home checkup service
+* Open to all medical services 
