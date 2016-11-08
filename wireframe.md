@@ -11,4 +11,4 @@ Clinic Booking System - Mockups
 
 ## Customer Personal page
 
-![Customer](mockups/customer.png)
+![Customer](mockups/customer_v2.png)
