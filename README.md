@@ -16,6 +16,9 @@ Submitted by: Datkham.online team
 
 User survey: [UserSurvey.csv](/UserSurvey.csv)
 
+//PENDING STORIES:
+Q&A SECTION for User and Doctor to communicate. Question should be post to a common public place or inside a Doctor profile??
+
 ### User Stories
 =====PHASE 0=====
 #*_Guest_*
