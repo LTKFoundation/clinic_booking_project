@@ -19,7 +19,7 @@
 2. Write a Comment on a Doctor's Profile.
 3. Book for a timeslot in the upcoming Opening day of a selected Doctor    
 4. Use BOOKING NUMBER at Clinic
-
+5. USER CAN ADD A CLINIC/DOCTOR THEY KNOW 
 #*CLINIC*
 1. Create a clinic account 
 
