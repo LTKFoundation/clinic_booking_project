@@ -27,12 +27,17 @@ ActiveRecord::Schema.define(version: 20161109182623) do
   end
 
   create_table "clinics", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       null: false
+    t.string   "address",    null: false
+    t.float    "latitude"
+    t.string   "license"
+    t.string   "phone"
     t.string   "photos"
-    t.string   "address"
     t.string   "position"
+    t.integer  "doctor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["doctor_id"], name: "index_clinics_on_doctor_id", using: :btree
   end
 
   create_table "doctors", force: :cascade do |t|
@@ -82,6 +87,6 @@ ActiveRecord::Schema.define(version: 20161109182623) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "doctors", "clinics"
+  add_foreign_key "doctors", "clinics", on_delete: :cascade
   add_foreign_key "payment_methods", "users"
 end

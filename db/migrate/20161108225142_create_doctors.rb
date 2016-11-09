@@ -6,7 +6,7 @@ class CreateDoctors < ActiveRecord::Migration[5.0]
       t.string :description
       t.string :certificate
       t.date :verified_at
-      t.references :clinic, foreign_key: true
+      t.references :clinic, index:true, foreign_key: {on_delete: :cascade}
 
       t.timestamps
     end
