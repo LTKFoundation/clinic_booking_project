@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20161109042958) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "address"
-    t.string   "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
