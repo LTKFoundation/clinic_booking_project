@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109042958) do
+ActiveRecord::Schema.define(version: 20161109182623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20161109042958) do
     t.index ["clinic_id"], name: "index_doctors_on_clinic_id", using: :btree
   end
 
+  create_table "payment_methods", force: :cascade do |t|
+    t.string   "cc_no"
+    t.string   "ccv_no"
+    t.date     "valid_until"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_payment_methods_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name",                   default: "",       null: false
     t.string   "phone"
@@ -73,4 +83,5 @@ ActiveRecord::Schema.define(version: 20161109042958) do
   end
 
   add_foreign_key "doctors", "clinics"
+  add_foreign_key "payment_methods", "users"
 end
