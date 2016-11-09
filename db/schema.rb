@@ -36,14 +36,14 @@ ActiveRecord::Schema.define(version: 20161109182623) do
   end
 
   create_table "doctors", force: :cascade do |t|
-    t.string   "certificate"
     t.string   "avatar"
-    t.string   "status",      default: "Not verified", null: false
     t.string   "expertise"
     t.string   "description"
+    t.string   "certificate"
+    t.date     "verified_at"
     t.integer  "clinic_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["clinic_id"], name: "index_doctors_on_clinic_id", using: :btree
   end
 
