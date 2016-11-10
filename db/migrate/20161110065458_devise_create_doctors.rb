@@ -1,19 +1,13 @@
-class DeviseCreateUsers < ActiveRecord::Migration[5.0]
+class DeviseCreateDoctors < ActiveRecord::Migration[5.0]
   def change
-    create_table :users do |t|
-      ## Basic information
-      t.string :name,               null:false, default: ""
-      t.string :phone
-      t.string :gender
-      t.date   :dob
+    create_table :doctors do |t|
+      t.string :name              , null: false
       t.string :avatar
-
-      # Authentication by FB/GG
-      t.string :provider,           null:false, default: "email"
-      t.string :uid
-
-      # For inheritance of Doctor/Client -> User
-      t.string :type,               null:false, default: "client"
+      t.string :expertise         , null: false
+      t.string :description
+      t.string :certificate
+      t.datetime :verified_at
+      t.string :phone
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""
@@ -48,9 +42,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.timestamps null: false
     end
 
-    add_index :users, :email,                unique: true
-    add_index :users, :reset_password_token, unique: true
-    # add_index :users, :confirmation_token,   unique: true
-    # add_index :users, :unlock_token,         unique: true
+    add_index :doctors, :email,                unique: true
+    add_index :doctors, :reset_password_token, unique: true
+    # add_index :doctors, :confirmation_token,   unique: true
+    # add_index :doctors, :unlock_token,         unique: true
   end
 end
