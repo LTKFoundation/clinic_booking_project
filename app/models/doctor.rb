@@ -6,4 +6,6 @@ class Doctor < ApplicationRecord
 
   has_many :gigs
   has_many :clinics, through: :gigs
+
+  serialize :expertise, Array
 end
