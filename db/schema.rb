@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20161109182623) do
     t.string   "expertise"
     t.string   "description"
     t.string   "certificate"
-    t.date     "verified_at"
+    t.datetime "verified_at"
     t.integer  "clinic_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
