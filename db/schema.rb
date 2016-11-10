@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110074353) do
+ActiveRecord::Schema.define(version: 20161110081509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "schedule_id"
+    t.string   "code",           null: false
+    t.datetime "start_at",       null: false
+    t.decimal  "price",          null: false
+    t.decimal  "deposit",        null: false
+    t.string   "payment_status", null: false
+    t.string   "status",         null: false
+    t.string   "session_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["schedule_id"], name: "index_bookings_on_schedule_id", using: :btree
+    t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
+  end
 
   create_table "clinics", force: :cascade do |t|
     t.integer  "owner_id"
@@ -76,6 +92,18 @@ ActiveRecord::Schema.define(version: 20161110074353) do
     t.index ["user_id"], name: "index_payment_methods_on_user_id", using: :btree
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "doctor_id"
+    t.integer  "booking_id"
+    t.integer  "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_ratings_on_booking_id", using: :btree
+    t.index ["doctor_id"], name: "index_ratings_on_doctor_id", using: :btree
+    t.index ["user_id"], name: "index_ratings_on_user_id", using: :btree
+  end
+
   create_table "schedules", force: :cascade do |t|
     t.integer  "gig_id"
     t.string   "weekday"
@@ -111,6 +139,11 @@ ActiveRecord::Schema.define(version: 20161110074353) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "bookings", "schedules"
+  add_foreign_key "bookings", "users"
   add_foreign_key "payment_methods", "users"
+  add_foreign_key "ratings", "bookings"
+  add_foreign_key "ratings", "doctors"
+  add_foreign_key "ratings", "users"
   add_foreign_key "schedules", "gigs"
 end
