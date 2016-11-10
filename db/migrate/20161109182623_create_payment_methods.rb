@@ -4,7 +4,7 @@ class CreatePaymentMethods < ActiveRecord::Migration[5.0]
       t.string :cc_no
       t.string :ccv_no
       t.date :valid_until
-      t.references :user, foreign_key: true
+      t.references :user, foreign_key: true, index: true
 
       t.timestamps
     end

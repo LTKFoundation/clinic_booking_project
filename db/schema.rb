@@ -159,6 +159,8 @@ ActiveRecord::Schema.define(version: 20161110081940) do
   add_foreign_key "doctor_ratings", "bookings"
   add_foreign_key "doctor_ratings", "doctors"
   add_foreign_key "doctor_ratings", "users"
+  add_foreign_key "gigs", "clinics"
+  add_foreign_key "gigs", "doctors"
   add_foreign_key "payment_methods", "users"
   add_foreign_key "schedules", "gigs"
 end
