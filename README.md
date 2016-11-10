@@ -1,5 +1,5 @@
-datkham.online
-====================================================================================================
+# datkham.online
+
 Datkham.online is a Rails app that allows users to easily find clinics and doctors that is best suitable for their needs.
 The key features of the system are:
 
@@ -18,9 +18,12 @@ Submitted by: datkham.online team
 
 User survey: [UserSurvey.csv](/UserSurvey.csv)
 
-### REQUIRED USER STORIES
-=====PHASE 0=====
-#*GUEST*
+## REQUIRED USER STORIES
+
+### PHASE 0
+
+#### GUEST
+
 1. Search for doctors
 2. Sorting doctors with
 	a. Nearest distance
@@ -34,7 +37,7 @@ User survey: [UserSurvey.csv](/UserSurvey.csv)
 	b. Google OR
 	c. Phone number
 
-#*USER*
+#### USER
 1. Rate a doctor 1-5
 2. Write a Comment on a Doctor's Profile.
 3. Book for a timeslot in the upcoming Opening day of a selected Doctor    
@@ -43,7 +46,8 @@ User survey: [UserSurvey.csv](/UserSurvey.csv)
 #*CLINIC*
 1. Create a clinic account 
 
-#*DOCTOR*
+#### DOCTOR
+
 1. Creates account using FB/G/Email
 2. Uploads certification documents for approval.
 3. Select the Clinic to work at. Create Clinic if not existed.
@@ -59,17 +63,18 @@ User survey: [UserSurvey.csv](/UserSurvey.csv)
 	i. Transaction Report
 	ii. User report
 
-#*CUSTOMER_SUPPORT*
+#### CUSTOMER_SUPPORT
 1. Review and approve registration of Doctor
 2. Remove spam review of User
 3. Create account for Owner of Clinic 
 
-#*SYSTEM_ADMIN*
+#### SYSTEM_ADMIN
 
+TODO
 
-### OPTIONAL USER STORIES
+## OPTIONAL USER STORIES
 
-## Phase 1
+### Phase 1
 	- Q&A SECTION for User and Doctor to communicate.
   - User can add multiple patient (wife,kid, etc..).
   - Doctor can enter prescription given to a patient.
@@ -78,6 +83,18 @@ User survey: [UserSurvey.csv](/UserSurvey.csv)
   - A clinic can add multiple doctors. Can add different calendar for each doctor.
   - One doctor can chose to be working at different clinic in different time/day.
 
-## Phase 2
+### Phase 2
   - User can request for and Doctor can provide home checkup service
   - Open to all medical services
+
+## Wireframes
+
+See [wireframe.md](wireframe.md)
+
+## Schema
+
+See Quip.
+
+## Survey Responses
+
+![](/User survey response.gif)
