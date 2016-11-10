@@ -45,6 +45,18 @@ ActiveRecord::Schema.define(version: 20161110081509) do
     t.index ["owner_id"], name: "index_clinics_on_owner_id", using: :btree
   end
 
+  create_table "doctor_ratings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "doctor_id"
+    t.integer  "booking_id"
+    t.integer  "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_doctor_ratings_on_booking_id", using: :btree
+    t.index ["doctor_id"], name: "index_doctor_ratings_on_doctor_id", using: :btree
+    t.index ["user_id"], name: "index_doctor_ratings_on_user_id", using: :btree
+  end
+
   create_table "doctors", force: :cascade do |t|
     t.string   "name",                                null: false
     t.string   "avatar"
@@ -92,18 +104,6 @@ ActiveRecord::Schema.define(version: 20161110081509) do
     t.index ["user_id"], name: "index_payment_methods_on_user_id", using: :btree
   end
 
-  create_table "ratings", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "doctor_id"
-    t.integer  "booking_id"
-    t.integer  "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["booking_id"], name: "index_ratings_on_booking_id", using: :btree
-    t.index ["doctor_id"], name: "index_ratings_on_doctor_id", using: :btree
-    t.index ["user_id"], name: "index_ratings_on_user_id", using: :btree
-  end
-
   create_table "schedules", force: :cascade do |t|
     t.integer  "gig_id"
     t.string   "weekday"
@@ -141,9 +141,9 @@ ActiveRecord::Schema.define(version: 20161110081509) do
 
   add_foreign_key "bookings", "schedules"
   add_foreign_key "bookings", "users"
+  add_foreign_key "doctor_ratings", "bookings"
+  add_foreign_key "doctor_ratings", "doctors"
+  add_foreign_key "doctor_ratings", "users"
   add_foreign_key "payment_methods", "users"
-  add_foreign_key "ratings", "bookings"
-  add_foreign_key "ratings", "doctors"
-  add_foreign_key "ratings", "users"
   add_foreign_key "schedules", "gigs"
 end
