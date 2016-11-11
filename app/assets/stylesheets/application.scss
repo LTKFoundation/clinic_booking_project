@@ -1,2 +1,15 @@
-@import "bootstrap";
-@import "font-awesome";
+/*
+*= require material_icons
+*/
+// @import "bootstrap";
+// @import "font-awesome";
+@import "materialize";
+
+.icon-block {
+  padding: 0 15px;
+
+  .material-icons {
+    font-size: inherit;
+  }
+}
+

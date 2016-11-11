@@ -28,14 +28,16 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 
-gem 'bootstrap', '~> 4.0.0.alpha5'
+# gem 'bootstrap', '~> 4.0.0.alpha5'
 # Tether for bootstrap
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
 
 # Font Awesome
-gem "font-awesome-rails"
+# gem "font-awesome-rails"
+gem 'materialize-sass'
+gem 'material_icons'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
