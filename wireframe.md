@@ -5,9 +5,17 @@ Clinic Booking System - Mockups
 
 ![Homepage](mockups/home.png)
 
+## Doctors Listing
+
+![Doctors](mockups/doctors.png)
+
 ## Doctor/Clinic detail
 
 ![Doctor](mockups/doctor.png)
+
+## Doctor/Clinic Booking
+
+![Doctor](mockups/booking-doctor.png)
 
 ## Customer Personal page
 
