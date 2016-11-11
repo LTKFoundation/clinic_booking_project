@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110081940) do
+ActiveRecord::Schema.define(version: 20161110090535) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bookings", force: :cascade do |t|
-    t.integer  "user_id"
+    t.integer  "client_id"
     t.integer  "schedule_id"
     t.string   "code",           null: false
     t.datetime "start_at",       null: false
@@ -26,8 +27,14 @@ ActiveRecord::Schema.define(version: 20161110081940) do
     t.string   "session_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["client_id"], name: "index_bookings_on_client_id", using: :btree
     t.index ["schedule_id"], name: "index_bookings_on_schedule_id", using: :btree
-    t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clinics", force: :cascade do |t|
@@ -69,27 +76,12 @@ ActiveRecord::Schema.define(version: 20161110081940) do
   end
 
   create_table "doctors", force: :cascade do |t|
-    t.string   "name",                                null: false
-    t.string   "avatar"
-    t.string   "expertise",                           null: false
+    t.string   "expertise",   null: false
     t.string   "description"
     t.string   "certificate"
     t.datetime "verified_at"
-    t.string   "phone"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_doctors_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_doctors_on_reset_password_token", unique: true, using: :btree
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "gigs", force: :cascade do |t|
@@ -126,32 +118,35 @@ ActiveRecord::Schema.define(version: 20161110081940) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                   default: "",       null: false
+    t.string   "name",                   default: "",      null: false
     t.string   "phone"
     t.string   "gender"
     t.date     "dob"
     t.string   "avatar"
-    t.string   "provider",               default: "email",  null: false
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "provider",               default: "email", null: false
     t.string   "uid"
-    t.string   "type",                   default: "client", null: false
-    t.string   "email",                  default: "",       null: false
-    t.string   "encrypted_password",     default: "",       null: false
+    t.string   "email",                  default: "",      null: false
+    t.string   "encrypted_password",     default: "",      null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,        null: false
+    t.integer  "sign_in_count",          default: 0,       null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.integer  "role"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["owner_type", "owner_id"], name: "index_users_on_owner_type_and_owner_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "bookings", "clients"
   add_foreign_key "bookings", "schedules"
-  add_foreign_key "bookings", "users"
   add_foreign_key "doctor_comments", "doctor_ratings"
   add_foreign_key "doctor_comments", "doctors"
   add_foreign_key "doctor_comments", "users"
