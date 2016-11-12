@@ -39,9 +39,18 @@
     </nav>
 
     <!-- Page Content -->
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <div class="container">
+
+      <% if notice %>
+        <p class="alert alert-warning"><%= notice %></p>
+      <% end %>
+
+      <% if alert  %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
+    </div>
 
     <!-- Site Footer -->
     <footer class="page-footer orange">

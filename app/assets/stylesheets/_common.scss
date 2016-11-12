@@ -1,0 +1,15 @@
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+
+  &-danger {
+    background-color: color("materialize-red", "lighten-4");
+    color: color("materialize-red", "darken-1");
+  }
+
+  &-warning {
+    background-color: color("materialize-amber", "lighten-4");
+    color: color("materialize-amber", "darken-1");
+  }
+}
