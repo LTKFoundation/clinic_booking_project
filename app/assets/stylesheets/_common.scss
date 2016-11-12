@@ -13,3 +13,21 @@
     color: color("materialize-amber", "darken-1");
   }
 }
+
+#error_explanation {
+  @extend .alert;
+  @extend .alert-danger;
+
+  h2 {
+    margin-top: 0;
+    font-size: 18px;
+  }
+
+  ul {
+    margin-bottom: 0;
+
+    li {
+      margin-bottom: 5px;
+    }
+  }
+}
