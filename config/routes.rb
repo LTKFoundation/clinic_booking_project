@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   # Do not show all the users
-  resources :doctors, only: [ :show, :create, :update, :destroy ] do
+  devise_for :doctors do
     resources :gigs, only: [ ] do
       resources :schedules, only: [] do
         # Route to new booking with schedule params and client id
