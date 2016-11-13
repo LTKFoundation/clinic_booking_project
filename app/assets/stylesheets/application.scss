@@ -4,7 +4,11 @@
 // @import "bootstrap";
 // @import "font-awesome";
 @import "materialize";
+@import "_variables";
+@import "_overwrite";
+@import "_common";
 
+// Custom
 .icon-block {
   padding: 0 15px;
 
@@ -13,3 +17,7 @@
   }
 }
 
+// Users
+.users-shared-links {
+  margin-top: 30px;
+}
