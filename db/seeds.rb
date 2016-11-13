@@ -8,17 +8,19 @@
 
 
 ## Create 10 users:
-10.times do |time| 
+["a", "b", "c", "d","e" ].each do |n| 
   User.create(
-    email: "#{time}@example.com",
-    password: "#{time.to_s*7}"
+    email: "#{n}@example.com",
+    password: "#{n.*6}",
+    name: "#{n*3}"
   )
 end
 
 ## Create 10 doctors:
-10.times do |time| 
+["g", "h", "i", "j",  "k"].each do |n| 
   Doctor.create(
-    email: "#{time.to_s*2}@example.com",
-    password: "#{time.to_s*7}"
+    email: "#{n}@example.com",
+    password: "#{n.*6}",
+    name: "#{n*3}"
   )
 end
