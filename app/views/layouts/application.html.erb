@@ -6,6 +6,7 @@
     <title>Đặt khám online</title>
 
     <%= csrf_meta_tags %>
+		<%= include_gon %>
     <meta name="description" content="Đặt khám online" />
     <meta name="robots" content="noodp,index,follow" />
     <meta property="og:title" content="Đặt khám online" />
@@ -24,7 +25,9 @@
 
         <ul class="right hide-on-med-and-down">
           <li><a href="#">Home</a></li>
-          <li><a href="#">Doctors</a></li>
+          <li>
+							<%= link_to "View Near", clinics_path, method: 'get' %> 
+					</li>
           <% if current_user %>
             <li><%= link_to "Log out", destroy_user_session_path, :method => 'delete' %></li>
           <% else %>

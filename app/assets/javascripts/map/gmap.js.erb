@@ -1,0 +1,259 @@
+var map;
+var poly;
+var linePath;
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
+        center: { lat: 21.0278, lng: 105.8342 },
+        zoom: 15
+    });
+}
+
+function addClinic(lat, lng) {
+    console.log("passing New Clinic Data to controller " + lat + "||" + lng + "...");
+    $.post('/clinics/add_clinic', { name: "Dr. Slum", latitude: lat, longtitude: lng, doctor_id:"-1", address:"somewhere over the rainbow" });
+}
+
+function showDoctor(lat, lng, dr_name) {
+    var pos = {
+        lat: lat,
+        lng: lng
+    };
+    var marker = createCustomMarker(pos, map, dr_name);
+    var user_window = new google.maps.InfoWindow({ content: dr_name });
+    user_window.open(map, marker);
+    google.maps.event.addListener(marker, 'click', function() {
+        user_window.open(map, marker);
+    });
+}
+
+function displayDoctors() {
+	console.log("Displaying all doctor");
+    a = gon.doctor_clinics;
+    if (a != null) {
+        for (var i = 0; i < a.length; i++) {
+						console.log("Doctor number " + i);
+            var doctor = a[i];
+            showDoctor(doctor[0], doctor[1], "Doctor number " + i);
+        }
+    }
+}
+
+function refreshMap() {
+    console.log("MAP REFRESHEEEEEDDDD!!!!!!!!!");
+    displayDoctors();
+}
+
+function setLoc(lat, lng) {
+    console.log("passing loc to controller#current_loc with value: " + lat + "||" + lng + "...");
+		$.post('/clinics/current_loc', { latitude: lat, longtitude: lng }, refreshMap);
+}
+
+function createCustomMarker(coords, map, title) {
+    marker = new google.maps.Marker({
+        position: coords,
+        map: map,
+        title: title,
+        // icon: createImage("icon.png"),
+        icon: "<%= asset_path('dr_icon.png') %>",
+        draggable: true,
+        animation: google.maps.Animation.DROP
+    });
+    return marker;
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos, message) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' + message :
+        'Error: Your browser doesn\'t support geolocation.' + message);
+}
+var browser_loc;
+
+function getCurrentLoc() {
+    console.log("getting current loc ...");
+    var infoWindow = new google.maps.InfoWindow({ content: "Current Location" });
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            browser_loc = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            //console.log("current log is:"+browser_loc[0]+"||"+browser_loc[1]);
+        }, function(error) {
+            handleLocationError(true, infoWindow, map.getCenter(), 'ERROR(' + err.code + '): ' + err.message);
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter(), "");
+    }
+}
+
+function initMapWithNear() {
+    var mapOptions = {
+        center: new google.maps.LatLng(21.0278, 105.8342),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.NORMAL
+    };
+    // initializing map
+    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+    // Try HTML5 geolocation.
+    var infoWindow = new google.maps.InfoWindow({ map: map });
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            browser_loc = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            console.log("found current loc! ");
+
+            //setLoc(position.coords.latitude, position.coords.longitude);
+						setLoc(position.coords.latitude, position.coords.longitude);
+
+            // Displaying User's Current Location
+            var user_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
+            var marker;
+            console.log("creating current location marker ");
+            marker = createMarker(browser_loc, map, "Bạn đang ở đây");
+            user_window.open(map, marker);
+            google.maps.event.addListener(marker, 'click', function() {
+                user_window.open(map, marker);
+            });
+
+            map.setCenter(browser_loc);
+            console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
+
+        }, function() {
+            handleLocationError(true, infoWindow, map.getCenter(), "");
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter(), "");
+    }
+
+    google.maps.event.addListener(map, 'click', function(e) {
+        var markerClinicDrop = createCustomMarker(getCurrentPosition(e), map, "New Clinic!");
+        var dr_info = createInfoWindow("Phòng khám mới ở đây: " + e.latLng.lat() + "||" + e.latLng.lng());
+        dr_info.open(map, markerClinicDrop);
+        addClinic(e.latLng.lat(), e.latLng.lng())
+    });
+}
+
+function initMapWithAll() {
+    var mapOptions = {
+        center: new google.maps.LatLng(21.0278, 105.8342),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.NORMAL
+    };
+    // initializing map
+    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+    // Try HTML5 geolocation.
+    var infoWindow = new google.maps.InfoWindow({ map: map });
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            browser_loc = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            console.log("found current loc! ");
+
+            // Displaying User's Current Location
+            var user_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
+            var marker;
+            console.log("creating current location marker ");
+            marker = createMarker(browser_loc, map, "Bạn đang ở đây");
+            user_window.open(map, marker);
+            google.maps.event.addListener(marker, 'click', function() {
+                user_window.open(map, marker);
+            });
+
+            map.setCenter(browser_loc);
+            console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
+        }, function(error) {
+            console.log('ERROR(' + error.code + '): ' + error.message);
+            handleLocationError(true, infoWindow, map.getCenter(), 'ERROR(' + error.code + '): ' + error.message);
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter(), "");
+    }
+		displayDoctors();
+}
+
+function animateCircle() {
+    var count = 0;
+    window.setInterval(function() {
+        count = (count + 1) % 200;
+
+        var icons = linePath.get('icons');
+        icons[0].offset = (count / 2) + '%';
+        linePath.set('icons', icons);
+    }, 20);
+}
+
+function addLatLng(event) {
+    var path = poly.getPath();
+    // Because path is an MVCArray, we can simply append a new coordinate
+    // and it will automatically appear.
+    path.push(event.latLng);
+}
+
+function createPolyline(map, lineCoordinates, lineSymbol) {
+    linePath = new google.maps.Polyline({
+        path: lineCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        icons: [{
+            icon: lineSymbol,
+            offset: '100%'
+        }]
+    });
+    linePath.setMap(map);
+}
+
+function createInfoWindow(text) {
+    var infowindow = new google.maps.InfoWindow({
+        content: text
+    });
+    return infowindow;
+}
+
+function getCurrentPosition(e) {
+    var markercoords = new google.maps.LatLng(e.latLng.lat(), e.latLng.lng());
+    return markercoords;
+}
+
+var marker;
+
+function createMarker(coords, map, title) {
+    marker = new google.maps.Marker({
+        position: coords,
+        map: map,
+        title: title,
+        draggable: true,
+        animation: google.maps.Animation.DROP
+    });
+    return marker;
+}
+
+function loadScript() {
+    console.log("map loading ...");
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapWithNear';
+		
+    document.body.appendChild(script);
+}
+
+function loadAllClinicScript() {
+    console.log("map loading ...");
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapWithAll';
+    document.body.appendChild(script);
+}

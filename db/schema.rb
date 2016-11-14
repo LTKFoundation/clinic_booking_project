@@ -10,10 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113171350) do
+ActiveRecord::Schema.define(version: 20161114101044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "cube"
+  enable_extension "earthdistance"
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -59,6 +61,7 @@ ActiveRecord::Schema.define(version: 20161113171350) do
     t.string   "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float    "longtitude"
     t.index ["doctor_id"], name: "index_clinics_on_doctor_id", using: :btree
   end
 
