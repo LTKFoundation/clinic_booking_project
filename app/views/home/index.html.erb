@@ -22,7 +22,7 @@
   <div class="section">
 
     <!--   Icon Section   -->
-    <div class="row">
+    <!-- <div class="row">
       <div class="col s12 m4">
         <div class="icon-block">
           <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
@@ -58,9 +58,30 @@
     </div>
 
   </div>
-  <br><br>
+  <br><br> -->
 
+  <!-- SHOW ALL THE DOCTORS -->
   <div class="section">
+    <!-- SEARCH INPUT -->
+    <div class="row">
+      <div class="input-field col s12 m4">
+        <%= form_tag nil, method: 'get', class: 'inline' do %>
+          <%= text_field_tag :q, nil, class: 'validate' %>
+          <label for="q">Ví dụ: "bác sĩ Long sản ở Ba Đình"</label>
+          <button class="btn waves-effect waves-light" type="submit">
+            <i class="material-icons">search</i>
+          </button>
+        <% end %>
+      </div>
+    </div>
 
-  </div>
+    <!-- LIST OF DOCTORS -->
+    <div class="row">
+      <% @doctors.each do |doctor| %>
+        <%= render partial: 'shared/doctor_card', locals: {doctor: doctor} %>
+      <% end %>
+    </div>
+  </div> <!--end section -->
+
+
 </div>
