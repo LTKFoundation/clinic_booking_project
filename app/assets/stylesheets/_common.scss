@@ -4,13 +4,13 @@
   border: 1px solid transparent;
 
   &-danger {
-    background-color: color("materialize-red", "lighten-4");
-    color: color("materialize-red", "darken-1");
+    @extend .red, .lighten-4;
+    @extend .red-text, .text-darken-1;
   }
 
-  &-warning {
-    background-color: color("materialize-amber", "lighten-4");
-    color: color("materialize-amber", "darken-1");
+  &-success {
+    @extend .green, .lighten-4;
+    @extend .green-text, .text-darken-3;
   }
 }
 
