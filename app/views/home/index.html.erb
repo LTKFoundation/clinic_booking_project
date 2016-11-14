@@ -14,48 +14,25 @@
     <br><br>
 </div>
 
-
+<!-- SHOW ALL THE DOCTORS -->
 <div class="section">
-
-  <!--   Icon Section   -->
+  <!-- SEARCH INPUT -->
   <div class="row">
-    <div class="col s12 m4">
-      <div class="icon-block">
-        <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-        <h5 class="center">Speeds up services</h5>
-
-        <p class="light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-        </p>
-      </div>
-    </div>
-
-    <div class="col s12 m4">
-      <div class="icon-block">
-        <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-        <h5 class="center">User Experience Focused</h5>
-
-        <p class="light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-        </p>
-      </div>
-    </div>
-
-    <div class="col s12 m4">
-      <div class="icon-block">
-        <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
-        <h5 class="center">Easy to work with</h5>
-
-        <p class="light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-        </p>
-      </div>
+    <div class="input-field col s12 m4">
+      <%= form_tag nil, method: 'get', class: 'inline' do %>
+        <%= text_field_tag :q, nil, class: 'validate' %>
+        <label for="q">Ví dụ: "bác sĩ Long sản ở Ba Đình"</label>
+        <button class="btn waves-effect waves-light" type="submit">
+          <i class="material-icons">search</i>
+        </button>
+      <% end %>
     </div>
   </div>
 
-</div>
-<br><br>
-
-<div class="section">
-
-</div>
+  <!-- LIST OF DOCTORS -->
+  <div class="row">
+    <% @doctors.each do |doctor| %>
+      <%= render partial: 'shared/doctor_card', locals: {doctor: doctor} %>
+    <% end %>
+  </div>
+</div> <!--end section -->
