@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :admins
   devise_for :users
 
   # Do not show all the users
-  resources :doctors, only: [ :show, :create, :update, :destroy ] do
+  devise_for :doctors do
     resources :gigs, only: [ ] do
       resources :schedules, only: [] do
         # Route to new booking with schedule params and client id
@@ -13,11 +14,18 @@ Rails.application.routes.draw do
 
   resources :clients, only: [ :show, :create, :update, :destroy ]
 
-  resources :clinics
+  resources :clinics do
+		collection do
+			post 'current_loc'
+		end
+		collection do
+			post 'add_clinic'
+		end
+	end
 
   # Use with current_user
   resources :payment_method
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'pages#index'
+  root 'home#index'
 end
