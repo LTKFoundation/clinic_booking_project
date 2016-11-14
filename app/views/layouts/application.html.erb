@@ -28,6 +28,7 @@
           <li>
             <%= link_to "View Near", clinics_path, method: 'get' %>
           </li>
+
           <% if current_user %>
             <!-- Dropdown Trigger -->
              <li>
@@ -43,8 +44,12 @@
                <li><%= link_to "Log out", destroy_user_session_path, :method => 'delete' %></li>
              </ul>
           <% else %>
-            <li><%= link_to "Log In", new_user_session_path %></li>
-            <li><%= link_to "Sign Up", new_user_registration_path %></li>
+            <% if current_doctor %>
+              <li><%= link_to "Doctor Log out", destroy_doctor_session_path, :method => 'delete' %></li>
+            <% else %>
+              <li><%= link_to "Log In", new_user_session_path %></li>
+              <li><%= link_to "Sign Up", new_user_registration_path %></li>
+            <% end %>
           <% end %>
 
         </ul>
@@ -113,3 +118,4 @@
     </footer>
   </body>
 </html>
+<% console %>
