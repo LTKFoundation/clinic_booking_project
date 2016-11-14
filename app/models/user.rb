@@ -4,6 +4,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :owner, polymorphic: true
-  enum role: [ :client, :doctor, :admin ]
+  validates :email, presence: true, uniqueness: {case_sensitive: false}
 end

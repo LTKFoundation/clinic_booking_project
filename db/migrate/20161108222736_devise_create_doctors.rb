@@ -1,15 +1,16 @@
-class DeviseCreateUsers < ActiveRecord::Migration[5.0]
+class DeviseCreateDoctors < ActiveRecord::Migration[5.0]
   def change
-    create_table :users do |t|
-      ## Basic information
-      t.string :name,               null:false, default: ""
+    create_table :doctors do |t|
+      ## General Information
+      t.string :name              , null: false
       t.string :phone
-      t.string :gender
-      t.date   :dob
+      t.string :expertise         , null: false
       t.string :avatar
-      t.string :address
+      t.string :description
+      t.string :certificate
+      t.datetime :verified_at
 
-      # Authentication by FB/GG
+      ## Authentication by FB/GG
       t.string :provider,           null:false, default: "email"
       t.string :uid
 
@@ -42,13 +43,15 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      t.string :expertise
+      t.string :certificate
 
       t.timestamps null: false
     end
 
-    add_index :users, :email,                unique: true
-    add_index :users, :reset_password_token, unique: true
-    # add_index :users, :confirmation_token,   unique: true
-    # add_index :users, :unlock_token,         unique: true
+    add_index :doctors, :email,                unique: true
+    add_index :doctors, :reset_password_token, unique: true
+    # add_index :doctors, :confirmation_token,   unique: true
+    # add_index :doctors, :unlock_token,         unique: true
   end
 end
