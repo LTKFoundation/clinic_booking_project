@@ -1,0 +1,66 @@
+<h2>My Doctor Profile</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <h5>Personal Information</h5>
+  <p>Update your information. Leave it if you dont want to change.</p>
+
+  <div class="input-field">
+    <%= f.text_field :name, autofocus: true %>
+    <%= f.label :name %>
+  </div>
+
+  <div class="input-field">
+    <%= f.email_field :email %>
+    <%= f.label :email %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <h5>Change your password</h5>
+  <p>If you not plan to do so, you could ignore these fields and leave them empty</p>
+
+  <div class="input-field">
+    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.label :password %>
+  </div>
+
+  <div class="input-field">
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.label :password_confirmation %>
+  </div>
+
+  <h5>Verify updates
+    <a href="javascript:void(0)" class="tooltipped" data-position="bottom"
+      data-tooltip="Enter current password as a verification for update">
+      <i class="material-icons">info_outline</i>
+    </a>
+  </h5>
+
+  <div class="input-field">
+    <%= f.password_field :current_password, autocomplete: "off", required: true %>
+    <%= f.label :current_password %>
+  </div>
+
+  <div class="input-field form-actions">
+    <%= f.button "Update", class: "waves-effect waves-light btn", type: "submit" %>
+    <br><br>
+  </div>
+<% end %>
+
+<!-- Not needed
+<h3>Cancel my account</h3>
+<p>Unhappy?
+<%= button_to "Cancel my account", registration_path(resource_name),
+  data: { confirm: "Are you sure?" },
+  method: :delete %>
+</p> -->
+
+<script type="text/javascript">
+$(document).on('turbolinks:load', function() {
+  Materialize.updateTextFields();
+});
+</script>
