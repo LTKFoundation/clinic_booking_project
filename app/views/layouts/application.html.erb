@@ -45,7 +45,20 @@
              </ul>
           <% else %>
             <% if current_doctor %>
-              <li><%= link_to "Doctor Log out", destroy_doctor_session_path, :method => 'delete' %></li>
+              <!-- Dropdown Trigger -->
+               <li>
+                 <a class='dropdown-button' href='#' data-activates='currentDoctorAction'>
+                   Hello Dr.<%= current_doctor.name %>
+                 </a>
+               </li>
+
+               <!-- Dropdown Structure -->
+               <ul id='currentDoctorAction' class='dropdown-content'>
+                 <li><%= link_to "My Profile", edit_doctor_registration_path %></li>
+                 <li class="divider"></li>
+                 <li><%= link_to "Log out", destroy_doctor_session_path, :method => 'delete' %></li>
+               </ul>
+
             <% else %>
               <li><%= link_to "Log In", new_user_session_path %></li>
               <li><%= link_to "Sign Up", new_user_registration_path %></li>
