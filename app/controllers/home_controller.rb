@@ -43,5 +43,8 @@ class HomeController < ApplicationController
 
   def datetime_params
     params.require(:date, :time)
+    if params[:q].present?
+      @doctors = Search.doctors(params[:q])
+    end
   end
 end
