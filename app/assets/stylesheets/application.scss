@@ -8,6 +8,16 @@
 @import "_variables";
 @import "_overwrite";
 @import "_common";
+//Layout
+nav .brand-logo {
+  text-transform: uppercase;
+  font-size: 1.8rem;
+}
+
+ul#currentUserAction {
+  width: 150px !important;
+}
+
 // Custom
 .icon-block {
     padding: 0 15px;

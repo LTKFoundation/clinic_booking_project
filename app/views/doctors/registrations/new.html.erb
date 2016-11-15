@@ -1,5 +1,6 @@
-<h3>New user account</h3>
-<br>
+<h3>Register new doctor</h3>
+<p>Welcome to us! We really need people like you - good doctors to spread the helps to all patient
+in Vietnam. Make Vietnam healthy again.</p>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -15,8 +16,8 @@
   </div>
 
   <div class="input-field">
-    <%= f.label :password %>
     <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.label :password %>
   </div>
 
   <div class="input-field">
@@ -29,4 +30,4 @@
   </div>
 <% end %>
 
-<%= render "users/shared/links" %>
+<%= render "doctors/shared/links" %>
