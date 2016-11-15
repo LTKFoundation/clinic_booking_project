@@ -1,53 +1,52 @@
-   <ul class="collection">
-     <li class="collection-item">
-       <div class="row">
-         <div class="col s2 input-field">
-           <input type="checkbox" id="mon" />
-           <label for="mon">Cả Tuần</label>
-         </div>
-         <div class="col s4 input-field">
-           <%= text_field :start_time, :value => '15:00'%>
-           <label >Bắt đầu </label>
-         </div>
-         <div class="col s4 input-field">
-           <%= text_field :end_time, :value => '15:00'%>
-           <label >Kết thúc </label>
-         </div>
-       </div>
-     </li>
-   </ul>
+<div class="row">
+ <div class="col s2 input-field">
+   <input type="checkbox" id="mon" />
+   <label for="mon">Cả Tuần</label>
+ </div>
+ <div class="col s4 input-field">
+   <label>Bat dau</label>
+   <%= text_field :start_time, "start_time", class: "timepicker", placeholder: '' %>
+ </div>
+ <div class="col s4 input-field">
+   <label >Kết thúc </label>
+   <%= text_field :end_time, "end_time", class: "timepicker", placeholder: '' %>
+ </div>
+</div>
 
-					<div class="row">
-				    <input type="checkbox" id="mon" />
-      			<label for="mon">Thứ Hai</label>
-					</div>
-					<div class="row">
-				    <input type="checkbox" id="tue" />
-      			<label for="tue">Thứ Ba</label>
-					</div>
-					<div class="row">
-				    <input type="checkbox" id="wed" />
-      			<label for="wed">Thứ Tư</label>
-					</div>
-					<div class="row">
-				    <input type="checkbox" id="thu" />
-      			<label for="thu">Thứ Năm</label>
-					</div>
-					<div class="row">
-				    <input type="checkbox" id="fri" />
-      			<label for="fri">Thứ Sáu</label>
-					</div>
-					<div class="row">
-				    <input type="checkbox" id="sat" />
-      			<label for="sat">Thứ Bảy</label>
-					</div>
-					<div class="row">
-						<input type="checkbox" id="sun" />
-      			<label for="sun">Chủ Nhật</label>
-					</div>
-				</div>
-<script>
-$(document).ready(function() {
-    $('select').material_select();
+<div class="row">
+  <input type="checkbox" id="mon" />
+  <label for="mon">Thứ Hai</label>
+</div>
+<div class="row">
+  <input type="checkbox" id="tue" />
+  <label for="tue">Thứ Ba</label>
+</div>
+<div class="row">
+  <input type="checkbox" id="wed" />
+  <label for="wed">Thứ Tư</label>
+</div>
+<div class="row">
+  <input type="checkbox" id="thu" />
+  <label for="thu">Thứ Năm</label>
+</div>
+<div class="row">
+  <input type="checkbox" id="fri" />
+  <label for="fri">Thứ Sáu</label>
+</div>
+<div class="row">
+  <input type="checkbox" id="sat" />
+  <label for="sat">Thứ Bảy</label>
+</div>
+<div class="row">
+  <input type="checkbox" id="sun" />
+  <label for="sun">Chủ Nhật</label>
+</div>
+
+<script type="text/javascript">
+$(document).on('turbolinks:load', function() {
+    $('.timepicker').pickatime({
+      min: [14,30],
+      max: [21,0]
+    });
 });
 </script>
