@@ -55,6 +55,8 @@
                <!-- Dropdown Structure -->
                <ul id='currentDoctorAction' class='dropdown-content'>
                  <li><%= link_to "My Profile", edit_doctor_registration_path %></li>
+								<li class="divider"></li>
+							 	<li><%= link_to "My Clinics", doctor_gigs_path(current_doctor.id) %></li>
                  <li class="divider"></li>
                  <li><%= link_to "Log out", destroy_doctor_session_path, :method => 'delete' %></li>
                </ul>

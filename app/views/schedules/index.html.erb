@@ -1,0 +1,41 @@
+   <ul class="collection">
+      <li class="collection-item"><input type="checkbox" id="mon" />
+      			<label for="mon">Cả Tuần</label>
+						<label >Bắt đầu </lable><%= text_field :start_time, :value => '15:00'%>
+						<label >Kết thúc </lable><%= text_field :end_time, :value => '15:00'%>
+			</li>
+    </ul>				
+					<div class="row">
+				    <input type="checkbox" id="mon" />
+      			<label for="mon">Thứ Hai</label>
+					</div>
+					<div class="row">
+				    <input type="checkbox" id="tue" />
+      			<label for="tue">Thứ Ba</label>
+					</div>
+					<div class="row">
+				    <input type="checkbox" id="wed" />
+      			<label for="wed">Thứ Tư</label>
+					</div>
+					<div class="row">
+				    <input type="checkbox" id="thu" />
+      			<label for="thu">Thứ Năm</label>
+					</div>
+					<div class="row">
+				    <input type="checkbox" id="fri" />
+      			<label for="fri">Thứ Sáu</label>
+					</div>
+					<div class="row">
+				    <input type="checkbox" id="sat" />
+      			<label for="sat">Thứ Bảy</label>
+					</div>
+					<div class="row">
+						<input type="checkbox" id="sun" />
+      			<label for="sun">Chủ Nhật</label>
+					</div>
+				</div>
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+});
+</script>
