@@ -115,6 +115,8 @@ GEM
       shellany (~> 0.0)
     orm_adapter (0.5.0)
     pg (0.19.0)
+    pickadate-rails (3.5.6.0)
+      railties (>= 3.1.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -231,6 +233,7 @@ DEPENDENCIES
   material_icons
   materialize-sass
   pg (~> 0.18)
+  pickadate-rails (~> 3.5, >= 3.5.6.0)
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   rails-assets-tether (>= 1.1.0)!
