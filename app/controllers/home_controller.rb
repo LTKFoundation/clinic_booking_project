@@ -13,6 +13,10 @@ class HomeController < ApplicationController
     if params[:expertise].present?
       @doctors = @doctors.filter_by_expertise(expertise_params)
     end
+    if params[:date].present? or params[:time].present?
+      expect_time = "#{params[:date]} #{params[:time]}".to_datetime
+      @doctors.map { |d| d.available?(expect_time)}
+    end
 
     response do |format|
       format.html
@@ -32,5 +36,9 @@ class HomeController < ApplicationController
 
   def expertise_params
     params.require(:expertise)
+  end
+
+  def datetime_params
+    params.require(:date, :time)
   end
 end
