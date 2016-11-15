@@ -1,15 +1,28 @@
 <div class="col s12 m4">
   <div class="card">
 
-    <div class="card-image">
-      <!-- TODO DOCTOR AVATAR GOES HERE-->
-      <img src="http://lorempixel.com/480/640/people" alt="">
-
-      <span class="card-title white-text">Bác sĩ <%= doctor.name %></span>
-    </div>
-
     <div class="card-content">
-      <p><i class="material-icons">done</i> <%= doctor.expertise %></p>
+
+      <!-- AVATAR AND NAME -->
+      <div class="row">
+        <div class="col s4">
+          <img src="http://lorempixel.com/400/400/people" style="width: 100px; height: 100px; border-radius: 50%;"/>
+        </div>
+        <div class="col s8">
+          <h4><%= doctor.name %></h4>
+          <p>
+            <%= doctor.expertise %>
+          </p>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <!-- RATING GOES HERE -->
+      <!-- COMMENT GOES HERE -->
+      <!-- STATUS GOES HERE -->
+
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt u.
+
     </div>
 
     <div class="card-action">

@@ -44,7 +44,7 @@ class Doctor < ApplicationRecord
   end
 
   def self.search(query)
-    where('expertise ILIKE ?', "%#{query}%")
+    where('expertise ILIKE ? OR name ILIKE ?', "%#{query}%", "%#{query}%")
   end
 
   private
