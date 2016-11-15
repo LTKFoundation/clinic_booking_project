@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a href="#doctor_tab">Bác sĩ</a></li>
+        <li class="tab col s3"><a class="active" href="#clinic_tab">Phòng khám</a></li>
+				
+      </ul>
+    </div>
+    <div id="doctor_tab" class="col s12">
+		</div>
+    <div id="clinic_tab" class="col s12">
+			
+			<h5>Lịch làm việc của bác sĩ</h5>
+			<% if @gig %>
+			<div class="row">
+				<div class="col s8">
+				<p>Thông tin dịch vụ</p>
+				<%= form_for [current_doctor, @gig] do |f| %>
+					<% hidden_field_tag :id, @gig.id%>
+      		<div class="row">
+        		<div class="label col s4">Phòng khám: <%= @gig.clinic.name %></div>
+						<div class="label col s4">Địa chỉ: <%= @gig.clinic.address %></div>
+      		</div>
+					
+					<div class="row">
+						<div class="form-group col s4">
+							<div class="label">Phí dịch vụ</div>
+							<div class="input-field inline">
+								<div class="form-control"><%= f.number_field :price%></div>
+							</div>
+						</div>
+						<div class="form-group col s4">
+							<div class="label">Phí đặt cọc giữ chỗ</div>
+							<div class="input-field inline">
+								<div class="form-control"><%= f.number_field :deposit%></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col s4">
+						<div class="label">Thời gian khám trung bình (phút)</div>
+							<div class="input-field inline">
+								<div class="form-control"><%= f.number_field :checkup_duration%></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col s4">
+					<p>Lịch làm việc <%= link_to "Sửa", doctor_gig_schedules_path(current_doctor.id,@gig.id)%></p>
+					<div class="row">
+				    <input type="checkbox" id="mon" />
+      			<label for="mon">Thứ Hai</label>
+						<%= "Từ 12:30 Đến 15:00" %>
+					</div>
+					<div class="row">
+				    <input type="checkbox" id="tue" />
+      			<label for="tue">Thứ Ba</label>
+					</div>
+					<div class="row">
+				    <input type="checkbox" id="wed" />
+      			<label for="wed">Thứ Tư</label>
+					</div>
+					<div class="row">
+				    <input type="checkbox" id="thu" />
+      			<label for="thu">Thứ Năm</label>
+					</div>
+					<div class="row">
+				    <input type="checkbox" id="fri" />
+      			<label for="fri">Thứ Sáu</label>
+					</div>
+					<div class="row">
+				    <input type="checkbox" id="sat" />
+      			<label for="sat">Thứ Bảy</label>
+					</div>
+					<div class="row">
+						<input type="checkbox" id="sun" />
+      			<label for="sun">Chủ Nhật</label>
+					</div>
+				</div>
+			</div>
+				<button class="btn waves-effect waves-light" type="submit" name="action">Cập nhập thông tin
+						<i class="material-icons right">send</i>
+					</button>
+				<% end %>
+			<% else %>
+			<p>Tạo dịch vụ</p>
+				<%= form_for [current_doctor, Gig.new] do |f| %>
+					<div class="form-group">
+						<label for="clinic_id">Chọn phòng khám</label>
+						<div class="form-control">
+						<%= f.select :clinic_id, options_for_select(@clinics.collect { |clinic| [clinic.name, clinic.id] },1) 
+						%>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="price">Giá dịch vụ khám bệnh</label>
+						<div class="input-field col s12">
+							<div class="form-control"><%= f.number_field :price%></div>
+						</div>
+					</div>
+
+					<div class="form-group">
+					<label for="deposit">Phí đặt cọc giữ chỗ</label>
+						<div class="input-field col s12">
+							<div class="form-control"><%= f.number_field :deposit%></div>
+						</div>
+					</div>
+
+					<div class="form-group">
+					<label for="checkup_duration">Thời gian khám trung bình (phút)</label>
+						<div class="input-field col s12">
+							<div class="form-control"><%= f.number_field :checkup_duration%></div>
+						</div>
+					</div>
+
+					<button class="btn waves-effect waves-light" type="submit" name="action">Tạo dịch vụ
+						<i class="material-icons right">send</i>
+					</button>
+						<!--TODO  CHANGE THIS TO A SEARCH BOX WITH SUGGESTION. If clinic not found, allow adding new clinic  -->
+				<% end %>
+			<% end %>
+		</div>
+</div>
+<script>
+
+$(document).ready(function() {
+    $('select').material_select();
+});
+</script>
