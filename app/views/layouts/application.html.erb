@@ -14,6 +14,8 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <link rel="stylesheet" href="https://cdn.rawgit.com/chingyawhao/materialize-clockpicker/master/dist/css/materialize.clockpicker.css">
   </head>
 
   <body>
@@ -26,9 +28,8 @@
         <ul class="right hide-on-med-and-down">
           <li><a href="#">Home</a></li>
           <li>
-            <%= link_to "View Near", clinics_path, method: 'get' %>
-          </li>
-
+							<%= link_to "View Near", clinics_path, method: 'get' %>
+					</li>
           <% if current_user %>
             <!-- Dropdown Trigger -->
              <li>
@@ -90,6 +91,8 @@
         <p class="alert alert-danger"><%= alert %></p>
       <% end %>
 
+
+
       <%= yield %>
     </div>
 
@@ -129,5 +132,7 @@
         </div>
       </div>
     </footer>
+
+    <script src="https://cdn.rawgit.com/chingyawhao/materialize-clockpicker/master/dist/js/materialize.clockpicker.js"></script>
   </body>
 </html>
