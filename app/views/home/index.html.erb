@@ -16,11 +16,6 @@
 
   </div>
 </div> -->
-
-
-
-  <div class="section">
-
     <!--   Icon Section   -->
     <!-- <div class="row">
       <div class="col s12 m4">
@@ -60,28 +55,68 @@
   </div>
   <br><br> -->
 
-<!-- SHOW ALL THE DOCTORS -->
-  <div class="section">
-
-    <!-- FILTER -->
-    <div class="row">
-      <div class="input-field col s12">
-        <select>
-          <option value="" disabled selected>Choose your option</option>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-          <option value="3">Option 3</option>
-        </select>
-        <label>Materialize Select</label>
+<!-- FILTER -->
+<div class="section">
+  <div class="row">
+    <!-- CITY -->
+    <%= form_tag(nil, method: 'get', id: 'form-filter') do %>
+      <div class="input-field col s12 m3">
+          <%=
+            select_tag(:city,
+            options_for_select(
+              [
+                ['Chọn một thành phố', '', 'disable'],
+                ['Hà Nội', 'hn'],
+                ['Hồ Chí Minh', 'hcm']
+              ],
+              params[:city] || 1),
+            class: "browser-default", id: "city-filter")
+          %>
       </div>
-    </div>
-  </div> <!--end section -->
 
-  <!-- LIST OF DOCTORS -->
-  <div class="section">
-    <div class="row">
-      <% @doctors.each do |doctor| %>
-        <%= render partial: 'shared/doctor_card', locals: {doctor: doctor} %>
-      <% end %>
+      <div class="input-field col s12 m3">
+        <%=
+          select_tag(:expertise,
+          options_for_select(
+            [
+              ['Chọn một chuyên khoa', '', 'disable'],
+              ['Nhi', 'nhi'],
+              ['Sản', 'sản']
+            ],
+            params[:expertise] || 1),
+          class: "browser-default", id: "expertise-filter")
+        %>
+      </div>
+
+      <div class="form-group">
+          <div class='input-group date' id='datetimepicker1'>
+            <%= text_field_tag :starts_at, nil, class: 'validate' %>
+            <span class="input-group-addon">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+        <script type="text/javascript">
+        $(function () {
+          $('#datetimepicker1').datetimepicker();
+        });
+        </script>
+    <% end %>
+
+    <!-- JAVASCRIPT -->
+    <script type="text/javascript">
+      $('#city-filter').change(function(){
+        $('#form-filter').submit();
+      })
+    </script>
+  </div> <!-- end row -->
+</div> <!--end section -->
+
+<!-- LIST OF DOCTORS -->
+<div class="section">
+  <div class="row">
+    <div class="doctors">
+      <%= render partial: 'shared/doctors_card', locals: { doctors: @doctors } %>
     </div>
   </div>
+</div>

@@ -8,8 +8,12 @@ class Doctor < ApplicationRecord
   has_many :gigs
   has_many :clinics, through: :gigs
 
+  def addresses
+    
+  end
+
   def self.search(query)
-    where('expertise ILIKE ?', "%#{query}%")
+    where('expertise ILIKE ? OR name ILIKE ?', "%#{query}%", "%#{query}%")
   end
 
   private
