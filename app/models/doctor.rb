@@ -36,18 +36,13 @@ class Doctor < ApplicationRecord
     gigs.each do |g|
       g.schedules.each do |s|
         if s.available?(expect_time)
-          return true
+          true
         end
       end
     end
     false
   end
 
-  pg_search_scope :filter_by_expertise, against: :expertise, ignoring: :accents
-
-  pg_search_scope :filter_by_city,
-    associated_against: { clinics: [ :address ] },
-    ignoring: :accents
 
   private
 

@@ -74,4 +74,8 @@ class HomeController < ApplicationController
   def expertise_params
     params.require(:expertise)
   end
+
+  def datetime_params
+    params.require(:date, :time)
+  end
 end
