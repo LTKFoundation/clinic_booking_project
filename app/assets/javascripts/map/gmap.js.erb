@@ -245,7 +245,7 @@ function loadScript() {
     console.log("map loading ...");
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapWithNear';
+		script.src = 'https://maps.googleapis.com/maps/api/js?key=<%=ENV['GMAP_KEY']%>&callback=initMapWithNear';
 		
     document.body.appendChild(script);
 }
@@ -254,6 +254,6 @@ function loadAllClinicScript() {
     console.log("map loading ...");
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapWithAll';
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=<%=ENV['GMAP_KEY']%>&callback=initMapWithAll';
     document.body.appendChild(script);
 }
