@@ -18,12 +18,24 @@ class Doctor < ApplicationRecord
   pg_search_scope :search, against: [:name, :expertise], associated_against: {
     clinics: [:address, :name]
   }, ignoring: :accents
-
+  # FILTER BY EXPERTISE
   pg_search_scope :filter_by_expertise, against: :expertise, ignoring: :accents
-
+  # FILTER BY CITY
   pg_search_scope :filter_by_city,
-    associated_against: { clinics: [ :address ] }, 
+    associated_against: { clinics: [ :address ] },
     ignoring: :accents
+
+  def available?(expect_time)
+    gigs.each do |g|
+      g.schedules.each do |s|
+        if s.available?(expect_time)
+          true
+        end
+      end
+    end
+    false
+  end
+
 
   private
 
