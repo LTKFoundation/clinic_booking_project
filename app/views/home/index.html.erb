@@ -55,62 +55,92 @@
   </div>
   <br><br> -->
 
-<!-- FILTER -->
-<div class="section">
-  <div class="row">
-    <!-- CITY -->
-    <%= form_tag(nil, method: 'get', id: 'form-filter') do %>
+  <!-- QUERY SECTION -->
+<%= form_tag(nil, method: 'get', remote: true, id: 'form-filter') do %>
+  <div class="section">
+    <!-- SEARCH -->
+    <div class="row">
+      <div class="input-field">
+          <div class="row">
+            <div class="col m10 s10">
+              <%= text_field_tag :q, nil, class: 'validate' %>
+              <label for="q">Ví dụ: "bác sĩ Long sản ở Ba Đình"</label>
+            </div>
+            <div class="col m2 s2">
+              <button class="btn waves-effect waves-light" type="submit">
+                <i class="material-icons">search</i>
+              </button>
+            </div>
+          </div>
+      </div>
+    </div> <!-- end row -->
+
+    <div class="row">
+      <!-- CITY -->
       <div class="input-field col s12 m3">
+        <label>Chọn thành phố</label>
           <%=
             select_tag(:city,
             options_for_select(
               [
-                ['Chọn một thành phố', '', 'disable'],
-                ['Hà Nội', 'hn'],
-                ['Hồ Chí Minh', 'hcm']
+                ['Hà Nội', 'Ha Noi'],
+                ['Hồ Chí Minh', 'Ho Chi Minh']
               ],
               params[:city] || 1),
-            class: "browser-default", id: "city-filter")
+            include_blank: true,
+            id: "city-filter")
           %>
       </div>
 
+      <!-- EXPERTISE -->
       <div class="input-field col s12 m3">
+        <label for="expertise-filter">Chọn chuyên khoa</label>
         <%=
           select_tag(:expertise,
-          options_for_select(
-            [
-              ['Chọn một chuyên khoa', '', 'disable'],
-              ['Nhi', 'nhi'],
-              ['Sản', 'sản']
-            ],
-            params[:expertise] || 1),
-          class: "browser-default", id: "expertise-filter")
+            options_for_select([ ['Nhi', 'nhi'], ['Sản', 'sản'] ],params[:expertise] || 1),
+            include_blank: true,
+            id: "expertise-filter")
         %>
       </div>
 
-      <div class="form-group">
-          <div class='input-group date' id='datetimepicker1'>
-            <%= text_field_tag :starts_at, nil, class: 'validate' %>
-            <span class="input-group-addon">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-            </span>
-          </div>
+      <!-- SCHEDULE -->
+        <div class="input-field col s12 m3">
+          <input name="date" type="date" class="datepicker" id="datepicker_">
+          <label for="datepicker_">Ngày</label>
         </div>
-        <script type="text/javascript">
-        $(function () {
-          $('#datetimepicker1').datetimepicker();
-        });
-        </script>
-    <% end %>
 
-    <!-- JAVASCRIPT -->
-    <script type="text/javascript">
-      $('#city-filter').change(function(){
-        $('#form-filter').submit();
-      })
-    </script>
-  </div> <!-- end row -->
-</div> <!--end section -->
+        <div class="input-field col s12 m3">
+          <input id="timepicker_ampm_dark" class="timepicker" type="time" name="time">
+          <label for="timepicker_ampm_dark">Giờ</label>
+        </div>
+
+      <!-- JAVASCRIPT -->
+      <script type="text/javascript">
+        // $('#city-filter').change(function(){
+        //   $('#form-filter').submit();
+        // })
+        //
+        // $('#expertise-filter').change(function(){
+        //   $('#form-filter').submit();
+        // })
+        //
+        //
+
+        $('.datepicker').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+      </script>
+    </div> <!-- end row -->
+
+    <div style="text-align: center">
+      <button class="waves-effect waves-light btn" type="submit">Search</a>
+    </div>
+
+  </div> <!-- end section -->
+<% end %>
+
+
 
 <!-- LIST OF DOCTORS -->
 <div class="section">
@@ -120,3 +150,17 @@
     </div>
   </div>
 </div>
+
+
+<script>
+$(document).on('turbolinks:load', function() {
+  $('select').material_select();
+  $('.timepicker').pickatime({
+    default: 'now',
+    twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
+    donetext: 'OK',
+    autoclose: false,
+    vibrate: true // vibrate the device when dragging clock hand
+  });
+})
+</script>

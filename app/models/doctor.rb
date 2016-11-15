@@ -1,23 +1,33 @@
 class Doctor < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # Devise stuff
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  # Validation
   validates :email, presence: true, uniqueness: {case_sensitive: false}
 
+  # Stuff for pg_search
+  include PgSearch
+
+  # Relations
   has_many :gigs
   has_many :clinics, through: :gigs
 
-  def addresses
-    
-  end
+  # Search doctor by multiple columns and assoiciated model Clinic
+  # Usage `Doctor.search_by(query)`
+  pg_search_scope :search, against: [:name, :expertise], associated_against: {
+    clinics: [:address, :name]
+  }, ignoring: :accents
 
-  def self.search(query)
-    where('expertise ILIKE ? OR name ILIKE ?', "%#{query}%", "%#{query}%")
-  end
+  pg_search_scope :filter_by_expertise, against: :expertise, ignoring: :accents
+
+  pg_search_scope :filter_by_city,
+    associated_against: { clinics: [ :address ] }, 
+    ignoring: :accents
 
   private
 
+  # Doctors seed
   def self.default_doctors
     Doctor.create(name: 'Kiên Đỗ', phone: '098XXXXXX', expertise: 'Nhi, sản',
       description: 'Chuyen gia dau nganh', email: 'kien@gmail.com', password: '123456'

@@ -16,7 +16,6 @@
 //= require turbolinks
 //= require materialize-sprockets
 //= require_tree .
-////= require bootstrap-datepicker
 
 $(document).on('turbolinks:load', function() {
   $('.button-collapse').sideNav();
