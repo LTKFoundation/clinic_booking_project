@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         # Route to new booking with schedule params and client id
         resources :bookings, only: [ :new, :create ]
       end
-    end 
+    end
   end
 
 	resources :doctors do
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 			get 'add_clinic'
 		end
 		resources :gigs do
-			
+
 				get 'client_view' => 'clients#view_gig'
 		end
 	end
@@ -54,7 +54,7 @@ Rails.application.routes.draw do
 			get 'show_receipt'
 		end
 	end
-	
+
   # Use with current_user
   resources :payment_method
 

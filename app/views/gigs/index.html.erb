@@ -3,12 +3,13 @@
       <ul class="tabs">
         <li class="tab col s3"><a href="#doctor_tab">Bác sĩ</a></li>
         <li class="tab col s3"><a class="active" href="#clinic_tab">Phòng khám</a></li>
+
       </ul>
     </div>
     <div id="doctor_tab" class="col s12">
 		</div>
     <div id="clinic_tab" class="col s12">
-			
+
 			<h5>Địa điểm làm việc của bác sĩ</h5>
 			<%= form_for Gig.new, :url => {:controller => "gigs", :action => "create"} do |new_gig_form| %>
 			<div class="row">
@@ -17,11 +18,10 @@
 					<div class="form-group">
 						<label for="clinic_id">Chọn phòng khám</label>
 						<div class="form-control">
-						<%= new_gig_form.select :clinic_id, options_for_select(@clinics.collect { |clinic| [clinic.name, clinic.id] },1) 
-						%>
+						<%= new_gig_form.select :clinic_id, options_for_select(@clinics.collect { |clinic| [clinic.name, clinic.id] },1) %>
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="price">Giá dịch vụ khám bệnh</label>
 						<div class="input-field col s12">
