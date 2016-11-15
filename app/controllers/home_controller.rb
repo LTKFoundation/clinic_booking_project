@@ -47,10 +47,12 @@ class HomeController < ApplicationController
       @doctors = Search.doctors(search_params)
     end
 
-    # city query
+    # filter
     if params[:city].present?
-      @doctors = Search.doctors_in_city(city_params)
-      logger.debug @doctors
+      @doctors = @doctors.filter_by_city(city_params)
+    end
+    if params[:expertise].present?
+      @doctors = @doctors.filter_by_expertise(expertise_params)
     end
 
     response do |format|
@@ -67,5 +69,9 @@ class HomeController < ApplicationController
 
   def search_params
     params.require(:q)
+  end
+
+  def expertise_params
+    params.require(:expertise)
   end
 end

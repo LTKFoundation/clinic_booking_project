@@ -43,9 +43,11 @@ class Doctor < ApplicationRecord
     false
   end
 
-  def self.search(query)
-    where('expertise ILIKE ? OR name ILIKE ?', "%#{query}%", "%#{query}%")
-  end
+  pg_search_scope :filter_by_expertise, against: :expertise, ignoring: :accents
+
+  pg_search_scope :filter_by_city,
+    associated_against: { clinics: [ :address ] },
+    ignoring: :accents
 
   private
 

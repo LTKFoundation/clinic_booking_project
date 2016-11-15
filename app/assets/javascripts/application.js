@@ -19,7 +19,6 @@
 //= require pickadate/picker.date
 //= require pickadate/picker.time
 //= require_tree .
-////= require bootstrap-datepicker
 
 $(document).on('turbolinks:load', function() {
   $('.button-collapse').sideNav();

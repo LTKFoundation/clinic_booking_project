@@ -108,44 +108,39 @@
           <input name="date" type="date" class="datepicker" id="datepicker_">
           <label for="datepicker_">Ngày</label>
         </div>
-        <!-- JAVASCRIPT -->
-        <script type="text/javascript">
-          // $('#city-filter').change(function(){
-          //   $('#form-filter').submit();
-          // })
-          //
-          // $('#expertise-filter').change(function(){
-          //   $('#form-filter').submit();
-          // })
-          //
-          //
-          $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15 // Creates a dropdown of 15 years to control year
-          });
-        </script>
 
         <div class="input-field col s12 m3">
           <input id="timepicker_ampm_dark" class="timepicker" type="time" name="time">
           <label for="timepicker_ampm_dark">Giờ</label>
         </div>
 
-        <script>
-          $('.timepicker').pickatime({
-            default: 'now',
-            twelvehour: true, // change to 12 hour AM/PM clock from 24 hour
-            donetext: 'OK',
-            autoclose: false,
-            vibrate: true // vibrate the device when dragging clock hand
-          });
-        </script>
+      <!-- JAVASCRIPT -->
+      <script type="text/javascript">
+        // $('#city-filter').change(function(){
+        //   $('#form-filter').submit();
+        // })
+        //
+        // $('#expertise-filter').change(function(){
+        //   $('#form-filter').submit();
+        // })
+        //
+        //
+
+        $('.datepicker').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+      </script>
     </div> <!-- end row -->
 
     <div style="text-align: center">
-      <button class="waves-effect waves-light btn" type="submit">Search</button>
+      <button class="waves-effect waves-light btn" type="submit">Search</a>
     </div>
+
   </div> <!-- end section -->
 <% end %>
+
+
 
 <!-- LIST OF DOCTORS -->
 <div class="section">
@@ -156,5 +151,15 @@
   </div>
 </div>
 
-</div>
-
+<script>
+$(document).on('turbolinks:load', function() {
+  $('select').material_select();
+  $('.timepicker').pickatime({
+    default: 'now',
+    twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
+    donetext: 'OK',
+    autoclose: false,
+    vibrate: true // vibrate the device when dragging clock hand
+  });
+})
+</script>
