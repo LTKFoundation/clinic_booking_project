@@ -42,6 +42,7 @@ end
 # gem "font-awesome-rails"
 gem 'materialize-sass'
 gem 'material_icons'
+gem 'pickadate-rails', '~> 3.5', '>= 3.5.6.0'
 
 gem 'will_paginate', '~> 3.1.0'
 
