@@ -1,10 +1,22 @@
    <ul class="collection">
-      <li class="collection-item"><input type="checkbox" id="mon" />
-      			<label for="mon">Cả Tuần</label>
-						<label >Bắt đầu </lable><%= text_field :start_time, :value => '15:00'%>
-						<label >Kết thúc </lable><%= text_field :end_time, :value => '15:00'%>
-			</li>
-    </ul>				
+     <li class="collection-item">
+       <div class="row">
+         <div class="col s2 input-field">
+           <input type="checkbox" id="mon" />
+           <label for="mon">Cả Tuần</label>
+         </div>
+         <div class="col s4 input-field">
+           <%= text_field :start_time, :value => '15:00'%>
+           <label >Bắt đầu </label>
+         </div>
+         <div class="col s4 input-field">
+           <%= text_field :end_time, :value => '15:00'%>
+           <label >Kết thúc </label>
+         </div>
+       </div>
+     </li>
+   </ul>
+
 					<div class="row">
 				    <input type="checkbox" id="mon" />
       			<label for="mon">Thứ Hai</label>
