@@ -29,8 +29,6 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 
-gem 'bootstrap-datepicker-rails'
-
 # gem 'bootstrap', '~> 4.0.0.alpha5'
 # Tether for bootstrap
 source 'https://rails-assets.org' do
@@ -41,6 +39,8 @@ end
 # gem "font-awesome-rails"
 gem 'materialize-sass'
 gem 'material_icons'
+
+gem 'pg_search'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
