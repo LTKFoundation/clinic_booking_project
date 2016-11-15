@@ -30,6 +30,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'omniauth-facebook'
 
+gem 'bootstrap-datepicker-rails'
+
 # gem 'bootstrap', '~> 4.0.0.alpha5'
 # Tether for bootstrap
 source 'https://rails-assets.org' do

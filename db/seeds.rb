@@ -8,7 +8,7 @@
 
 
 ## Create 10 users:
-["a", "b", "c", "d","e" ].each do |n| 
+["a", "b", "c", "d","e" ].each do |n|
   User.create(
     email: "#{n}@example.com",
     password: "#{n.*6}",
@@ -17,10 +17,11 @@
 end
 
 ## Create 10 doctors:
-["g", "h", "i", "j",  "k"].each do |n| 
+["g", "h", "i", "j",  "k"].each do |n|
   Doctor.create(
     email: "#{n}@example.com",
     password: "#{n.*6}",
-    name: "#{n*3}"
+    name: "#{n*3}",
+    expertise: 'Nhi'
   )
 end

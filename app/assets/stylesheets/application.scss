@@ -9,6 +9,8 @@
 @import "_pagination";
 @import "_overwrite";
 @import "_common";
+@import "bootstrap-datepicker";
+
 //Layout
 nav .brand-logo {
   text-transform: uppercase;
@@ -18,6 +20,7 @@ nav .brand-logo {
 ul#currentUserAction {
   width: 150px !important;
 }
+
 
 // Custom
 .icon-block {
