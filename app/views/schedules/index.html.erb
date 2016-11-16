@@ -15,11 +15,12 @@
 	</div>
 	<% @days.each do |day|%>
 		<div class="row">
-
 		<%= f.fields_for :schedules do |data| %>
+
 		<div class="col s2 input-field">
-			<input type="checkbox" id=<%=day[0]%> />
-			<label for=<%=day[0]%>><%="#{day[1]}"%></label>
+		<input type="checkbox" id=<%= "#{day[0]}" %>/>
+		<label for=<%= "#{day[0]}" %>><%=day[1]%></label>
+		<%= data.hidden_field :day, id:"#{day[0]}", value: "#{day[0]}" %>			
 		</div>
 		<div class="col s4 input-field">
 			<label>Bắt đầu</label>
