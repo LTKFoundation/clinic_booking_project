@@ -1,27 +1,38 @@
 <h3>User - Log in</h3>
 <br>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="input-field">
-    <%= f.email_field :email, autofocus: true %>
-    <%= f.label :email %>
-  </div>
+<div class="row">
+  <div class="col s12 m6">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="input-field">
+        <%= f.email_field :email, autofocus: true %>
+        <%= f.label :email %>
+      </div>
 
-  <div class="input-field">
-    <%= f.password_field :password, autocomplete: "off" %>
-    <%= f.label :password %>
-  </div>
+      <div class="input-field">
+        <%= f.password_field :password, autocomplete: "off" %>
+        <%= f.label :password %>
+      </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <p class="field">
-      <%= f.check_box :remember_me, class: "filled-in" %>
-      <%= f.label :remember_me %>
-    </p>
-  <% end -%>
+      <% if devise_mapping.rememberable? -%>
+        <p class="field">
+          <%= f.check_box :remember_me, class: "filled-in" %>
+          <%= f.label :remember_me %>
+        </p>
+      <% end -%>
 
-  <div class="input-field form-actions">
-    <%= f.button "Log in", class: "waves-effect waves-light btn", type: "submit" %>
+      <div class="input-field form-actions">
+        <%= f.button "Log in", class: "waves-effect waves-light btn", type: "submit" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  <div class="col s12 m6">
+    <div class="center-align">
+      <br><br>
+      <p>Or login using your Facebook</p>
+      <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, class: "waves-effect waves-light btn" %>
+    </div>
+  </div>
+</div>
 
 <%= render "users/shared/links" %>

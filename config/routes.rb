@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :admins
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   # Do not show all the users
   devise_for :doctors do

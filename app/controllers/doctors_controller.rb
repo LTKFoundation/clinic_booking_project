@@ -1,7 +1,7 @@
 class DoctorsController < ApplicationController
   # TODO
   # authorization: only the DOCTOR that's signed in can show, update, destroy
-  
+
   def show
   end
 
