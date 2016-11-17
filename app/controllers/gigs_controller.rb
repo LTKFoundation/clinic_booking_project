@@ -23,7 +23,6 @@ class GigsController < ApplicationController
 			@week.each do |day|
 				Schedule.create(:gig_id => @gig.id,:weekday => day[0],:start_at => '',:end_at => '')
 			end
-
 			flash[:success] = "Đã thêm địa chỉ làm việc của bác sĩ"
       redirect_to doctor_gigs_path(current_doctor.id)
     else
