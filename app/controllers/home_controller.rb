@@ -14,8 +14,11 @@ class HomeController < ApplicationController
       @doctors = @doctors.filter_by_expertise(expertise_params)
     end
     if params[:date].present? or params[:time].present?
+      # Parse date and time from params to a single datetime value called expect_time
+      # Today if params just contain the time
       expect_time = "#{params[:date]} #{params[:time]}".to_datetime
-      @doctors.map { |d| d.available?(expect_time)}
+      # Check if each doctor is available with that expect_time
+      @doctors = @doctors.map { |d| d if d.available?(expect_time)}
     end
 
     response do |format|

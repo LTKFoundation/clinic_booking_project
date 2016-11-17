@@ -36,7 +36,7 @@ class Doctor < ApplicationRecord
     gigs.each do |g|
       g.schedules.each do |s|
         if s.available?(expect_time)
-          true
+          return true
         end
       end
     end
