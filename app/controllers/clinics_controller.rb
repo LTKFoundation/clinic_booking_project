@@ -3,14 +3,16 @@ class ClinicsController < ApplicationController
 	@@doctor_clinics = nil
 	def index
 		gon.watch.doctor_clinics = @@doctor_clinics
+		@@doctor_clinics = Clinic.all_clinic_with_gig
+		@all_clinic = @@doctor_clinics
 		logger.debug "GET INDEX"
 		# @@doctor_clinics = DoctorClinic.clinic_around(nil)
 	end
 
-	def create
-		# gon.doctor_clinics = @@doctor_clinics
-		logger.debug "POST TO CREATE"
-		# @@doctor_clinics = DoctorClinic.clinic_around(nil)
+	def add_clinic_page
+		gon.watch.doctor_clinics = @@doctor_clinics
+		@@doctor_clinics = Clinic.clinic_around(nil)
+		logger.debug "GET ADD CLINIC PAGE"
 	end
 
 	def add_clinic

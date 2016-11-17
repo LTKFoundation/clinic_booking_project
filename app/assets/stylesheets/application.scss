@@ -4,18 +4,19 @@
 
 // @import "bootstrap";
 // @import "font-awesome";
+//
 @import "materialize";
 @import "_variables";
 @import "_overwrite";
 @import "_common";
 //Layout
 nav .brand-logo {
-  text-transform: uppercase;
-  font-size: 1.8rem;
+    text-transform: uppercase;
+    font-size: 1.8rem;
 }
 
 ul#currentUserAction {
-  width: 150px !important;
+    width: 150px !important;
 }
 
 // Custom

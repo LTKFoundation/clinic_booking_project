@@ -119,6 +119,8 @@ GEM
       activerecord (>= 3.1)
       activesupport (>= 3.1)
       arel
+    pickadate-rails (3.5.6.0)
+      railties (>= 3.1.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -238,6 +240,7 @@ DEPENDENCIES
   materialize-sass
   pg (~> 0.18)
   pg_search
+  pickadate-rails (~> 3.5, >= 3.5.6.0)
   pry-rails
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
