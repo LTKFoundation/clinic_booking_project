@@ -16,4 +16,9 @@ class User < ApplicationRecord
     end
   end
 
+  after_create :welcome_email
+  def welcome_email
+    UserMailer.welcome_email(self).deliver
+  end
+
 end

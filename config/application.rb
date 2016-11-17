@@ -18,6 +18,16 @@ module ClinicBooking
       html_tag
     end
 
+    # TODO Use env variable for this config
+    Rails.application.config.action_mailer.delivery_method = :smtp
+    Rails.application.config.action_mailer.smtp_settings = {
+      address:              'smtp.sendgrid.net',
+      port:                 25,
+      user_name:            'apikey',
+      password:             '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',
+      authentication:       'plain'
+    }
+
   end
 end
 
