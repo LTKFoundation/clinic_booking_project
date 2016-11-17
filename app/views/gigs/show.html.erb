@@ -1,0 +1,171 @@
+<!--TODO: @Tu please help to do a mapping so that the checkboxes display Monday, Tuesday etc instead of 1,2,3...-->
+<!--TODO: @Tu please help to do fix the label thing, it's overlap the value-->
+<!--TODO: @Tu please help to do set the checkbox status to checked if the value of corresponding start_at is not nil-->
+<div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a href="#doctor_tab">Bác sĩ</a></li>
+        <li class="tab col s3"><a class="active" href="#clinic_tab">Phòng khám</a></li>
+				
+      </ul>
+    </div>
+    <div id="doctor_tab" class="col s12">
+		</div>
+    <div id="clinic_tab" class="col s12">
+			
+			<h5>Lịch làm việc của bác sĩ</h5>
+			<% if @gig %>
+			<div class="row">
+				<div class="col s8">
+				<p>Thông tin dịch vụ</p>
+				<%= form_for [current_doctor, @gig] do |f| %>
+					<% hidden_field_tag :id, @gig.id%>
+      		<div class="row">
+        		<div class="label col s4">Phòng khám: <%= @gig.clinic.name %></div>
+						<div class="label col s4">Địa chỉ: <%= @gig.clinic.address %></div>
+      		</div>
+					
+					<div class="row">
+						<div class="form-group col s4">
+							<div class="label">Phí dịch vụ</div>
+							<div class="input-field inline">
+								<div class="form-control"><%= f.number_field :price %></div>
+							</div>
+						</div>
+						<div class="form-group col s4">
+							<div class="label">Phí đặt cọc giữ chỗ</div>
+							<div class="input-field inline">
+								<div class="form-control"><%= f.number_field :deposit%></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col s4">
+						<div class="label">Thời gian khám trung bình (phút)</div>
+							<div class="input-field inline">
+								<div class="form-control"><%= f.number_field :checkup_duration%></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col s4">
+					<p>Lịch làm việc</p>
+	
+					<div class="row">
+					<div class="col s2 input-field">
+						<input type="checkbox" id="cb_all_week" onchange='handleChange_CbAll(this);'/>
+						<label for="cb_all_week">Cả Tuần</label>
+					</div>
+					<div class="col s4 input-field">
+						<label>Bắt đầu</label>
+						<%= text_field :start_at, "start_at", class: "timepicker", placeholder: '', id:"start_all", onchange:"updateStartTime(this);"%>
+					</div>
+					<div class="col s4 input-field">
+						<label >Kết thúc </label>
+						<%= text_field :end_at, "end_at", class: "timepicker", placeholder: '', id:"end_all", onchange:"updateEndTime(this);"%>
+					</div>
+					</div>
+						<% @schedules.each do |schedule|%>
+							<%= f.fields_for schedule, index: schedule do |schedule_form| %>
+						
+							<div class="row">
+							
+										
+								<div class="col s2 input-field">
+									<input type="checkbox" id=<%=schedule.weekday%> onchange='handleChange_CbDay(this);'>
+									<label for=<%=schedule.weekday%>><%=schedule.weekday%></label>
+									<%= schedule_form.hidden_field :weekday, id:"#{schedule.weekday}_value", value:"#{schedule.weekday}"%>			
+								</div>
+								<div class="col s4 input-field">
+									<label>Bắt đầu</label>
+									<%= schedule_form.text_field :start_at, class: "timepicker", placeholder: '', id:"#{schedule.weekday}_start",value:"#{schedule.start_at}"%>
+								</div>
+								<div class="col s4 input-field">
+									<label >Kết thúc </label>
+									<%= schedule_form.text_field :end_at, class: "timepicker", placeholder: '', id:"#{schedule.weekday}_end",value:"#{schedule.end_at}" %>
+								</div>
+								
+							
+							</div>
+						<% end %>
+					<% end %>	
+				</div>
+				<button class="btn waves-effect waves-light" type="submit" name="action">Cập nhập thông tin
+						<i class="material-icons right">send</i>
+					</button>
+				<% end %>
+			<% end %>
+		</div>
+</div>
+<script>
+$(document).on('turbolinks:load', function() {
+    $('.timepicker').pickatime({
+      min: [07,00],
+      max: [22,00]
+    });
+});
+function updateAllStartTime()
+{
+	var start_all = $('input[id=start_all]').val();
+	$('input[id$=start]').each(function () {
+		this.value = start_all;
+	});
+}
+function updateAllEndTime()
+{
+		var end_all = $('input[id=end_all]').val();
+		$('input[id$=end]').each(function () {
+		 this.value = end_all;
+		});
+}
+function handleChange_CbAll(cb) {
+  if(cb.checked == true){
+   $('input[type=checkbox]').each(function () {
+		 this.checked = true;
+		});
+		updateAllStartTime();
+		updateAllEndTime();
+  }
+	else {
+		$('input[type=checkbox]').each(function () {
+		 this.checked = false;
+		});
+	}
+}
+function handleChange_CbDay(cb) {
+  if(cb.checked == true){
+		// var cb_id = 'input[id='+cb.id+'_value]';
+		// c = $(cb_id); 
+		// c.val(cb.id);
+  }
+	else {
+		// var cb_id = 'input[id='+cb.id+'_value]';
+		// c = $(cb_id); 
+		// c.val('');
+
+		var starttime_element = 'input[id='+cb.id+'_start]';
+		start_box = $(starttime_element);
+		start_box.val('');
+
+		var endtime_element = 'input[id='+cb.id+'_end]';
+		end_box = $(endtime_element);
+		end_box.val('');
+	}
+}
+function updateStartTime(tb)
+{
+	var all_cb = $('input[id=cb_all_week]').is(':checked');
+	if(all_cb == true)
+	{
+		updateAllStartTime();
+	}
+}
+function updateEndTime(tb)
+{
+	var all_cb = $('input[id=cb_all_week]').is(':checked');
+	if(all_cb == true)
+	{
+		updateAllEndTime();
+	}
+}
+</script>

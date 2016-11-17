@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115174903) do
+ActiveRecord::Schema.define(version: 20161117093044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20161115174903) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float    "longtitude"
+    t.index "ll_to_earth(latitude, longtitude)", name: "clinic_loc_index", using: :gist
     t.index ["doctor_id"], name: "index_clinics_on_doctor_id", using: :btree
   end
 
@@ -140,10 +141,10 @@ ActiveRecord::Schema.define(version: 20161115174903) do
   create_table "schedules", force: :cascade do |t|
     t.integer  "gig_id"
     t.string   "weekday"
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.text     "end_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "start_at"
     t.index ["gig_id"], name: "index_schedules_on_gig_id", using: :btree
   end
 
