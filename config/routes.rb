@@ -44,6 +44,9 @@ Rails.application.routes.draw do
 		collection do
 			post 'add_clinic'
 		end
+		collection do
+			get 'add_clinic_page'
+		end
 	end
 
   # Use with current_user

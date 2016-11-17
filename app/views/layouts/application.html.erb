@@ -30,7 +30,10 @@
         <ul class="right hide-on-med-and-down">
           <li><a href="#">Home</a></li>
           <li>
-            <%= link_to "View Near", clinics_path, method: 'get' %>
+            <%= link_to "Bản đồ phòng khám", clinics_path, method: 'get' %>
+          </li>
+          <li>
+            <%= link_to "Thêm phòng khám", add_clinic_page_clinics_path, method: 'get' %>
           </li>
           <% if current_user %>
             <!-- Dropdown Trigger -->
