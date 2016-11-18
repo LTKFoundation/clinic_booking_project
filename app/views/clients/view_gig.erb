@@ -15,7 +15,7 @@
 		<div class="row">
 				<div class="label col s6">Phòng khám: <%= @gig.clinic.name %></div>
 				<div class="label col s6">Địa chỉ: <%= @gig.clinic.address %></div>
-		</div>		
+		</div>
 		<div class="row">
 				<div class="label col s6">Phí dịch vụ<%= number_to_currency(@gig.price, unit: 'VND ', precision: 0) %></div>
 				<div class="label col s6">Phí đặt cọc giữ chỗ<%= number_to_currency(@gig.deposit, unit: 'VND ', precision: 0) %></div>
@@ -26,7 +26,7 @@
 	</div>
 </div>
 <p>Lịch khám - Bấm vào giờ khám để đặt</p>
-<table class="highlight centered responsive-table">	
+<table class="highlight centered responsive-table">
 		<% @booking_schedule.each_with_index do |data_row, index| %>
 			<% if index == 0 %>
 				<thead>
@@ -62,7 +62,7 @@
 				</tr>
 			<% end %>
 			</tbody>
-		<% end %>	
+		<% end %>
 </table>
 <script>
 

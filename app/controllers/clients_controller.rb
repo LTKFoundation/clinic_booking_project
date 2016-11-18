@@ -34,7 +34,6 @@ class ClientsController < ApplicationController
 			# day_vnmese[hash_days[schedule.weekday].to_s]
 			booking_day.push(item)
 			if schedule.start_at.length > 0
-				
 				start_time = Time.parse(schedule.start_at)
 				end_time = Time.parse(schedule.end_at)
 				booking_time = start_time
@@ -46,7 +45,7 @@ class ClientsController < ApplicationController
 					item = {"value"=>"","display"=>string_timeslot}
 					booking_day.push(item)
 					booking_time = booking_time + each_dur*60
-				end 
+				end
 				if @max_day_count < day_count
 					@max_day_count = day_count
 				end
@@ -54,8 +53,8 @@ class ClientsController < ApplicationController
 			@booking_schedule.push(booking_day)
 		end
 
-			# logger.debug str_day + ":" + str_date 
-			
+			# logger.debug str_day + ":" + str_date
+
 			today_pos = hash_days.key(str_day)
 			# logger.debug "today pos:"+today_pos.to_s
 			# move today to first row
@@ -65,7 +64,7 @@ class ClientsController < ApplicationController
 			# print_array(@booking_schedule)
 			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
 
-			
+
 
 			fulfill_array(@booking_schedule,@max_day_count)
 			# print_array(@booking_schedule)
@@ -77,7 +76,7 @@ class ClientsController < ApplicationController
 			# print_array(@booking_schedule)
 			@booking_schedule = @booking_schedule.transpose
 			# print_array(@booking_schedule)
-			
+
 	end
 
 	def add_date_to_item(array2dim,today_date)
@@ -94,7 +93,7 @@ class ClientsController < ApplicationController
 				i = i + 1
 			end
 			current_date = (Date.parse(current_date)+1).strftime("%d/%m/%Y").to_s
-		end	
+		end
 	end
 
 	def fulfill_array(array2dim,max)
@@ -125,12 +124,12 @@ class ClientsController < ApplicationController
 		booked_list.each do |booking|
 			logger.debug "Booking at: "+booking.strftime("%m/%d/%Y %I:%M%p")
 		end
-		schedules.each do |daily_schedule| 
+		schedules.each do |daily_schedule|
 			daily_schedule.each do |timeslot|
 				check_val = timeslot["value"].to_s+" "+timeslot["display"].to_s
 				if booked_list.include? check_val
 					timeslot["value"] = ""
-					timeslot["display"] = "booked already" 
+					timeslot["display"] = "booked already"
 				end
 			end
 		end
@@ -158,7 +157,7 @@ class ClientsController < ApplicationController
 			5 => "Friday",
 			6 => "Saturday",
 			7 => "Sunday"
-		} 
+		}
 	end
 
 		def dayInVnmese
@@ -170,6 +169,6 @@ class ClientsController < ApplicationController
 			"Friday" => "Thứ Sáu",
 			"Saturday" => "Thứ Bảy",
 			"Sunday" => "Chủ Nhật"
-		} 
+		}
 	end
 end
