@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :admins
+
+  devise_for :admins, controllers: {
+    registrations: 'admins/registrations'
+  }
+  namespace :admins do
+    get '/' => 'home#index', as: 'root'
+  end
+
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   # Do not show all the users

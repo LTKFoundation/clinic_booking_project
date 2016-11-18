@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  layout :layout_by_resource
+
   protected
 
   def configure_permitted_parameters
@@ -20,7 +22,16 @@ class ApplicationController < ActionController::Base
       user_params.permit({ roles: [] }, :email, :current_password, :password, :password_confirmation, :name, :uid, :provider)
     end
 
-
     # Same as sign_in
+
+    # Layout
+    def layout_by_resource
+      if devise_controller? && resource_name == :admin
+        "admin"
+      else
+        "application"
+      end
+    end
+
   end
 end
