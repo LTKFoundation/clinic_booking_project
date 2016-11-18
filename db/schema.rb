@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20161117093044) do
   enable_extension "plpgsql"
   enable_extension "cube"
   enable_extension "earthdistance"
+  enable_extension "unaccent"
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
