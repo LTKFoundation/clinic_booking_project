@@ -1,0 +1,5 @@
+<% doctors.each do |doctor| %>
+  <%= render(partial: 'shared/doctor_card', locals: {doctor: doctor}) if !doctor.nil? %>
+<% end %>
+
+<%= no_doctors_check(doctors) %>

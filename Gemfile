@@ -41,6 +41,8 @@ gem 'materialize-sass'
 gem 'material_icons'
 gem 'pickadate-rails', '~> 3.5', '>= 3.5.6.0'
 
+gem 'pg_search'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -51,6 +53,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'pry-rails'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
   gem 'listen', '~> 3.0.5'

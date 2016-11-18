@@ -14,6 +14,10 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- DEPENDENCIES FOR CLOCKPICKER -->
+    <%= javascript_include_tag 'https://cdn.rawgit.com/chingyawhao/materialize-clockpicker/master/dist/js/materialize.clockpicker.js' %>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/chingyawhao/materialize-clockpicker/master/dist/css/materialize.clockpicker.css">
   </head>
 
   <body>
@@ -94,26 +98,7 @@
         <p class="alert alert-danger"><%= alert %></p>
       <% end %>
 
-      <div class="section">
-        <div class="row">
-          <div class="input-field">
-            <%= form_tag nil, method: 'get' do %>
-              <div class="row">
-                <div class="col m10">
-                  <%= text_field_tag :q, nil, class: 'validate' %>
-                  <label for="q">Ví dụ: "bác sĩ Long sản ở Ba Đình"</label>
-                </div>
-                <div class="col m2">
-                  <button class="btn waves-effect waves-light" type="submit">
-                    <i class="material-icons">search</i>
-                  </button>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
 
-      </div>
 
       <%= yield %>
     </div>
@@ -154,5 +139,6 @@
         </div>
       </div>
     </footer>
+
   </body>
 </html>
