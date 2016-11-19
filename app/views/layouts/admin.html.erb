@@ -25,19 +25,25 @@
 
         <ul class="right hide-on-med-and-down">
           <% if current_admin %>
-            <!-- Dropdown Trigger -->
-             <li>
-               <a class='dropdown-button' href='#' data-activates='currentUserAction'>
-                 Hello <%= current_admin.email %>
-               </a>
-             </li>
 
-             <!-- Dropdown Structure -->
-             <ul id='currentUserAction' class='dropdown-content'>
-               <li><%= link_to "My Profile", edit_admin_registration_path %></li>
-               <li class="divider"></li>
-               <li><%= link_to "Log out", destroy_admin_session_path, :method => 'delete' %></li>
-             </ul>
+            <li><%= link_to "Users", admins_users_path %></li>
+            <li><%= link_to "Doctors", admins_doctors_path %></li>
+
+            <!-- Dropdown Trigger -->
+            <li>
+              <a class='dropdown-button' href='#' data-activates='currentUserAction'>
+                Hello <%= current_admin.email %>
+              </a>
+            </li>
+
+            <!-- Dropdown Structure -->
+            <ul id='currentUserAction' class='dropdown-content'>
+              <li><%= link_to "My Profile", edit_admin_registration_path %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Log out", destroy_admin_session_path, :method => 'delete' %></li>
+            </ul>
+          <% else %>
+
           <% end %>
 
         </ul>
