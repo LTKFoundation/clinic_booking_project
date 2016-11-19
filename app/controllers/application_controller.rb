@@ -9,7 +9,10 @@ class ApplicationController < ActionController::Base
     # Permit needed attribute for sign_up
     # Include uid, provider for FB, GG sign up
     devise_parameter_sanitizer.permit(:sign_up) do |user_params|
-      user_params.permit({ roles: [] }, :email, :password, :password_confirmation, :name, :uid, :provider)
+      user_params.permit({ roles: [] }, :email, :password, :password_confirmation,
+           :name, :uid, :provider, :phone, :avatar,                         # similar fields
+           :gender, :address, :dob,                                                # users fields
+           :expertise, :description, :certificate, :verified_at)           # doctors fields
     end
 
     # Permit attribute for editing

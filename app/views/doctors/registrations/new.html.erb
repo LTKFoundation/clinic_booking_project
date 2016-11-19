@@ -25,6 +25,26 @@ in Vietnam. Make Vietnam healthy again.</p>
     <%= f.label :password_confirmation %>
   </div>
 
+  <div class="input-field">
+    <%= f.label :phone %>
+    <%= f.number_field :phone %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :expertise %>
+    <%= f.text_field :expertise %>
+  </div>
+
+<div class="input-field">
+    <%= f.label :certificate %>
+    <%= f.text_field :certificate %>
+  </div>
+
+  <div class="text-field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>  
+
   <div class="input-field form-actions">
     <%= f.button "Sign up", class: "waves-effect waves-light btn", type:"submit" %>
   </div>
