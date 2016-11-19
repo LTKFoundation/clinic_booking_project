@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
+      <th>Certification</th>
       <th>Created at</th>
       <th>Verified at</th>
       <th>Actions</th>
@@ -15,6 +16,11 @@
       <tr>
         <td><%= doctor.name %></td>
         <td><%= doctor.email %></td>
+        <td>
+          <% if doctor.certificate %>
+            <%= link_to "Open Cert", doctor.certificate  %>
+          <% end %>
+        </td>
         <td><%= doctor.created_at %></td>
         <td><%= doctor.verified_at %></td>
         <td>
