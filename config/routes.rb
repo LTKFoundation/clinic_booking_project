@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get '/' => 'home#index', as: 'root'
     resources :users
     resources :doctors
+    post 'doctors/:id/verify' => 'doctors#verify', as: 'doctor_verify'
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
