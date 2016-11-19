@@ -1,4 +1,5 @@
 class Admins::DoctorsController < Admins::AdminController
+  before_action :authenticate_admin!
 
   def index
     @doctors = Doctor.paginate(:page => params[:page], :per_page => 10).order('verified_at DESC')

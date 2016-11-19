@@ -31,13 +31,13 @@
 
             <!-- Dropdown Trigger -->
             <li>
-              <a class='dropdown-button' href='#' data-activates='currentUserAction'>
+              <a class='dropdown-button' href='#' data-activates='currentAdminAction'>
                 Hello <%= current_admin.email %>
               </a>
             </li>
 
             <!-- Dropdown Structure -->
-            <ul id='currentUserAction' class='dropdown-content'>
+            <ul id='currentAdminAction' class='dropdown-content'>
               <li><%= link_to "My Profile", edit_admin_registration_path %></li>
               <li class="divider"></li>
               <li><%= link_to "Log out", destroy_admin_session_path, :method => 'delete' %></li>
