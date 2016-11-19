@@ -23,6 +23,10 @@ class ClientsController < ApplicationController
 		@max_day_count = 0
 		day_vnmese = dayInVnmese
 		hash_days = getWeekDay
+		current_date = Date.today
+		str_day = current_date.strftime("%A")
+		str_date = current_date.strftime("%d/%m/%Y")
+
 		@schedules.each do |schedule|
 			booking_day = []
 			day_english = hash_days[schedule.weekday.to_i]
@@ -49,19 +53,17 @@ class ClientsController < ApplicationController
 			end
 			@booking_schedule.push(booking_day)
 		end
-			current_date = Date.today
-			str_day = current_date.strftime("%A")
-			str_date = current_date.strftime("%d/%m/%Y")
+
 			# logger.debug str_day + ":" + str_date 
 			
 			today_pos = hash_days.key(str_day)
 			# logger.debug "today pos:"+today_pos.to_s
 			# move today to first row
-			# print_array(@booking_schedule)
-			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
+			print_array(@booking_schedule)
+			logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
 			@booking_schedule = roll_array(@booking_schedule,today_pos)
-			# print_array(@booking_schedule)
-			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
+			print_array(@booking_schedule)
+			logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
 			fulfill_array(@booking_schedule,@max_day_count)
 			# print_array(@booking_schedule)
 			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
@@ -74,10 +76,14 @@ class ClientsController < ApplicationController
 	def add_date_to_item(array2dim,today_date)
 		current_date = today_date
 		array2dim.each do |array|
-			i = 1
+			i = 0
 			while i < array.size
-				strTime = array[i]["display"]
-				array[i] = {"value"=>current_date,"display"=>strTime}
+				if i == 0
+					array[i] = {"value"=>array[i]["value"],"display"=>array[i]["display"] + " "+current_date}
+				else
+					strTime = array[i]["display"]
+					array[i] = {"value"=>current_date,"display"=>strTime}
+				end
 				i = i + 1
 			end
 			current_date = (Date.parse(current_date)+1).strftime("%d/%m/%Y").to_s
@@ -97,8 +103,8 @@ class ClientsController < ApplicationController
 		i = 0
 		while i < array.size
 			@return_arr.push(array[first_pos-1])
-			if(first_pos == array.size-1)
-				first_pos = 0
+			if(first_pos == array.size)
+				first_pos = 1
 			else
 				first_pos = first_pos + 1
 			end
