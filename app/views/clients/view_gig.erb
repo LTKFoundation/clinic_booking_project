@@ -25,29 +25,37 @@
 		</div>
 	</div>
 </div>
-<table class="striped highlight centered responsive-table">
-	<thead>
-		<tr>
-				<th>Thứ Hai</th>
-				<th>Thứ Ba</th>
-				<th>Thứ Tư</th>
-				<th>Thứ Năm</th>
-				<th>Thứ Sáu</th>
-				<th>Thứ Bảy</th>
-				<th>Chủ Nhật</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @booking_schedule.each do |data_row| %>
-		<tr>
-			<% data_row.each do |data_col|%>
-				
-					<td><%= link_to data_col,data_col %></td>
-				
+<table class="highlight centered responsive-table">	
+		<% @booking_schedule.each_with_index do |data_row, index| %>
+			<% if index == 0 %>
+				<thead>
+					<tr>
+						<% data_row.each do |data_col|%>
+							<td><%= data_col["display"] %></td>
+						<% end %>
+					</tr>
+				</thead>
+			<% elsif index = 1%>
+				<tbody>
+				<tr>
+					<% data_row.each do |data_col|%>
+
+							<td><%= link_to data_col["display"],data_col["value"]+" "+data_col["display"] %></td>
+						
+					<% end %>
+				</tr>
+			<% else %>
+				<tr>
+					<% data_row.each do |data_col|%>
+
+							<td><%= link_to data_col["display"],data_col["value"]+" "+data_col["display"] %></td>
+						
+					<% end %>
+				</tr>
 			<% end %>
-		</tr>
+			</tbody>
 		<% end %>
-	</tbody>
+	
 </table>
 <script>
 
