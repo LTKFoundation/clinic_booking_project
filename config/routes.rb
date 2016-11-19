@@ -32,7 +32,6 @@ Rails.application.routes.draw do
 		resources :gigs do
 			
 				get 'client_view' => 'clients#view_gig'
-			
 		end
 	end
 
