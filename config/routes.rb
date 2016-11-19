@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :admins do
+    resources :users
+  end
   devise_for :admins, controllers: {
     registrations: 'admins/registrations'
   }
