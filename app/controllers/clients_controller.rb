@@ -58,14 +58,11 @@ class ClientsController < ApplicationController
 			today_pos = hash_days.key(str_day)
 			# logger.debug "today pos:"+today_pos.to_s
 			# move today to first row
-			print_array(@booking_schedule)
-			logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
+			# print_array(@booking_schedule)
+			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
 			@booking_schedule = roll_array(@booking_schedule,today_pos)
 			# print_array(@booking_schedule)
 			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
-
-
-
 			fulfill_array(@booking_schedule,@max_day_count)
 			# print_array(@booking_schedule)
 			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
