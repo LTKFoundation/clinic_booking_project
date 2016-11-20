@@ -36,6 +36,12 @@ Rails.application.routes.draw do
 		end
 	end
 
+  resources :carts do
+		member do
+			get 'show_receipt'
+		end
+	end
+	
   # Use with current_user
   resources :payment_method
 
