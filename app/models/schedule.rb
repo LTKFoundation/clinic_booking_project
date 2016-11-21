@@ -5,11 +5,11 @@ class Schedule < ApplicationRecord
   # METHOD USED FOR FILTER
 
   # Closest datetime available of this schedule with expected time
+  # If there is, then it's gonna be in the same day with expect_time
   def closest(expect_time)
-    weekday_int = expect_time.cwday
-
-    puts(weekday)
-    addition = "#{weekday}".to_datetime.cwday - weekday_int
+    expected_wd = expect_time.cwday
+    binding.pry
+    addition = weekday - expected_wd
     if addition < 0 then addition += 7 end
 
     result = expect_time + addition.days
@@ -18,6 +18,7 @@ class Schedule < ApplicationRecord
 
   # available if in the same date, and this schedule time occurs later than the expect_time
   def available?(expect_time)
+    return false if start_at.nil? or !start_at.present? or start_at.empty?
     closest_available = closest(expect_time)
     closest_available.to_date == expect_time.to_date and
       closest_available > expect_time
