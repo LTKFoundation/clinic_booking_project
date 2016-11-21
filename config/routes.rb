@@ -22,8 +22,18 @@ Rails.application.routes.draw do
         # Route to new booking with schedule params and client id
         resources :bookings, only: [ :new, :create ]
       end
-    end
+    end 
   end
+
+	resources :doctors do
+		collection do
+			get 'add_clinic'
+		end
+		resources :gigs do
+			
+				get 'client_view' => 'clients#view_gig'
+		end
+	end
 
   resources :clients, only: [ :show, :create, :update, :destroy ]
 
@@ -34,11 +44,19 @@ Rails.application.routes.draw do
 		collection do
 			post 'add_clinic'
 		end
+		collection do
+			get 'add_clinic_page'
+		end
 	end
 
+  resources :carts do
+		member do
+			get 'show_receipt'
+		end
+	end
+	
   # Use with current_user
   resources :payment_method
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
 end

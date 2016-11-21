@@ -24,29 +24,6 @@
     <%= f.label :password_confirmation %>
   </div>
 
-  </br> 
-
-  <div class="input-field">
-    <%= f.label :phone %>
-    <%= f.number_field :phone%>
-  </div>
-    
-  <div class="field">
-    <div><%= f.label "Date of Birth" %></div>
-    <%= f.date_field :dob, class: 'datepicker' %>
-  </div>
-
-  <div class="input-field">
-    <%= f.label :address %>
-    <%= f.text_area :address, class: 'materialize-textarea' %>
-  </div>  
-    
-  </br>
-  <div class="input-field">
-    <%= f.select :gender, ["Male", "Female"] %>
-    <%= f.label :gender %>
-  </div>
-
   <div class="input-field form-actions">
     <%= f.button "Sign up", class: "waves-effect waves-light btn", type:"submit" %>
   </div>

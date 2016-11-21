@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114101044) do
+ActiveRecord::Schema.define(version: 20161120060502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "cube"
   enable_extension "earthdistance"
+  enable_extension "unaccent"
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -36,18 +37,29 @@ ActiveRecord::Schema.define(version: 20161114101044) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "schedule_id"
-    t.string   "code",           null: false
-    t.datetime "start_at",       null: false
-    t.decimal  "price",          null: false
-    t.decimal  "deposit",        null: false
-    t.string   "payment_status", null: false
-    t.string   "status",         null: false
+    t.datetime "start_at",     null: false
+    t.decimal  "price",        null: false
+    t.decimal  "deposit",      null: false
+    t.string   "status",       null: false
     t.string   "session_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["schedule_id"], name: "index_bookings_on_schedule_id", using: :btree
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "cart_id"
+    t.integer  "gig_id"
+    t.string   "confirm_code"
+    t.index ["cart_id"], name: "index_bookings_on_cart_id", using: :btree
+    t.index ["gig_id"], name: "index_bookings_on_gig_id", using: :btree
     t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.integer  "session_id"
+    t.integer  "user_id"
+    t.datetime "paid_at"
+    t.integer  "grand_total"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_carts_on_user_id", using: :btree
   end
 
   create_table "clinics", force: :cascade do |t|
@@ -62,6 +74,7 @@ ActiveRecord::Schema.define(version: 20161114101044) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float    "longtitude"
+    t.index "ll_to_earth(latitude, longtitude)", name: "clinic_loc_index", using: :gist
     t.index ["doctor_id"], name: "index_clinics_on_doctor_id", using: :btree
   end
 
@@ -141,11 +154,16 @@ ActiveRecord::Schema.define(version: 20161114101044) do
   create_table "schedules", force: :cascade do |t|
     t.integer  "gig_id"
     t.string   "weekday"
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.text     "end_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "start_at"
     t.index ["gig_id"], name: "index_schedules_on_gig_id", using: :btree
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -173,7 +191,8 @@ ActiveRecord::Schema.define(version: 20161114101044) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "bookings", "schedules"
+  add_foreign_key "bookings", "carts"
+  add_foreign_key "bookings", "gigs"
   add_foreign_key "bookings", "users"
   add_foreign_key "doctor_comments", "doctor_ratings"
   add_foreign_key "doctor_comments", "doctors"

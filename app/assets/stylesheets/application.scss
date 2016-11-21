@@ -4,19 +4,21 @@
 
 // @import "bootstrap";
 // @import "font-awesome";
+//
 @import "materialize";
 @import "_variables";
 @import "_pagination";
 @import "_overwrite";
 @import "_common";
+
 //Layout
 nav .brand-logo {
-  text-transform: uppercase;
-  font-size: 1.8rem;
+    text-transform: uppercase;
+    font-size: 1.8rem;
 }
 
 ul#currentUserAction {
-  width: 150px !important;
+    width: 150px !important;
 }
 
 // Custom
@@ -33,7 +35,7 @@ ul#currentUserAction {
 }
 
 #map-container {
-    height: 600px;
+    height: 380px;
     border-radius: 16px 16px;
     border-color: #fff;
     border-style: solid;
@@ -45,4 +47,9 @@ ul#currentUserAction {
 #map-canvas {
     height: 100%; //384px;
     width: 100%;
+}
+
+// Users
+.users-shared-links {
+  margin-top: 30px;
 }
