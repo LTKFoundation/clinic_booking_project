@@ -17,8 +17,7 @@
           <div class="form-group">
             <label for="clinic_id">Chọn phòng khám</label>
             <div class="form-control">
-            <%= new_gig_form.select :clinic_id, options_for_select(@clinics.collect { |clinic| [clinic.name, clinic.id] },1)
-            %>
+              <%= text_field_tag 'gig[clinic_name]', nil, class: 'typeahead' %>
             </div>
           </div>
 
@@ -30,29 +29,71 @@
           </div>
 
           <div class="form-group">
-          <label for="deposit">Phí đặt cọc giữ chỗ</label>
+            <label for="deposit">Phí đặt cọc giữ chỗ</label>
             <div class="input-field col s12">
               <div class="form-control"><%= new_gig_form.number_field :deposit%></div>
             </div>
           </div>
 
           <div class="form-group">
-          <label for="checkup_duration">Thời gian khám trung bình (phút)</label>
+            <label for="checkup_duration">Thời gian khám trung bình (phút)</label>
             <div class="input-field col s12">
               <div class="form-control"><%= new_gig_form.number_field :checkup_duration%></div>
             </div>
           </div>
 
-        <button class="btn waves-effect waves-light" type="submit" name="action">Thêm phòng khám
-          <i class="material-icons right">send</i>
-        </button>
+          <button class="btn waves-effect waves-light" type="submit" name="action">Thêm phòng khám
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
       </div>
-        <% end %>
+      <% end %>
     </div>
 </div>
 <script>
 
-$(document).ready(function() {
-    $('select').material_select();
-});
+  $(document).ready(function() {
+      $('select').material_select();
+  });
+
+  var clinics = <%= raw @clinics.to_json %>
+
+  var bloodhound = new Bloodhound({
+      local: clinics,
+      // prefetch: {
+      //   url: '/clinics.json',
+      // },
+      identify: function(obj) { return obj.id; },
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      datumTokenizer: function(datum){return Bloodhound.tokenizers.whitespace(datum.name)}
+  });
+
+  function defaultClinics(q, sync){
+    if (q == ''){
+      sync(bloodhound.get(1, 2, 3, 4, 5));
+    } else
+      bloodhound.search(q, sync);
+  }
+
+  var suggestion = Handlebars.compile(
+    '<div>'+
+      '<strong>'+
+        '{{name}}' +
+      '</strong>'+
+      ' - {{ address }}' +
+    '</div>'
+  )
+
+  $('.typeahead').typeahead({
+    minLength: 0,
+    highlight: true
+  }, {
+    name: 'clinics',
+    display: 'name',
+    source: defaultClinics,
+    templates: {
+      suggestion: suggestion,
+      empty: ['<div>Khoong tim thay phong kham nao</div>'].join('\n'),
+    }
+  });
 </script>

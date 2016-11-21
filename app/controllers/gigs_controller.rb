@@ -13,7 +13,8 @@ class GigsController < ApplicationController
 	def create
 		@gig = Gig.new
 		@gig.doctor_id = current_doctor.id
-		@gig.clinic_id = gigs_params[:clinic_id]
+		# @gig.clinic_id = gigs_params[:clinic_id]
+		@gig.clinic = Clinic.find_by_name(gigs_params[:clinic_name])
 		@gig.price = gigs_params[:price]
 		@gig.deposit = gigs_params[:deposit]
 		@gig.checkup_duration = gigs_params[:checkup_duration]
@@ -73,7 +74,8 @@ class GigsController < ApplicationController
 
 	private
 	def gigs_params
-		params.require(:gig).permit(:clinic_id,:price,:deposit,:checkup_duration,:id)
+		# params.require(:gig).permit(:clinic_id,:price,:deposit,:checkup_duration,:id)
+		params.require(:gig).permit(:clinic_name,:price,:deposit,:checkup_duration,:id)
 	end
 	def getWeekDay
 		@days = [["1","Thứ Hai"],
