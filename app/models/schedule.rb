@@ -1,11 +1,15 @@
 class Schedule < ApplicationRecord
   belongs_to :gig
 
-  def closest(expect_time)
-    weekday_int = expect_time.cwday
+  # ------------------------------------------------------------
+  # METHOD USED FOR FILTER
 
-    puts(weekday)
-    addition = "#{weekday}".to_datetime.cwday - weekday_int
+  # Closest datetime available of this schedule with expected time
+  # If there is, then it's gonna be in the same day with expect_time
+  def closest(expect_time)
+    expected_wd = expect_time.cwday
+    binding.pry
+    addition = weekday - expected_wd
     if addition < 0 then addition += 7 end
 
     result = expect_time + addition.days
@@ -13,6 +17,7 @@ class Schedule < ApplicationRecord
   end
 
   def available?(expect_time)
+    return false if start_at.nil? or !start_at.present? or start_at.empty?
     closest_available = closest(expect_time)
     closest_available.to_date == expect_time.to_date and
       closest_available > expect_time
