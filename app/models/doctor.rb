@@ -43,6 +43,16 @@ class Doctor < ApplicationRecord
     false
   end
 
+  def available_schedules
+    result = []
+    gigs.each do |g|
+      g.schedules.each do |s|
+        result << s if s.start_at.present? or !s.start_at.empty?
+      end
+    end
+
+    return result
+  end
 
   private
 
