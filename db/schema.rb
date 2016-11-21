@@ -13,8 +13,6 @@
 ActiveRecord::Schema.define(version: 20161121100847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "cube"
-  enable_extension "earthdistance"
   enable_extension "unaccent"
 
   create_table "admins", force: :cascade do |t|
@@ -73,7 +71,6 @@ ActiveRecord::Schema.define(version: 20161121100847) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float    "longtitude"
-    t.index "ll_to_earth(latitude, longtitude)", name: "clinic_loc_index", using: :gist
     t.index ["doctor_id"], name: "index_clinics_on_doctor_id", using: :btree
   end
 

@@ -39,7 +39,7 @@ class GigsController < ApplicationController
 			@gig.checkup_duration = gigs_params[:checkup_duration]
 			if @gig.save
 				params[:gig][:schedule].values.each do |schedule|
-					@weekday = schedule[:weekday].to_s
+					@weekday = schedule[:weekday]
 					@start_at = schedule[:start_at].to_s
 					@end_at = schedule[:end_at].to_s
 					@schedule = Schedule.find_or_initialize_by(gig_id: @gig.id,weekday: @weekday)
