@@ -113,11 +113,13 @@
 
           </div>
           <div class="col l3 s12">
-            <h5 class="white-text">For doctors</h5>
-            <ul>
-              <li><%= link_to "Sign in", new_doctor_session_path, class: "white-text" %></li>
-              <li><%= link_to "Sign up", new_doctor_registration_path, class: "white-text" %></li>
-            </ul>
+            <% unless user_signed_in? or doctor_signed_in? %>
+              <h5 class="white-text">For doctors</h5>
+              <ul>
+                <li><%= link_to "Sign in", new_doctor_session_path, class: "white-text" %></li>
+                <li><%= link_to "Sign up", new_doctor_registration_path, class: "white-text" %></li>
+              </ul>
+            <% end %>
           </div>
           <div class="col l3 s12">
             <h5 class="white-text">Connect</h5>
