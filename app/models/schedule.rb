@@ -4,6 +4,7 @@ class Schedule < ApplicationRecord
   def closest(expect_time)
     weekday_int = expect_time.cwday
 
+    puts(weekday)
     addition = "#{weekday}".to_datetime.cwday - weekday_int
     if addition < 0 then addition += 7 end
 
