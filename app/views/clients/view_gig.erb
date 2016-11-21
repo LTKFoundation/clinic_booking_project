@@ -43,13 +43,17 @@
 				<tr>
 					<% data_row.each_with_index do |data_col, row_index|%>
 						<% if data_col["display"].length > 0 %>
-							<%= form_for Cart.new do |cart| %>
-									<%= hidden_field_tag "user_id", current_user.id %>
-									<%= hidden_field_tag "doctor_id", @gig.doctor.id %>
-									<%= hidden_field_tag "clinic_id", @gig.clinic.id %>
-									<%= hidden_field_tag "gig_id", @gig.id %>
-									<%= hidden_field_tag "timeslot", data_col["value"]+" "+data_col["display"] %>
-								<td><%= submit_tag data_col["display"], class:"link" %></td>
+							<% if data_col["value"].length > 0 %>
+								<%= form_for Cart.new do |cart| %>
+										<%= hidden_field_tag "user_id", current_user.id %>
+										<%= hidden_field_tag "doctor_id", @gig.doctor.id %>
+										<%= hidden_field_tag "clinic_id", @gig.clinic.id %>
+										<%= hidden_field_tag "gig_id", @gig.id %>
+										<%= hidden_field_tag "timeslot", data_col["value"]+" "+data_col["display"] %>
+									<td><%= submit_tag data_col["display"], class:"link" %></td>
+								<% end %>
+							<% else %>
+								<td><%= label_tag data_col["display"]%></td>
 							<% end %>
 						<% else%>
 							<td></td>
