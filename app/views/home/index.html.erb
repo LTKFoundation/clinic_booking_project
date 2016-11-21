@@ -1,62 +1,5 @@
-<!-- <div class="section no-pad-bot" id="index-banner">
-  <div class="container">
-    <br><br>
-    <h1 class="header center orange-text">Book your best doctors</h1>
-    <div class="row center">
-      <h5 class="header col s12 light">
-        Tired of waiting? Cant find best doctor ? Low budget ?
-        </h5>
-    </div>
-    <div class="row center">
-      <a href="#" id="download-button" class="btn-large waves-effect waves-light orange">
-        WE COULD HELP
-      </a>
-    </div>
-    <br><br>
-
-  </div>
-</div> -->
-    <!--   Icon Section   -->
-    <!-- <div class="row">
-      <div class="col s12 m4">
-        <div class="icon-block">
-          <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-          <h5 class="center">Speeds up services</h5>
-
-        <p class="light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-        </p>
-      </div>
-    </div>
-
-    <div class="col s12 m4">
-      <div class="icon-block">
-        <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-        <h5 class="center">User Experience Focused</h5>
-
-        <p class="light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-        </p>
-      </div>
-    </div>
-
-    <div class="col s12 m4">
-      <div class="icon-block">
-        <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
-        <h5 class="center">Easy to work with</h5>
-
-        <p class="light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-        </p>
-      </div>
-    </div>
-  </div>
-  <br><br> -->
-
-  <!-- QUERY SECTION -->
 <%= form_tag(nil, method: 'get', remote: true, id: 'form-filter') do %>
   <div class="section">
-    <!-- SEARCH -->
     <div class="row">
       <div class="input-field">
           <div class="row">
@@ -71,10 +14,10 @@
             </div>
           </div>
       </div>
-    </div> <!-- end row -->
+    </div>
 
     <div class="row">
-      <!-- CITY -->
+
       <div class="input-field col s12 m3">
         <label>Chọn thành phố</label>
           <%=
@@ -90,7 +33,7 @@
           %>
       </div>
 
-      <!-- EXPERTISE -->
+
       <div class="input-field col s12 m3">
         <label for="expertise-filter">Chọn chuyên khoa</label>
         <%=
@@ -101,12 +44,12 @@
         %>
       </div>
 
-      <!-- SCHEDULE -->
+
         <div class="input-field col s12 m3">
           <input name="date" type="date" class="datepicker" id="datepicker_">
           <label for="datepicker_">Ngày</label>
         </div>
-        <!-- JAVASCRIPT -->
+
         <script type="text/javascript">
           $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
@@ -127,18 +70,14 @@
             });
         });
         </script>
-    </div> <!-- end row -->
+    </div>
 
     <div style="text-align: center">
       <button class="waves-effect waves-light btn" type="submit">Search</a>
     </div>
 
-  </div> <!-- end section -->
+  </div>
 <% end %>
-
-
-
-<!-- LIST OF DOCTORS -->
 <div class="section">
   <div class="row">
     <div class="doctors">

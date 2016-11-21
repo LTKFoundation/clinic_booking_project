@@ -41,10 +41,10 @@ class Doctor < ApplicationRecord
 
   # Doctors seed
   def self.default_doctors
-    Doctor.create(name: 'Kiên Đỗ', phone: '098XXXXXX', expertise: 'Nhi, sản',
+    Doctor.create(name: 'Kiên Đỗ', phone: '098XXXXXX', expertise: 'Sản',
       description: 'Chuyen gia dau nganh', email: 'kien@gmail.com', password: '123456'
     )
-    Doctor.create(name: 'Long Vũ', phone: '098XXXXXX', expertise: 'Nhi, sản',
+    Doctor.create(name: 'Long Vũ', phone: '098XXXXXX', expertise: 'Sản',
       description: 'Chuyen gia dau nganh', email: 'long@gmail.com', password: '123456'
     )
     Doctor.create(name: 'Tu Nguyen', phone: '098XXXXXX', expertise: 'Nhi',
