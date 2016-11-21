@@ -12,7 +12,7 @@
             <% gigs.each do |gig| %>
                 <div class="col s4">
 									
-									<%=render partial: "gigcard", locals:{gig: gig} %> 
+			 <%=render partial: "gigcard", locals:{gig: gig} %> 
 
                 </div>
             <% end %>    
@@ -22,8 +22,12 @@
 </body>
 <script>
 $(document).ready(function() {
-    loadAllClinicScript();
-		
+    loadAllClinicScript();		
 });
+
+$(document).ready(function() {
+    createMarker(); 
+});
+
 </script>
 </html>

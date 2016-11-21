@@ -1,25 +1,48 @@
 var map;
 var poly;
 var linePath;
+var marker
 
+//map for adding clinics
 function initMap() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         center: { lat: 21.0278, lng: 105.8342 },
         zoom: 15
     });
+
+    google.maps.event.addListener(map, 'click', function(event) {
+          clinicMarker(event.latLng);
+          document.getElementById("map-lat").value = marker.getPosition().lat();
+          document.getElementById("map-lng").value = marker.getPosition().lng();
+    });
 }
 
-function addClinic(lat, lng) {
-    console.log("passing New Clinic Data to controller " + lat + "||" + lng + "...");
-    $.post('/clinics/add_clinic', { name: "Dr. Slum", latitude: lat, longtitude: lng, doctor_id:"-1", address:"somewhere over the rainbow" });
+function clinicMarker(coords) {
+  if ( marker ) {
+    marker.setPosition(coords);
+  } else {
+    marker = new google.maps.Marker({
+      icon: "<%= asset_path('dr_icon.png') %>",
+      animation: google.maps.Animation.DROP,
+      position: coords,
+      map: map
+    });  
+  }
 }
+
+
+
+// function addClinic(lat, lng) {
+//     console.log("passing New Clinic Data to controller " + lat + "||" + lng + "...");
+//     $.post('/clinics/add_clinic', { name: "Dr. Slum", latitude: lat, longtitude: lng, doctor_id:"-1", address:"somewhere over the rainbow" });
+// }
 
 function showDoctor(lat, lng, dr_name) {
     var pos = {
         lat: lat,
         lng: lng
     };
-    var marker = createCustomMarker(pos, map, dr_name);
+    var marker = placeMarker(pos, map,  dr_name);
     var user_window = new google.maps.InfoWindow({ content: dr_name });
     user_window.open(map, marker);
     google.maps.event.addListener(marker, 'click', function() {
@@ -28,12 +51,12 @@ function showDoctor(lat, lng, dr_name) {
 }
 
 function displayDoctors() {
-	console.log("Displaying all doctor");
+  console.log("Displaying all doctor");
     a = gon.doctor_clinics;
-		console.log("showing "+a.length+"clinics");
+    console.log("showing "+a.length+"clinics");
     if (a != null) {
         for (var i = 0; i < a.length; i++) {
-						console.log("Doctor number " + i);
+            console.log("Doctor number " + i);
             var doctor = a[i];
             showDoctor(doctor[0], doctor[1], "Doctor number " + i);
         }
@@ -47,7 +70,7 @@ function refreshMap() {
 
 function setLoc(lat, lng) {
     console.log("passing loc to controller#current_loc with value: " + lat + "||" + lng + "...");
-		$.post('/clinics/current_loc', { latitude: lat, longtitude: lng }, refreshMap);
+    $.post('/clinics/current_loc', { latitude: lat, longtitude: lng }, refreshMap);
 }
 
 function createCustomMarker(coords, map, title) {
@@ -111,7 +134,7 @@ function initMapWithNear() {
             console.log("found current loc! ");
 
             //setLoc(position.coords.latitude, position.coords.longitude);
-						setLoc(position.coords.latitude, position.coords.longitude);
+  setLoc(position.coords.latitude, position.coords.longitude);
 
             // Displaying User's Current Location
             var user_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
@@ -150,7 +173,7 @@ function initMapWithAll() {
     };
     // initializing map
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		displayDoctors();
+    displayDoctors();
     // Try HTML5 geolocation.
     var infoWindow = new google.maps.InfoWindow({ map: map });
     if (navigator.geolocation) {
@@ -173,7 +196,7 @@ function initMapWithAll() {
 
             map.setCenter(browser_loc);
             console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
-						
+            
         }, function(error) {
             console.log('ERROR(' + error.code + '): ' + error.message);
             handleLocationError(true, infoWindow, map.getCenter(), 'ERROR(' + error.code + '): ' + error.message);
@@ -246,8 +269,8 @@ function loadScript() {
     console.log("map loading ...");
     var script = document.createElement('script');
     script.type = 'text/javascript';
-		script.src = 'https://maps.googleapis.com/maps/api/js?key=<%=ENV['GMAP_KEY']%>&callback=initMapWithNear';
-		
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapWithNear';
+    
     document.body.appendChild(script);
 }
 
@@ -255,6 +278,6 @@ function loadAllClinicScript() {
     console.log("map loading ...");
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=<%=ENV['GMAP_KEY']%>&callback=initMapWithAll';
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapWithAll';
     document.body.appendChild(script);
 }
