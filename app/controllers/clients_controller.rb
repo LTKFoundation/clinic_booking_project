@@ -64,10 +64,17 @@ class ClientsController < ApplicationController
 			@booking_schedule = roll_array(@booking_schedule,today_pos)
 			# print_array(@booking_schedule)
 			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
+
+			
+
 			fulfill_array(@booking_schedule,@max_day_count)
 			# print_array(@booking_schedule)
 			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
 			@booking_schedule = add_date_to_item(@booking_schedule,str_date)
+
+			@booking_schedule = update_reserved(@booking_schedule,@gig.id)
+			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
+			# print_array(@booking_schedule)
 			@booking_schedule = @booking_schedule.transpose
 			# print_array(@booking_schedule)
 			
@@ -111,6 +118,22 @@ class ClientsController < ApplicationController
 			i = i + 1
 		end
 		@return_arr
+	end
+
+	def update_reserved(schedules,gig_id)
+		booked_list = Booking.where(gig_id: gig_id).pluck(:start_at)
+		booked_list.each do |booking|
+			logger.debug "Booking at: "+booking.strftime("%m/%d/%Y %I:%M%p")
+		end
+		schedules.each do |daily_schedule| 
+			daily_schedule.each do |timeslot|
+				check_val = timeslot["value"].to_s+" "+timeslot["display"].to_s
+				if booked_list.include? check_val
+					timeslot["value"] = ""
+					timeslot["display"] = "booked already" 
+				end
+			end
+		end
 	end
 
 	def print_array(array2dim)
