@@ -8,7 +8,7 @@
     <div id="doctor_tab" class="col s12">
 		</div>
     <div id="clinic_tab" class="col s12">
-			
+
 			<h5>Địa điểm làm việc của bác sĩ</h5>
 			<%= form_for Gig.new, :url => {:controller => "gigs", :action => "create"} do |new_gig_form| %>
 			<div class="row">
@@ -17,11 +17,10 @@
 					<div class="form-group">
 						<label for="clinic_id">Chọn phòng khám</label>
 						<div class="form-control">
-						<%= new_gig_form.select :clinic_id, options_for_select(@clinics.collect { |clinic| [clinic.name, clinic.id] },1) 
-						%>
+              <%= text_field_tag 'gig[clinic_name]', nil, class: 'typeahead' %>
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="price">Giá dịch vụ khám bệnh</label>
 						<div class="input-field col s12">
@@ -52,7 +51,48 @@
 </div>
 <script>
 
-$(document).ready(function() {
-    $('select').material_select();
-});
+  $(document).ready(function() {
+      $('select').material_select();
+  });
+
+  var clinics = <%= raw @clinics.to_json %>
+
+  var bloodhound = new Bloodhound({
+      local: clinics,
+      // prefetch: {
+      //   url: '/clinics.json',
+      // },
+      identify: function(obj) { return obj.id; },
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      datumTokenizer: function(datum){return Bloodhound.tokenizers.whitespace(datum.name)}
+  });
+
+  function defaultClinics(q, sync){
+    if (q == ''){
+      sync(bloodhound.get(1, 2, 3, 4, 5));
+    } else
+      bloodhound.search(q, sync);
+  }
+
+  var suggestion = Handlebars.compile(
+    '<div>'+
+      '<strong>'+
+        '{{name}}' +
+      '</strong>'+
+      ' - {{ address }}' +
+    '</div>'
+  )
+
+  $('.typeahead').typeahead({
+    minLength: 0,
+    highlight: true
+  }, {
+    name: 'clinics',
+    display: 'name',
+    source: defaultClinics,
+    templates: {
+      suggestion: suggestion,
+      empty: ['<div>Khoong tim thay phong kham nao</div>'].join('\n'),
+    }
+  });
 </script>

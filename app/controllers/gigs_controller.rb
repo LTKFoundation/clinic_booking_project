@@ -13,7 +13,8 @@ class GigsController < ApplicationController
 	def create
 		@gig = Gig.new
 		@gig.doctor_id = current_doctor.id
-		@gig.clinic_id = gigs_params[:clinic_id]
+		# @gig.clinic_id = gigs_params[:clinic_id]
+		@gig.clinic = Clinic.find_by_name(gigs_params[:clinic_name])
 		@gig.price = gigs_params[:price]
 		@gig.deposit = gigs_params[:deposit]
 		@gig.checkup_duration = gigs_params[:checkup_duration]
@@ -23,7 +24,7 @@ class GigsController < ApplicationController
 			@week.each do |day|
 				Schedule.create(:gig_id => @gig.id,:weekday => day[0],:start_at => '',:end_at => '')
 			end
-			
+
 			flash[:success] = "Đã thêm địa chỉ làm việc của bác sĩ"
       redirect_to doctor_gigs_path(current_doctor.id)
     else
@@ -44,7 +45,7 @@ class GigsController < ApplicationController
 					@end_at = schedule[:end_at].to_s
 					@schedule = Schedule.find_or_initialize_by(gig_id: @gig.id,weekday: @weekday)
 					if @schedule
-						logger.debug @weekday+"updated" 
+						logger.debug @weekday+"updated"
 						@schedule.start_at = @start_at
 						@schedule.end_at = @end_at
 						@schedule.save
@@ -52,7 +53,7 @@ class GigsController < ApplicationController
 						Schedule.create(:gig_id => @gig.id,:weekday =>@weekday,:start_at =>@start_at,:end_at => @end_at )
 						logger.debug @weekday+"created"
 					end
-				end	
+				end
 				flash[:success] = "Đã cập nhập thông tin thành công"
 				redirect_to doctor_gigs_path(current_doctor.id)
 			else
@@ -72,9 +73,10 @@ class GigsController < ApplicationController
 		@weekday = getWeekDay
 	end
 
-	private 
+	private
 	def gigs_params
-		params.require(:gig).permit(:clinic_id,:price,:deposit,:checkup_duration,:id)
+		# params.require(:gig).permit(:clinic_id,:price,:deposit,:checkup_duration,:id)
+		params.require(:gig).permit(:clinic_name,:price,:deposit,:checkup_duration,:id)
 	end
 	def getWeekDay
 		@days = [["1","Thứ Hai"],
