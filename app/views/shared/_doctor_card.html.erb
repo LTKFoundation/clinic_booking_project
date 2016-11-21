@@ -38,7 +38,7 @@
 
     <div class="card-action">
       <%= link_to 'Thông tin', doctor_path(doctor) %>
-      <a href="#">Đặt khám</a>
+      <%= link_to 'Đặt khám', doctor_gig_client_view_path(doctor_id: doctor.id, gig_id: doctor.gigs.first.id), class: 'blue-text' %>
     </div>
 
   </div>
