@@ -63,6 +63,9 @@ class ClientsController < ApplicationController
 			@booking_schedule = roll_array(@booking_schedule,today_pos)
 			# print_array(@booking_schedule)
 			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
+
+
+
 			fulfill_array(@booking_schedule,@max_day_count)
 			# print_array(@booking_schedule)
 			# logger.debug "++++++==========++++++==========++++++==========++++++==========++++++==========++++++=========="
