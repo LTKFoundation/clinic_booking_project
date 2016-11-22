@@ -1,0 +1,43 @@
+<p>Lịch khám - Bấm vào giờ khám để đặt</p>
+<table class="highlight centered ">	
+	<% @booking_schedule.each_with_index do |data_row, index| %>
+		<% if index == 0 %>
+				<thead>
+					<tr>
+						<% data_row.each do |data_col|%>
+							<td><%= data_col["display"] %></td>
+						<% end %>
+					</tr>
+				</thead>
+		<% else %>
+			<% if index == 1%>
+				<tbody>
+			<% end %>
+			<tr>
+					<% data_row.each_with_index do |data_col, row_index|%>
+            <%= hidden_field_tag "doctor_id", @gig.doctor.id %>
+            <%= hidden_field_tag "clinic_id", @gig.clinic.id %>
+            <%= hidden_field_tag "gig_id", @gig.id %>
+            <%= hidden_field_tag "timeslot", data_col["value"]+" "+data_col["display"] %>
+						<% if data_col["display"].length > 0 %>
+							<% if data_col["value"].length > 0 %>
+                <% if data_col["value"].start_with?('id:')%>
+                  <td><%= link_to data_col["display"], booking_path(data_col["value"][3..-1])%></td>
+                <% else %>
+                  <td><%= link_to data_col["display"]%></td>
+                <% end %>
+							<% else %>
+						    <td><%= data_col["display"]%></td>
+							<% end %>
+						<% else%>
+							<td></td>
+						<% end %>
+					<% end %>
+			</tr>
+		<% end %>
+		</tbody>
+	<% end %>
+</table>
+<script>
+
+</script>
