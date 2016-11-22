@@ -30,7 +30,6 @@ Rails.application.routes.draw do
 			get 'add_clinic'
 		end
 		resources :gigs do
-
 				get 'client_view' => 'clients#view_gig'
 		end
 	end

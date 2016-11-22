@@ -27,13 +27,13 @@ class Schedule < ApplicationRecord
     result.change({ hour: start_at.hour, min: start_at.min})
   end
 
-  # TODO Duplicate code
-  def available?(expect_time)
-    return false if start_at.nil? or !start_at.present? or start_at.empty?
-    closest_available = closest(expect_time)
-    closest_available.to_date == expect_time.to_date and
-      closest_available > expect_time
-  end
+  # Duplicate code
+  # def available?(expect_time)
+  #   return false if start_at.nil? or !start_at.present? or start_at.empty?
+  #   closest_available = closest(expect_time)
+  #   closest_available.to_date == expect_time.to_date and
+  #     closest_available > expect_time
+  # end
 
   def available_now?
     available?(DateTime.now)
