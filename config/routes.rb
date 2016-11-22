@@ -25,12 +25,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :bookings, only: [ :show, :update ]
+
 	resources :doctors do
 		collection do
 			get 'add_clinic'
 		end
 		resources :gigs do
-				get 'client_view' => 'clients#view_gig'
+			get 'client_view' => 'clients#view_gig'
+			get 'doctor_view' => 'gigs#booking_manage'
 		end
 	end
 

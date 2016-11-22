@@ -1,0 +1,71 @@
+<h1>Thông tin đặt khám</h1>
+<div class="row">
+			<div class="row s12">
+        <%= form_for @booking, :html => { :onsubmit => "return verify_code('#{@booking.confirm_code}')"} do |f|%>
+          <p class="col s3">Xác nhận mã đặt chỗ:</p>
+          <% if @booking.status == "1"%>
+            <div class="col s1">
+              <label for="booking_status">Chưa xác nhận image</label>
+            </div>
+            <div class="form-control col s4"><%= text_field_tag :confirm_code %></div>
+            <button class="btn waves-effect waves-light col s2" id="button_validate" type="submit" name="action">Kiểm tra
+              <i class="material-icons right">send</i>
+            </button>
+          <% elsif @booking.status == "2" %>
+            <div class="col s1">
+              <label for="booking_status">Đã xác nhận image</label>
+            </div>
+            <h5 class="col s4"><%= @booking.confirm_code %></h5>
+          <% end %>
+        <% end %>
+			</div>
+			<div class="row s12">
+				<div class="col s6">
+					<p> Người đặt khám</p>
+					<div class="row">
+						<div class="label col">Tên: <%= @booking.user.name %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Tuổi: <%= "@booking.patient.age" %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Giới tính: <%= "@booking.patient.gender" %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Triệu chứng: <%= "@booking.symthom" %></div>
+					</div>
+			</div>
+				<div class="col s6">
+					<p> Lịch khám</p>
+					<div class="row">
+						<div class="label col">Giờ khám <%= @booking.start_at %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Giá dịch vụ <%= @booking.price %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Phí đặt cọc (hoàn lại) <%= @booking.deposit %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Còn phải thu: <%= @booking.price - @booking.deposit %></div>
+					</div>
+			</div>
+	
+</div>
+<script>
+function verify_code(correct_code){
+  inputcode = $('input[id=confirm_code]').val();
+  if(inputcode == correct_code)
+  {
+    $("label[for='booking_status']").html("CORRECT");
+    return true;
+  }
+  else
+  {
+    alert("Mã xác nhận không đúng. Xin vui lòng kiểm tra lại!");
+    $("label[for='booking_status']").html("Mã Không Đúng");
+    return false;
+  }
+  // CONFIRMCODEXYZ123
+}
+</script>
