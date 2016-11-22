@@ -17,7 +17,8 @@
           <div class="form-group">
             <label for="clinic_id">Chọn phòng khám</label>
             <div class="form-control">
-              <%= text_field_tag 'gig[clinic_name]', nil, class: 'typeahead' %>
+              <%= text_field_tag 'clinic_name', nil, class: 'typeahead' %>
+              <%= new_gig_form.hidden_field :clinic_id %>
             </div>
           </div>
 
@@ -93,7 +94,12 @@
     source: defaultClinics,
     templates: {
       suggestion: suggestion,
-      empty: ['<div>Khoong tim thay phong kham nao</div>'].join('\n'),
+      empty: ['<div>Không tìm thấy phòng khám nào</div>'].join('\n'),
     }
+  });
+
+  $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+    console.log('Selection: ' + suggestion);
+    $('#gig_clinic_id').val(suggestion.id);
   });
 </script>
