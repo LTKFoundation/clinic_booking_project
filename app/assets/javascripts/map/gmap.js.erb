@@ -1,12 +1,36 @@
 var map;
 var poly;
 var linePath;
+var marker //var for new clinic marker
 
+//TODO: displayDoctor and showDoctors
+
+//map for adding clinics
 function initMap() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         center: { lat: 21.0278, lng: 105.8342 },
         zoom: 15
     });
+
+    google.maps.event.addListener(map, 'click', function(event) {
+          clinicMarker(event.latLng);
+          document.getElementById("map-lat").value = marker.getPosition().lat();
+          document.getElementById("map-lng").value = marker.getPosition().lng();
+    });
+}
+
+function clinicMarker(coords) {
+  if ( marker ) {
+    marker.setPosition(coords);
+  } else {
+    marker = new google.maps.Marker({
+      icon: "<%= asset_path('dr_icon.png') %>",
+      animation: google.maps.Animation.DROP,
+      position: coords,
+      map: map
+    });  
+  }
+  return marker;
 }
 
 function addClinic(lat, lng) {

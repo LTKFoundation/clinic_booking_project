@@ -2,15 +2,39 @@
   <head>
     <title>Tìm bác sỹ gần đây</title>
   </head>
-	<body>
-	<div id="map-container">
-  	<div id="map-canvas"></div>
-	</div>
+<body>
+
+ 
+  <h3> Add Clinic </h3>
+  <%= form_for Clinic.new do |f| %>
+    <div class = "input-field">
+      <%= f.text_field :name %>
+      <%= f.label :name %>
+    </div>
+    
+    <div class = "input-field">
+      <%= f.text_field :address%>
+      <%= f.label :address %>
+    </div>
+      <%= f.hidden_field :latitude, id: 'map-lat', value: "" %>
+      <%= f.hidden_field :longtitude, id: 'map-lng', value: "" %>
+      <%= f.hidden_field :doctor_id, value: current_doctor.id %>
+    <div> Add location on map: </div>
+    <div id="map-container">
+      <div id="map-canvas"></div>
+    </div>    
+ 
+    <br/>
+    
+    <div><%= f.submit "Create", class: "btn waves-effect waves-light" %></div>
+  <% end %>
+
+  <script src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMap' >
+        $(document).ready(function() {
+            initMap();
+
+         });
+  </script>
 </body>
-<script>
-$(document).ready(function() {
-    loadScript();
-		
-});
-</script>
+
 </html>
