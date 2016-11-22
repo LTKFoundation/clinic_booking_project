@@ -1,0 +1,41 @@
+<h3>Doctors Management</h3>
+
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Certification</th>
+      <th>Created at</th>
+      <th>Verified at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @doctors.each do |doctor| %>
+      <tr>
+        <td><%= doctor.name %></td>
+        <td><%= doctor.email %></td>
+        <td>
+          <% if doctor.certificate %>
+            <%= link_to "Open Cert", doctor.certificate  %>
+          <% end %>
+        </td>
+        <td><%= doctor.created_at %></td>
+        <td><%= doctor.verified_at %></td>
+        <td>
+          <% unless doctor.verified? %>
+            <%= link_to "Verify", admins_doctor_verify_path(:id => doctor.id),
+              :class => "waves-effect light-wave btn",
+              :method => 'post' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<div class="clearfix">
+  <%= will_paginate @doctors, :class => "digg_pagination right" %>
+</div>

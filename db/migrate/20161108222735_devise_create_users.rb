@@ -7,13 +7,11 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string :gender
       t.date   :dob
       t.string :avatar
+      t.string :address
 
       # Authentication by FB/GG
       t.string :provider,           null:false, default: "email"
       t.string :uid
-
-      # For inheritance of Doctor/Client -> User
-      t.string :type,               null:false, default: "client"
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""

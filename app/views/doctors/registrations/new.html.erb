@@ -1,28 +1,52 @@
-<h2>Sign up</h2>
+<h3>Register new doctor</h3>
+<p>Welcome to us! We really need people like you - good doctors to spread the helps to all patient
+in Vietnam. Make Vietnam healthy again.</p>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+  <div class="input-field">
+    <%= f.text_field :name, autofocus: true %>
+    <%= f.label :name %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
+  <div class="input-field">
+    <%= f.email_field :email %>
+    <%= f.label :email %>
+  </div>
+
+  <div class="input-field">
     <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.label :password %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
+  <div class="input-field">
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.label :password_confirmation %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="input-field">
+    <%= f.label :phone %>
+    <%= f.number_field :phone %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :expertise %>
+    <%= f.text_field :expertise %>
+  </div>
+
+<div class="input-field">
+    <%= f.label :certificate %>
+    <%= f.text_field :certificate %>
+  </div>
+
+  <div class="text-field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>  
+
+  <div class="input-field form-actions">
+    <%= f.button "Sign up", class: "waves-effect waves-light btn", type:"submit" %>
   </div>
 <% end %>
 

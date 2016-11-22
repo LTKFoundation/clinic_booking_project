@@ -1,13 +1,18 @@
 class DeviseCreateDoctors < ActiveRecord::Migration[5.0]
   def change
     create_table :doctors do |t|
+      ## General Information
       t.string :name              , null: false
-      t.string :avatar
+      t.string :phone
       t.string :expertise         , null: false
+      t.string :avatar
       t.string :description
       t.string :certificate
       t.datetime :verified_at
-      t.string :phone
+
+      ## Authentication by FB/GG
+      t.string :provider,           null:false, default: "email"
+      t.string :uid
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""
@@ -38,6 +43,8 @@ class DeviseCreateDoctors < ActiveRecord::Migration[5.0]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      t.string :expertise
+      t.string :certificate
 
       t.timestamps null: false
     end

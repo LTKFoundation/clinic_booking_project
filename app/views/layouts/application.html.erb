@@ -6,6 +6,7 @@
     <title>Đặt khám online</title>
 
     <%= csrf_meta_tags %>
+		<%= include_gon %>
     <meta name="description" content="Đặt khám online" />
     <meta name="robots" content="noodp,index,follow" />
     <meta property="og:title" content="Đặt khám online" />
@@ -13,6 +14,9 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- TODO Add this to app.scss -->
+    <link rel="stylesheet" href="https://cdn.rawgit.com/chingyawhao/materialize-clockpicker/master/dist/css/materialize.clockpicker.css">
   </head>
 
   <body>
@@ -20,50 +24,106 @@
   <!-- Site Nav -->
     <nav class="light-blue lighten-1" role="navigation">
       <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">Datkham.Online</a>
+      <%= link_to 'Datkham.Online', root_path, class: "brand-logo", id: "logo-container" %>
 
         <ul class="left hide-on-med-and-down">
           <li><a href="#">Home</a></li>
-          <li><a href="#">Doctors</a></li>
-        </ul>
-				<ul class="right hide-on-med-and-down">
-          <li><a href="#">Login</a></li>
-        </ul>
-				
+          <li>
+            <%= link_to "Bản đồ phòng khám", clinics_path, method: 'get' %>
+          </li>
+          <li>
+            <%= link_to "Thêm phòng khám", add_clinic_page_clinics_path, method: 'get' %>
+          </li>
+          <% if current_user %>
+            <!-- Dropdown Trigger -->
+             <li>
+               <a class='dropdown-button' href='#' data-activates='currentUserAction'>
+                 Hello <%= current_user.name %>
+               </a>
+             </li>
 
+             <!-- Dropdown Structure -->
+             <ul id='currentUserAction' class='dropdown-content'>
+               <li><%= link_to "My Profile", edit_user_registration_path %></li>
+               <li class="divider"></li>
+               <li><%= link_to "Log out", destroy_user_session_path, :method => 'delete' %></li>
+             </ul>
+          <% else %>
+            <% if current_doctor %>
+              <!-- Dropdown Trigger -->
+               <li>
+                 <a class='dropdown-button' href='#' data-activates='currentDoctorAction'>
+                   Hello Dr.<%= current_doctor.name %>
+                 </a>
+               </li>
+
+               <!-- Dropdown Structure -->
+               <ul id='currentDoctorAction' class='dropdown-content'>
+                 <li><%= link_to "My Profile", edit_doctor_registration_path %></li>
+								<li class="divider"></li>
+							 	<li><%= link_to "My Clinics", doctor_gigs_path(current_doctor.id) %></li>
+                 <li class="divider"></li>
+                 <li><%= link_to "Log out", destroy_doctor_session_path, :method => 'delete' %></li>
+               </ul>
+
+            <% else %>
+              <li><%= link_to "Log In", new_user_session_path %></li>
+              <li><%= link_to "Sign Up", new_user_registration_path %></li>
+            <% end %>
+          <% end %>
+
+        </ul>
+
+
+        <!-- TODO : Update mobile menu later -->
         <ul id="nav-mobile" class="side-nav">
           <li class="nav-heading">Booking.doctor</li>
           <li><a href="#">Home</a></li>
           <li><a href="#">Doctors</a></li>
           <li><a href="#">Login</a></li>
+          <li><%= link_to "Sign Up", new_user_registration_path %></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse">MENU</a>
       </div>
     </nav>
 
     <!-- Page Content -->
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <div class="container">
+
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+
+      <% if alert  %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+
+
+
+      <%= yield %>
+    </div>
 
     <!-- Site Footer -->
     <footer class="page-footer orange">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
-            <h5 class="white-text">Company Bio</h5>
-            <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+            <h5 class="white-text">About Us</h5>
+            <p class="grey-text text-lighten-4">Lorem ipsum dolor sit amet, consectetur adipisicing
+            elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
 
 
           </div>
           <div class="col l3 s12">
-            <h5 class="white-text">Settings</h5>
-            <ul>
-              <li><a class="white-text" href="#!">Link 1</a></li>
-              <li><a class="white-text" href="#!">Link 2</a></li>
-              <li><a class="white-text" href="#!">Link 3</a></li>
-              <li><a class="white-text" href="#!">Link 4</a></li>
-            </ul>
+            <% unless user_signed_in? or doctor_signed_in? %>
+              <h5 class="white-text">For doctors</h5>
+              <ul>
+                <li><%= link_to "Sign in", new_doctor_session_path, class: "white-text" %></li>
+                <li><%= link_to "Sign up", new_doctor_registration_path, class: "white-text" %></li>
+              </ul>
+            <% end %>
           </div>
           <div class="col l3 s12">
             <h5 class="white-text">Connect</h5>
@@ -71,7 +131,6 @@
               <li><a class="white-text" href="#!">Link 1</a></li>
               <li><a class="white-text" href="#!">Link 2</a></li>
               <li><a class="white-text" href="#!">Link 3</a></li>
-              <li><a class="white-text" href="#!">Link 4</a></li>
             </ul>
           </div>
         </div>
@@ -82,5 +141,8 @@
         </div>
       </div>
     </footer>
+
+    <!-- TODO Add this to app.js -->
+    <script src="https://cdn.rawgit.com/chingyawhao/materialize-clockpicker/master/dist/js/materialize.clockpicker.js"></script>
   </body>
 </html>

@@ -18,6 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'gon'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -27,6 +28,7 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
+gem 'omniauth-facebook'
 
 # gem 'bootstrap', '~> 4.0.0.alpha5'
 # Tether for bootstrap
@@ -38,6 +40,12 @@ end
 # gem "font-awesome-rails"
 gem 'materialize-sass'
 gem 'material_icons'
+gem 'pickadate-rails', '~> 3.5', '>= 3.5.6.0'
+
+gem 'will_paginate', '~> 3.1.0'
+gem 'pg_search'
+
+gem 'pg_search'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -49,6 +57,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'pry-rails'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
