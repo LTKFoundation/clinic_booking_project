@@ -33,7 +33,7 @@
             <%= link_to "Bản đồ phòng khám", clinics_path, method: 'get' %>
           </li>
           <li>
-            <%= link_to "Thêm phòng khám", add_clinic_page_clinics_path, method: 'get' %>
+            <%= link_to "Thêm phòng khám", doctor_gigs_path(current_doctor.id), method: 'get' %>
           </li>
           <% if current_user %>
             <!-- Dropdown Trigger -->

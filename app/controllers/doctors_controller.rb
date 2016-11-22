@@ -7,6 +7,7 @@ class DoctorsController < ApplicationController
   end
 
   def create
+    @doctor = current_doctor
   end
 
   def update

@@ -1,4 +1,5 @@
 class ClinicsController < ApplicationController
+  before_action :authenticate_doctor! , only: [:add_clinic_page]
   @@cur_loc = nil
   @@doctor_clinics = nil
   def index

@@ -28,6 +28,7 @@ function clinicMarker(coords) {
       map: map
     });  
   }
+  return marker;
 }
 
 
@@ -42,7 +43,7 @@ function showDoctor(lat, lng, dr_name) {
         lat: lat,
         lng: lng
     };
-    var marker = placeMarker(pos, map,  dr_name);
+    var marker = clinicMarker(pos, map,  dr_name);
     var user_window = new google.maps.InfoWindow({ content: dr_name });
     user_window.open(map, marker);
     google.maps.event.addListener(marker, 'click', function() {
@@ -245,7 +246,7 @@ function createInfoWindow(text) {
         content: text
     });
     return infowindow;
-}
+}gig
 
 function getCurrentPosition(e) {
     var markercoords = new google.maps.LatLng(e.latLng.lat(), e.latLng.lng());

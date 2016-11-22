@@ -1,11 +1,11 @@
-<html>
+<html>p
   <head>
     <title>Tìm bác sỹ gần đây</title>
   </head>
 	<body>
 	<div id="map-container">
   	<div id="map-canvas"></div>
-	</div>
+	</div>p
 <% if @all_clinic%>
   <% @all_clinic.each_slice(3) do |gigs| %>
     	<div class="row">      
@@ -22,6 +22,7 @@
 </body>
 <script>
 $(document).ready(function() {
+    loadScript();
     loadAllClinicScript();		
 });
 
