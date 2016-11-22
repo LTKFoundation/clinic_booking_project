@@ -21,13 +21,24 @@
       <!-- COMMENT GOES HERE -->
       <!-- STATUS GOES HERE -->
 
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt u.
+      <!-- SCHEDULE -->
+      <% unless doctor.available_schedules.length <= 0 %>
+        <ul class="collection">
+          <% doctor.available_schedules.take(3).each do |schedule| %>
+            <li class="collection-item">
+              <% wd_name = schedule.weekday + 1 %>
+              <% wd_name = 'Chủ nhật' if schedule.weekday == 0 %>
+              <strong>Thứ <%= wd_name %> - </strong> từ <strong><%= schedule.start_at %></strong> đến <strong><%= schedule.end_at %></strong>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
 
     </div>
 
     <div class="card-action">
-      <a href="#">Thông tin</a>
-      <a href="#">Đặt khám</a>
+      <%= link_to 'Thông tin', doctor_path(doctor) %>
+      <%= link_to 'Đặt khám', doctor_gig_client_view_path(doctor_id: doctor.id, gig_id: doctor.gigs.first.id), class: 'blue-text' %>
     </div>
 
   </div>

@@ -173,7 +173,6 @@ function initMapWithAll() {
 
             map.setCenter(browser_loc);
             console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
-
         }, function(error) {
             console.log('ERROR(' + error.code + '): ' + error.message);
             handleLocationError(true, infoWindow, map.getCenter(), 'ERROR(' + error.code + '): ' + error.message);

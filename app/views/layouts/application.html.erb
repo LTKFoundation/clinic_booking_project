@@ -15,8 +15,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <!-- DEPENDENCIES FOR CLOCKPICKER -->
-    <%= javascript_include_tag 'https://cdn.rawgit.com/chingyawhao/materialize-clockpicker/master/dist/js/materialize.clockpicker.js' %>
+    <!-- TODO Add this to app.scss -->
     <link rel="stylesheet" href="https://cdn.rawgit.com/chingyawhao/materialize-clockpicker/master/dist/css/materialize.clockpicker.css">
   </head>
 
@@ -117,11 +116,13 @@
 
           </div>
           <div class="col l3 s12">
-            <h5 class="white-text">For doctors</h5>
-            <ul>
-              <li><%= link_to "Sign in", new_doctor_session_path, class: "white-text" %></li>
-              <li><%= link_to "Sign up", new_doctor_registration_path, class: "white-text" %></li>
-            </ul>
+            <% unless user_signed_in? or doctor_signed_in? %>
+              <h5 class="white-text">For doctors</h5>
+              <ul>
+                <li><%= link_to "Sign in", new_doctor_session_path, class: "white-text" %></li>
+                <li><%= link_to "Sign up", new_doctor_registration_path, class: "white-text" %></li>
+              </ul>
+            <% end %>
           </div>
           <div class="col l3 s12">
             <h5 class="white-text">Connect</h5>
@@ -140,5 +141,7 @@
       </div>
     </footer>
 
+    <!-- TODO Add this to app.js -->
+    <script src="https://cdn.rawgit.com/chingyawhao/materialize-clockpicker/master/dist/js/materialize.clockpicker.js"></script>
   </body>
 </html>

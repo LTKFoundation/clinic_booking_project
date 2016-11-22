@@ -18,6 +18,8 @@
 //= require pickadate/picker
 //= require pickadate/picker.date
 //= require pickadate/picker.time
+//= require handlebars
+//= require typeahead.bundle.min
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {

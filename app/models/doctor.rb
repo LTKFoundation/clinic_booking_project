@@ -32,6 +32,7 @@ class Doctor < ApplicationRecord
     associated_against: { clinics: [ :address ] },
     ignoring: :accents
 
+  # AVALABLE
   def available?(expect_time)
     gigs.each do |g|
       g.schedules.each do |s|
@@ -43,6 +44,21 @@ class Doctor < ApplicationRecord
     false
   end
 
+  def available_schedules
+    result = []
+    gigs.each do |g|
+      g.schedules.each do |s|
+        result << s if s.start_at.present? or !s.start_at.empty?
+      end
+    end
+
+    return result
+  end
+
+  # HAS A GIG
+  def has_a_gig?
+    gigs.length > 0
+  end
 
   private
 
