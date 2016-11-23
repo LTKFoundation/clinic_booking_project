@@ -20,6 +20,10 @@ class Doctor < ApplicationRecord
   def addresses
   end
 
+  def avatar_or_none
+    avatar || 'http://lorempixel.com/400/400/people'
+  end
+
   # Search doctor by multiple columns and assoiciated model Clinic
   # Usage `Doctor.search_by(query)`
   pg_search_scope :search, against: [:name, :expertise], associated_against: {
