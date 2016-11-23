@@ -1,9 +1,9 @@
 class HomeController < ApplicationController
   def index
-    @doctors = Doctor.paginate(:page => params[:page], :per_page => 10).order('name ASC')
+    @doctors = Doctor.paginate(:page => params[:page], :per_page => 8).order('name ASC')
     # search query
     if params[:q].present?
-      @doctors = Doctor.search(params[:q])
+      @doctors = Doctor.search(params[:q]).paginate(:page => params[:page], :per_page => 8).order('name ASC')
     end
 
     # filter
