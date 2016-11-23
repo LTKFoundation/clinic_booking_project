@@ -3,34 +3,86 @@ var poly;
 var linePath;
 var marker //var for new clinic marker
 
-//TODO: displayDoctor and showDoctors
-
+function setMarkerPosition(marker, position) {
+    marker.setPosition(
+        new google.maps.LatLng(
+            position.coords.latitude,
+            position.coords.longitude)
+    );
+}
+function geocodePosition(pos) 
+{
+   geocoder = new google.maps.Geocoder();
+   geocoder.geocode
+    ({
+        latLng: pos
+    }, 
+        function(results, status) 
+        {
+            if (status == google.maps.GeocoderStatus.OK) 
+            {
+              document.getElementById("clinic_address").value = results[0].formatted_address; 
+            } 
+            else 
+            {
+                console.log("Cannot determine address at this location."+status);
+            }
+        }
+    );
+}
 //map for adding clinics
-function initMap() {
+function initMapWithCurLoc() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
-        center: { lat: 21.0278, lng: 105.8342 },
         zoom: 15
     });
 
-    google.maps.event.addListener(map, 'click', function(event) {
-          clinicMarker(event.latLng);
-          document.getElementById("map-lat").value = marker.getPosition().lat();
-          document.getElementById("map-lng").value = marker.getPosition().lng();
-    });
-}
+    // Try HTML5 geolocation.
+    var infoWindow = new google.maps.InfoWindow({ map: map });
+    if (navigator.geolocation) {
+        var marker;
+        navigator.geolocation.getCurrentPosition(function(position) {
+            browser_loc = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            document.getElementById("map-lat").value = browser_loc.lat;
+            document.getElementById("map-lng").value = browser_loc.lng;
+            // Displaying User's Current Location
+            var user_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
+            
+            console.log("creating current location marker ");
+            marker = createMarker(browser_loc, map, "Bạn đang ở đây",true);
+            user_window.open(map, marker);
+            google.maps.event.addListener(marker, 'click', function() {
+                user_window.open(map, marker);
+            });
 
-function clinicMarker(coords) {
-  if ( marker ) {
-    marker.setPosition(coords);
-  } else {
-    marker = new google.maps.Marker({
-      icon: "<%= asset_path('dr_icon.png') %>",
-      animation: google.maps.Animation.DROP,
-      position: coords,
-      map: map
-    });  
-  }
-  return marker;
+            google.maps.event.addListener(marker, 'dragend', function() 
+            {
+              document.getElementById("map-lat").value = marker.getPosition().lat();
+              document.getElementById("map-lng").value = marker.getPosition().lng();
+              console.log("Marker moved to " + marker.getPosition().lat() + "||" + marker.getPosition().lng() + "...");
+              geocodePosition(marker.getPosition());
+
+
+            });
+
+            map.setCenter(browser_loc);
+            console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
+
+        }, function() {
+            handleLocationError(true, infoWindow, map.getCenter(), "");
+        });
+
+        navigator.geolocation.watchPosition(function (position) {
+            setMarkerPosition(
+              marker, position
+            );
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter(), "");
+    }
 }
 
 function addClinic(lat, lng) {
@@ -43,9 +95,30 @@ function showDoctor(lat, lng, dr_name) {
         lat: lat,
         lng: lng
     };
-    var marker = createCustomMarker(pos, map, dr_name);
-    var user_window = new google.maps.InfoWindow({ content: dr_name });
-    user_window.open(map, marker);
+    var marker = createCustomMarker(pos, map, dr_name, false);
+
+      var contentString = '<div class="card">'+
+    '<div class="card-content">'+
+      '<div class="row">'+
+        '<div class="col s4">'+
+         ' <img src="http://lorempixel.com/400/400/people" style="width: 100px; height: 100px; border-radius: 50%;">'+
+        '</div>'+
+        '<div class="col s8">'+
+         ' <h4>'+dr_name+'</h4>'+
+        '  <p>'+
+       '   </p>'+
+      '  </div>'+
+     ' </div>'+
+    '</div>'+
+    '<div class="card-action">'+
+      '<a href="/doctors/7">Thông tin</a>'+
+     ' <a class="blue-text" href="/doctors/7/gigs/1/client_view">Đặt khám</a>'+
+    '</div>'+
+  '</div>';
+
+
+    var user_window = new google.maps.InfoWindow({ content: contentString });
+    <%#user_window.open(map, marker);%>
     google.maps.event.addListener(marker, 'click', function() {
         user_window.open(map, marker);
     });
@@ -59,7 +132,7 @@ function displayDoctors() {
         for (var i = 0; i < a.length; i++) {
 						console.log("Doctor number " + i);
             var doctor = a[i];
-            showDoctor(doctor[0], doctor[1], "Doctor number " + i);
+            showDoctor(doctor[0], doctor[1], doctor[2]);
         }
     }
 }
@@ -72,19 +145,6 @@ function refreshMap() {
 function setLoc(lat, lng) {
     console.log("passing loc to controller#current_loc with value: " + lat + "||" + lng + "...");
 		$.post('/clinics/current_loc', { latitude: lat, longtitude: lng }, refreshMap);
-}
-
-function createCustomMarker(coords, map, title) {
-    marker = new google.maps.Marker({
-        position: coords,
-        map: map,
-        title: title,
-        // icon: createImage("icon.png"),
-        icon: "<%= asset_path('dr_icon.png') %>",
-        draggable: true,
-        animation: google.maps.Animation.DROP
-    });
-    return marker;
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos, message) {
@@ -141,7 +201,7 @@ function initMapWithNear() {
             var user_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
             var marker;
             console.log("creating current location marker ");
-            marker = createMarker(browser_loc, map, "Bạn đang ở đây");
+            marker = createMarker(browser_loc, map, "Bạn đang ở đây",false);
             user_window.open(map, marker);
             google.maps.event.addListener(marker, 'click', function() {
                 user_window.open(map, marker);
@@ -159,7 +219,7 @@ function initMapWithNear() {
     }
 
     google.maps.event.addListener(map, 'click', function(e) {
-        var markerClinicDrop = createCustomMarker(getCurrentPosition(e), map, "New Clinic!");
+        var markerClinicDrop = createCustomMarker(getCurrentPosition(e), map, "New Clinic!", true);
         var dr_info = createInfoWindow("Phòng khám mới ở đây: " + e.latLng.lat() + "||" + e.latLng.lng());
         dr_info.open(map, markerClinicDrop);
         addClinic(e.latLng.lat(), e.latLng.lng())
@@ -168,7 +228,6 @@ function initMapWithNear() {
 
 function initMapWithAll() {
     var mapOptions = {
-        center: new google.maps.LatLng(21.0278, 105.8342),
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.NORMAL
     };
@@ -189,7 +248,7 @@ function initMapWithAll() {
             var user_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
             var marker;
             console.log("creating current location marker ");
-            marker = createMarker(browser_loc, map, "Bạn đang ở đây");
+            marker = createMarker(browser_loc, map, "Bạn đang ở đây",true);
             user_window.open(map, marker);
             google.maps.event.addListener(marker, 'click', function() {
                 user_window.open(map, marker);
@@ -252,14 +311,33 @@ function getCurrentPosition(e) {
     return markercoords;
 }
 
-var marker;
 
-function createMarker(coords, map, title) {
+function toggleBounce() {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
+
+function createMarker(coords, map, title, dragable) {
     marker = new google.maps.Marker({
         position: coords,
         map: map,
         title: title,
-        draggable: true,
+        draggable: dragable,
+        animation: google.maps.Animation.DROP
+    });
+    marker.addListener('click', toggleBounce);
+    return marker;
+}
+function createCustomMarker(coords, map, title, dragable) {
+    marker = new google.maps.Marker({
+        position: coords,
+        map: map,
+        title: title,
+        icon: "<%= asset_path('dr_icon.png') %>",
+        draggable: dragable,
         animation: google.maps.Animation.DROP
     });
     return marker;

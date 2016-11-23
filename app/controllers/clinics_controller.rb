@@ -2,7 +2,6 @@ class ClinicsController < ApplicationController
   @@cur_loc = nil
   @@doctor_clinics = nil
   def index
-    gon.watch.doctor_clinics = @@doctor_clinics
     @@doctor_clinics = Clinic.all_clinic_with_gig
     @all_clinic = @@doctor_clinics
     logger.debug "GET INDEX"
@@ -10,6 +9,7 @@ class ClinicsController < ApplicationController
       format.html
       format.json { render json: Clinic.all }
     end
+    gon.watch.doctor_clinics = @@doctor_clinics
     # @@doctor_clinics = DoctorClinic.clinic_around(nil)
   end
 
