@@ -5,19 +5,35 @@
 
   .card {
     .card-content {
+      .material-icons, .mi {
+        text-align:center;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
       .doctor-avatar {
         width: 120px; height: 120px; border-radius: 50%;
       }
       .doctor-name {
         h5 {
-          margin: 0;
+          margin-bottom: 15px;
+        }
+        .verify-mark {
+          padding-left: 5px;
+          line-height: 0;
         }
       }
       .basic-info {
         color: #666;
+        p {
+          margin-bottom: 5px;
+        }
       }
       .doctor-description {
         height: 100px;
+        // overflow: hidden;         //prevent the text from being shown outside the border
+        overflow:hidden; text-overflow-multiline:ellipsis;
+        text-align: justify;
       }
     }
   }
@@ -30,7 +46,7 @@
   }
 }
 
-div.mdl-layout__drawer > nav.mdl-navigation > a.mdl-navigation__link {
-    display: inline-flex;
-    vertical-align: middle;
-}
+// div.mdl-layout__drawer > nav.mdl-navigation > a.mdl-navigation__link {
+//     display: inline-flex;
+//     vertical-align: middle;
+// }

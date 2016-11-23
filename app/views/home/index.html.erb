@@ -1,84 +1,17 @@
-<!-- <div class="section no-pad-bot" id="index-banner">
-  <div class="container">
-    <br><br>
-    <h1 class="header center orange-text">Book your best doctors</h1>
-    <div class="row center">
-      <h5 class="header col s12 light">
-        Tired of waiting? Cant find best doctor ? Low budget ?
-        </h5>
-    </div>
-    <div class="row center">
-      <a href="#" id="download-button" class="btn-large waves-effect waves-light orange">
-        WE COULD HELP
-      </a>
-    </div>
-    <br><br>
-
-  </div>
-</div> -->
-    <!--   Icon Section   -->
-    <!-- <div class="row">
-      <div class="col s12 m4">
-        <div class="icon-block">
-          <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-          <h5 class="center">Speeds up services</h5>
-
-          <p class="light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-          </p>
-        </div>
-      </div>
-
-      <div class="col s12 m4">
-        <div class="icon-block">
-          <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-          <h5 class="center">User Experience Focused</h5>
-
-          <p class="light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-          </p>
-        </div>
-      </div>
-
-      <div class="col s12 m4">
-        <div class="icon-block">
-          <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
-          <h5 class="center">Easy to work with</h5>
-
-          <p class="light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-          </p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <br><br> -->
+<h1 class="center-align">Danh sách bác sĩ</h1>
 
   <!-- QUERY SECTION -->
 <%= form_tag(nil, method: 'get', remote: true, id: 'form-filter') do %>
   <div class="section">
-    <!-- SEARCH -->
-    <div class="row">
-      <div class="input-field">
-          <div class="row">
-            <div class="col m10 s10">
-              <%= text_field_tag :q, nil, class: 'validate' %>
-              <label for="q">Ví dụ: "bác sĩ Long sản ở Ba Đình"</label>
-            </div>
-            <div class="col m2 s2">
-              <button class="btn waves-effect waves-light" type="submit">
-                <i class="material-icons">search</i>
-              </button>
-            </div>
-          </div>
-      </div>
-    </div> <!-- end row -->
-
     <div class="row">
       <!-- CITY -->
-      <div class="input-field col s12 m3">
-        <label>Chọn thành phố</label>
+      <div class="input-field col s12 m3 l3">
+        <label for="q">Nhập nội dung tìm kiếm...</label>
+        <%= text_field_tag :q, nil, class: 'validate', style: 'border-bottom: 2px solid #039be5' %>
+      </div>
+
+      <div class="input-field col s4 m2 l2">
+        <label for="city-filter">Thành phố</label>
           <%=
             select_tag(:city,
             options_for_select(
@@ -93,8 +26,8 @@
       </div>
 
       <!-- EXPERTISE -->
-      <div class="input-field col s12 m3">
-        <label for="expertise-filter">Chọn chuyên khoa</label>
+      <div class="input-field col s4 m2 l2">
+        <label for="expertise-filter">Chuyên khoa</label>
         <%=
           select_tag(:expertise,
             options_for_select([ ['Nhi', 'nhi'], ['Sản', 'sản'] ],params[:expertise] || 1),
@@ -104,7 +37,7 @@
       </div>
 
       <!-- SCHEDULE -->
-        <div class="input-field col s12 m3">
+        <div class="input-field col s4 m2 l2">
           <input name="date" type="date" class="datepicker" id="datepicker_">
           <label for="datepicker_">Ngày</label>
         </div>
@@ -116,7 +49,7 @@
           });
         </script>
 
-        <div class="input-field col s12 m3">
+        <div class="input-field col s4 m2 l2">
           <input id="timepicker_ampm_dark" class="timepicker" type="time" name="time">
           <label for="timepicker_ampm_dark">Giờ</label>
         </div>
@@ -129,16 +62,16 @@
             });
         });
         </script>
-    </div> <!-- end row -->
 
-    <div style="text-align: center">
-      <button class="waves-effect waves-light btn" type="submit">Search</a>
-    </div>
+        <div class="input-field col s12 m1 l1" style="vertical-align: middle">
+          <button class="btn white black-text" type="submit">
+            <i class="material-icons">search</i>
+          </button>
+        </div>
+    </div> <!-- end row -->
 
   </div> <!-- end section -->
 <% end %>
-
-
 
 <!-- LIST OF DOCTORS -->
 <div class="section">
@@ -147,6 +80,14 @@
       <%= render partial: 'shared/doctors_card', locals: { doctors: @doctors } %>
     </div>
   </div>
+</div>
+
+<div class="divider">
+
+</div>
+
+<div class="clearfix">
+  <%= will_paginate @doctors, :class => "digg_pagination right" %>
 </div>
 
 <script>

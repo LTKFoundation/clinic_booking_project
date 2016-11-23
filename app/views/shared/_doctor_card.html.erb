@@ -1,26 +1,35 @@
 <div class="doctor col s12 m6 l6">
   <div class="card">
+    <!-- BASIS INFO OF DOCTOR -->
     <div class="card-content">
-
-      <!-- AVATAR AND NAME -->
       <div class="row">
         <div class="col s4 left-align">
+          <!-- AVATAR WITH LINK -->
           <a href="<%= doctor_path(doctor) %>">
             <%= image_tag doctor.avatar_or_none, class: 'doctor-avatar' %>
           </a>
         </div>
         <div class="col s8">
+          <!-- DOCTORS NAME -->
           <a href="<%= doctor_path(doctor) %>" class="doctor-name center-align">
             <h5>
               Bác sĩ <%= doctor.name %>
-              <i class="material-icons">check_circle</i>
+              <!-- DOCTOR'S VERIFIED MARK -->
+              <% if doctor.verified?%>
+                <i class="material-icons verify-mark teal-text">check_circle</i>
+              <% else %>
+                <i class="material-icons verify-mark orange-text">warning</i>
+              <% end %>
             </h5>
           </a>
+          <br>
           <div class="basic-info">
+            <!-- DOCTOR'S EXPERTISE -->
             <p class="doctor-expertise">
               <i class="material-icons">local_hospital</i>
               <%= link_to doctor.expertise, '#' %>
             </p>
+            <!-- LIST OF CLINICS -->
             <p class="doctor-clinics">
               <i class="material-icons">place</i>
               <% doctor.clinics.each do |c| %>
@@ -30,25 +39,19 @@
           </div>
         </div>
       </div>
-
-      <div class="row">
-
-      </div>
-      <!-- INFO -->
-      <!-- RATING GOES HERE -->
-      <!-- COMMENT GOES HERE -->
-      <!-- STATUS GOES HERE -->
-
     </div>
 
+
+    <!-- DESCRIPTION + REACTION -->
     <div class="card-content">
-      <p class="doctor-description truncate">
+      <!-- DESCRIPTION -->
+      <p class="doctor-description">
         <%= doctor.description or 'Không có mô tả nào.' %>
       </p>
       <br>
       <!-- LINK TO DOCTOR SHOW -->
       <%= link_to 'Xem tiếp...', doctor_path(doctor), style: 'display: inline;' %>
-
+      <!-- REACTION -->
       <span class="reaction right" href="#" style: "cursor: pointer">
         <span class="like"><i class="material-icons">thumb_up</i>     10    </span>
         <span class="comment">    <i class="material-icons">mode_comment</i>    20</span>
@@ -58,7 +61,7 @@
     <div class="card-action center-align">
         <%=
           link_to 'Đặt khám', doctor_gig_client_view_path(doctor_id: doctor.id, gig_id: doctor.gigs.first.id),
-          class: 'btn waves-effect waves-light light-blue darken-1'
+          class: 'btn  green darken-2'
         %>
     </div>
   </div>
