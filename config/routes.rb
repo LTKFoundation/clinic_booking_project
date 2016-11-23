@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   end
 
   resources :bookings, only: [ :show, :update ]
+  resources :patients
 
 	resources :doctors do
 		collection do

@@ -158,7 +158,7 @@ class GigsController < ApplicationController
 	end
 
 	def update_reserved(schedules,gig_id)
-		booked_list = Booking.where(gig_id: gig_id)
+		booked_list = Booking.where(gig_id: gig_id).where.not(status: "0")
 		# booked_list.each do |booking|
 		# 	logger.debug "Booking at: "+booking.strftime("%m/%d/%Y %I:%M%p")
 		# end

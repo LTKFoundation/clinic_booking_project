@@ -1,5 +1,35 @@
 <p>Lịch khám - Bấm vào giờ khám để đặt</p>
-<table class="highlight centered ">	
+<%= form_for Patient.new do |f|%>
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s6">
+          <%= f.text_field :name%>
+          <%= f.label :name %>
+      </div>
+      <div class="input-field col s6">
+          <%= f.text_field :dob %>
+          <%= f.label :dob %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+          <%= f.text_field :gender%>
+          <%= f.label :gender %>
+      </div>
+      <div class="input-field col s6">
+          <%= f.text_field :address %>
+          <%= f.label :address %>
+      </div>
+    </div>
+  </div>
+  <div class="input-field form-actions">
+    <%= f.button "Update", class: "waves-effect waves-light btn", type: "submit" %>
+    <br><br>
+  </div>
+</div>
+<% end %>
+<table class="highlight centered ">
 	<% @booking_schedule.each_with_index do |data_row, index| %>
 		<% if index == 0 %>
 				<thead>
@@ -39,5 +69,11 @@
 	<% end %>
 </table>
 <script>
-
+$(document).ready(function() {
+  $('select').material_select();
+});
+$('.datepicker').pickadate({
+  selectMonths: true,
+  selectYears: 15
+});
 </script>
