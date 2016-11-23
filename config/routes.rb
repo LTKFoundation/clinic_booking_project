@@ -48,6 +48,7 @@ Rails.application.routes.draw do
 		end
 		collection do
 			get 'add_clinic_page'
+      get 'add_clinic_page_client'
 		end
 	end
 

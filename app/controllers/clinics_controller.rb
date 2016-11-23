@@ -1,4 +1,11 @@
 class ClinicsController < ApplicationController
+  # Doctor must be signed in to add a clinic
+  before_action :authenticate_doctor!, only: [ :add_clinic_page ]
+
+  # Client must be signed in to add a clinic
+  before_action :authenticate_user!, only: [ :add_clinic_page_client ]
+
+
   @@cur_loc = nil
   @@doctor_clinics = nil
   def index
@@ -11,6 +18,12 @@ class ClinicsController < ApplicationController
       format.json { render json: Clinic.all }
     end
     # @@doctor_clinics = DoctorClinic.clinic_around(nil)
+  end
+
+  def add_clinic_page
+    gon.watch.doctor_clinics = @@doctor_clinics
+    @@doctor_clinics = Clinic.clinic_around(nil)
+    logger.debug "GET ADD CLINIC PAGE"
   end
 
   def add_clinic_page
@@ -58,7 +71,7 @@ class ClinicsController < ApplicationController
       redirect_to clinics_path
     else
       flash[:error] = "cant create clinic"
-      render add_clinic_page
+      if doctor_signed_in? then render add_clinic_page else render add_clinic_page_client end
     end
   end
 
