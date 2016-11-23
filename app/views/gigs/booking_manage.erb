@@ -1,4 +1,4 @@
-<p>Lịch khám - Bấm vào giờ khám để đặt</p>
+<h4>Lịch khám - Bấm vào giờ khám để đặt</h4>
 <%= form_for Patient.new do |f|%>
 <div class="row">
   <div class="col s12">
@@ -23,14 +23,15 @@
       </div>
     </div>
   </div>
-  <div class="input-field form-actions">
+  <div class="col s12 form-actions">
     <%= f.button "Update", class: "waves-effect waves-light btn", type: "submit" %>
     <br><br>
   </div>
+
 </div>
 <% end %>
-<table class="highlight centered ">
-	<% @booking_schedule.each_with_index do |data_row, index| %>
+<table class="highlight centered responsive-table">
+  <% @booking_schedule.each_with_index do |data_row, index| %>
 		<% if index == 0 %>
 				<thead>
 					<tr>
@@ -39,10 +40,8 @@
 						<% end %>
 					</tr>
 				</thead>
+        </tbody>
 		<% else %>
-			<% if index == 1%>
-				<tbody>
-			<% end %>
 			<tr>
 					<% data_row.each_with_index do |data_col, row_index|%>
             <%= hidden_field_tag "doctor_id", @gig.doctor.id %>
@@ -65,7 +64,9 @@
 					<% end %>
 			</tr>
 		<% end %>
-		</tbody>
+		<% if index == 0%>
+      </tbody>
+    <% end %>
 	<% end %>
 </table>
 <script>
