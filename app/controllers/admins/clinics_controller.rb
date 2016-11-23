@@ -1,8 +1,8 @@
 class Admins::ClinicsController < Admins::AdminController
-  before_action :authenticate_admin!
+  before_action :authenticate_admin!, only: [:index, :verify]
 
   def index
-    @clinics = Clinic.paginate(:page => params[:page], :per_page => 10).order('verified_at DESC')
+    @clinics = Clinic.unscoped.paginate(:page => params[:page], :per_page => 10).order('verified_at DESC')
   end
 
   def verify
