@@ -1,45 +1,65 @@
-<div class="col s12 m4">
+<div class="doctor col s12 m6 l6">
   <div class="card">
-
     <div class="card-content">
 
       <!-- AVATAR AND NAME -->
       <div class="row">
-        <div class="col s4">
-          <img src="http://lorempixel.com/400/400/people" style="width: 100px; height: 100px; border-radius: 50%;"/>
+        <div class="col s4 left-align">
+          <a href="<%= doctor_path(doctor) %>">
+            <%= image_tag doctor.avatar_or_none, class: 'doctor-avatar' %>
+          </a>
         </div>
         <div class="col s8">
-          <h4><%= doctor.name %></h4>
-          <p>
-            <%= doctor.expertise %>
-          </p>
+          <a href="<%= doctor_path(doctor) %>" class="doctor-name center-align">
+            <h5>
+              Bác sĩ <%= doctor.name %>
+              <i class="material-icons">check_circle</i>
+            </h5>
+          </a>
+          <div class="basic-info">
+            <p class="doctor-expertise">
+              <i class="material-icons">local_hospital</i>
+              <%= link_to doctor.expertise, '#' %>
+            </p>
+            <p class="doctor-clinics">
+              <i class="material-icons">place</i>
+              <% doctor.clinics.each do |c| %>
+                <%= link_to "Phòng khám #{c.name}", clinic_path(c) %>
+              <% end %>
+            </p>
+          </div>
         </div>
       </div>
 
+      <div class="row">
+
+      </div>
       <!-- INFO -->
       <!-- RATING GOES HERE -->
       <!-- COMMENT GOES HERE -->
       <!-- STATUS GOES HERE -->
 
-      <!-- SCHEDULE -->
-      <% unless doctor.available_schedules.length <= 0 %>
-        <ul class="collection">
-          <% doctor.available_schedules.take(3).each do |schedule| %>
-            <li class="collection-item">
-              <% wd_name = schedule.weekday + 1 %>
-              <% wd_name = 'Chủ nhật' if schedule.weekday == 0 %>
-              <strong>Thứ <%= wd_name %> - </strong> từ <strong><%= schedule.start_at %></strong> đến <strong><%= schedule.end_at %></strong>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-
     </div>
 
-    <div class="card-action">
-      <%= link_to 'Thông tin', doctor_path(doctor) %>
-      <%= link_to 'Đặt khám', doctor_gig_client_view_path(doctor_id: doctor.id, gig_id: doctor.gigs.first.id), class: 'blue-text' %>
+    <div class="card-content">
+      <p class="doctor-description truncate">
+        <%= doctor.description or 'Không có mô tả nào.' %>
+      </p>
+      <br>
+      <!-- LINK TO DOCTOR SHOW -->
+      <%= link_to 'Xem tiếp...', doctor_path(doctor), style: 'display: inline;' %>
+
+      <span class="reaction right" href="#" style: "cursor: pointer">
+        <span class="like"><i class="material-icons">thumb_up</i>     10    </span>
+        <span class="comment">    <i class="material-icons">mode_comment</i>    20</span>
+      </span>
     </div>
 
+    <div class="card-action center-align">
+        <%=
+          link_to 'Đặt khám', doctor_gig_client_view_path(doctor_id: doctor.id, gig_id: doctor.gigs.first.id),
+          class: 'btn waves-effect waves-light light-blue darken-1'
+        %>
+    </div>
   </div>
 </div>

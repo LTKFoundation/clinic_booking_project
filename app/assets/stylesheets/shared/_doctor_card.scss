@@ -1,0 +1,36 @@
+.doctor {
+  .row {
+    margin: 0;
+  }
+
+  .card {
+    .card-content {
+      .doctor-avatar {
+        width: 120px; height: 120px; border-radius: 50%;
+      }
+      .doctor-name {
+        h5 {
+          margin: 0;
+        }
+      }
+      .basic-info {
+        color: #666;
+      }
+      .doctor-description {
+        height: 100px;
+      }
+    }
+  }
+}
+
+.reaction {
+  color: #666;
+  .material-icons, .mi {
+    font-size: inherit;
+  }
+}
+
+div.mdl-layout__drawer > nav.mdl-navigation > a.mdl-navigation__link {
+    display: inline-flex;
+    vertical-align: middle;
+}
