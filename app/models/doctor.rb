@@ -14,7 +14,7 @@ class Doctor < ApplicationRecord
   has_many :clinics, through: :gigs
 
   def verified?
-    self.verified_at != nil
+    verified_at.present?
   end
 
   def addresses
