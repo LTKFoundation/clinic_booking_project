@@ -1,0 +1,43 @@
+<h3>Quản lý phòng khám</h3>
+
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Tên</th>
+      <th>Địa chỉ</th>
+      <th>SĐT</th>
+      <th>Giấy phép</th>
+      <th>Created at</th>
+      <th>Verified at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @clinics.each do |clinic| %>
+      <tr>
+        <td><%= clinic.name %></td>
+        <td><%= clinic.address %></td>
+        <td><%= clinic.phone %></td>
+        <td>
+          <% if clinic.license %>
+            <%= link_to "Xem giấy phép", clinic.license  %>
+          <% end %>
+        </td>
+        <td><%= clinic.created_at %></td>
+        <td><%= clinic.verified_at %></td>
+        <td>
+          <% unless clinic.verified_at.present? %>
+            <%= link_to "Verify", admins_clinic_verify_path(:id => clinic.id),
+              :class => "waves-effect light-wave btn",
+              :method => 'post' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<div class="clearfix">
+  <%= will_paginate @clinics, :class => "digg_pagination right" %>
+</div>
