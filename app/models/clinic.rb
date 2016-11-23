@@ -1,6 +1,12 @@
 class Clinic < ApplicationRecord
   has_many :gigs
   has_many :doctors, through: :gigs
+
+  # Only show verified clinic to users and doctors
+  def self.default_scope
+    where('verified_at IS NOT NULL')
+  end
+
 	def self.clinic_around(cur_loc)
 		logger.debug "Model checking current_loc"
 
