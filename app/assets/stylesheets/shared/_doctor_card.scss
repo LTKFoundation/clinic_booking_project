@@ -1,8 +1,8 @@
 .doctor {
+  font-size: 14px;
   .row {
     margin: 0;
   }
-
   .card {
     .card-content {
       .material-icons, .mi {
@@ -12,27 +12,21 @@
         margin-right: 5px;
       }
       .doctor-avatar {
-        width: 120px; height: 120px; border-radius: 50%;
+        width: 64px; height: 64px;
       }
       .doctor-name {
-        h5 {
-          margin-bottom: 15px;
-        }
-        .verify-mark {
-          padding-left: 5px;
-          line-height: 0;
-        }
+        font-size: 20px;
       }
       .basic-info {
         color: #666;
         p {
           margin-bottom: 5px;
         }
+        .verify-mark {}
       }
       .doctor-description {
         height: 100px;
-        // overflow: hidden;         //prevent the text from being shown outside the border
-        overflow:hidden; text-overflow-multiline:ellipsis;
+        overflow: scroll; text-overflow-multiline:ellipsis;
         text-align: justify;
       }
     }
