@@ -4,6 +4,13 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   layout :layout_by_resource
 
+  def authenticate_user_or_doctor
+    unless current_user || current_doctor
+      flash[:alert] = 'Xin hãy đăng nhập trước!'
+      redirect_to user_session_path
+    end
+  end
+
   protected
 
     def configure_permitted_parameters
