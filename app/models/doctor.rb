@@ -21,7 +21,7 @@ class Doctor < ApplicationRecord
   end
 
   def avatar_or_none
-    avatar || 'http://lorempixel.com/400/400/people'
+    avatar || 'https://dwbxi9io9o7ce.cloudfront.net/images/18_05_2016_07_42_38_508966.jpeg'
   end
 
   # Search doctor by multiple columns and assoiciated model Clinic
