@@ -1,2 +1,76 @@
-<h1>Trang cá nhân</h1>
-<h3>Bác sĩ Lò Văn A</h3>
+<!-- http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/doctor-profile.html -->
+<br><br>
+
+<!-- Doctor overview -->
+<div class="row">
+  <div class="col s12 m4">
+    <div class="card">
+      <div class="card-image">
+        <img src="http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg">
+      </div>
+      <div class="card-content">
+        <h5>Bác sĩ <%= 'Trần Văn A' %></h5>
+        Chủ nhiệm khoa, Tiến sĩ
+      </div>
+      <div class="card-action">
+        <ul>
+          <li><strong>Chuyên khoa:</strong> Sản, Nhi</li>
+          <li><strong>Ngày khám</strong> Thứ 2, Thứ 4, Thứ 6</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m8">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-title">Bác sĩ <%= "Trần Văn A" %></div>
+
+        <br>
+        <h5>blah blah</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        </p>
+
+        <br>
+        <h5>blah blah</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Comment -->
+<div class="col s12">
+  <div class="card">
+    <div class="card-content">
+      <div class="doctor-rating" data-score="3"></div>
+      <div class="card-title">This doctor is not very good</div>
+      <p>I am a very simple card. I am good at containing small bits of information.</p>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function() {
+
+    displayRatingStars();
+
+  });
+
+  var displayRatingStars = function() {
+    $('.doctor-rating').each(function() {
+      $(this).raty({
+        starOff: '/star-off.png',
+        starOn: '/star-on.png',
+        readOnly: true,
+        score: $(this).data('score')
+      });
+    });
+  }
+</script>
+
