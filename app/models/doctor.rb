@@ -12,6 +12,7 @@ class Doctor < ApplicationRecord
   # Relations
   has_many :gigs
   has_many :clinics, through: :gigs
+  has_many :comments, :class_name => "DoctorComment"
 
   def verified?
     verified_at.present?

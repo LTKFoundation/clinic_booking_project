@@ -6,7 +6,7 @@ class DoctorsController < ApplicationController
   # NO - User could view doctor details as well. They also could rate & comment
 
   def show
-
+    @doctor = Doctor.find_by(id: params[:id])
   end
 
   def create

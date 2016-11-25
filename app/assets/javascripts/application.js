@@ -21,6 +21,7 @@
 //= require handlebars
 //= require typeahead.bundle.min
 //= require jquery.raty
+//= require sweetalert
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {
