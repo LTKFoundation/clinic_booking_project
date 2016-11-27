@@ -61,9 +61,8 @@
         <span class="like"><i class="material-icons">thumb_up</i>     10    </span>
         <span class="comment">    <i class="material-icons">mode_comment</i>    20</span>
       </span>
-    </div>
 
-    <div class="card-action center-align">
+      <div class="center-align" style="padding-top: 10px;">
         <% has_a_gig = doctor.has_a_gig? %>
         <%=
           link_to 'Đặt khám',
@@ -71,6 +70,7 @@
               : '#',
           class: "btn green darken-2 #{ 'disabled' if !has_a_gig }"
         %>
+      </div>
     </div>
   </div>
 </div>
