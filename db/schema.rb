@@ -159,11 +159,6 @@ ActiveRecord::Schema.define(version: 20161123214437) do
     t.index ["gig_id"], name: "index_schedules_on_gig_id", using: :btree
   end
 
-  create_table "searches", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "name",                   default: "",      null: false
     t.string   "phone"
