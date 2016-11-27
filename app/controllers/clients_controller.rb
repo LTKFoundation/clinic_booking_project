@@ -120,7 +120,7 @@ class ClientsController < ApplicationController
 	end
 
 	def update_reserved(schedules,gig_id)
-		booked_list = Booking.where(gig_id: gig_id).pluck(:start_at)
+		booked_list = Booking.where(gig_id: gig_id,status: "1" ).pluck(:start_at)
 		booked_list.each do |booking|
 			logger.debug "Booking at: "+booking.strftime("%m/%d/%Y %I:%M%p")
 		end

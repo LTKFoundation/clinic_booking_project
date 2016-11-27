@@ -158,7 +158,7 @@ class GigsController < ApplicationController
 	end
 
 	def update_reserved(schedules,gig_id)
-		booked_list = Booking.where(gig_id: gig_id)
+		booked_list = Booking.where(gig_id: gig_id).where.not(status: "0")
 		# booked_list.each do |booking|
 		# 	logger.debug "Booking at: "+booking.strftime("%m/%d/%Y %I:%M%p")
 		# end
@@ -170,7 +170,11 @@ class GigsController < ApplicationController
             # logger.debug "Checking "+booking.start_at.strftime("%d/%m/%Y %I:%M%p")+" against "+check_val
             if booking.start_at.strftime("%d/%m/%Y %I:%M%p") == check_val
               timeslot["value"] = "id:"+booking.id.to_s
-              timeslot["display"] = booking.user.name
+              if booking.patient
+                timeslot["display"] = booking.patient.name
+              else
+                timeslot["display"] = booking.user.name
+              end
               # logger.debug "=====>Matched on "+booking.start_at.strftime("%m/%d/%Y %I:%M%p")+" for "+booking.user.name
             end
           end
