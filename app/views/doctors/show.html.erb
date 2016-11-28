@@ -3,10 +3,10 @@
 
 <!-- Doctor overview -->
 <div class="row">
-  <div class="col s12 m4">
+  <div class="doctor col s12 m4">
     <div class="card">
       <div class="card-image">
-        <img src="http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg">
+        <%= image_tag @doctor.avatar_or_none, class: 'doctor-avatar' %>
       </div>
       <div class="card-content">
         <h5>Bác sĩ <%= @doctor.name %></h5>
@@ -14,7 +14,7 @@
       </div>
       <div class="card-action">
         <ul>
-          <li><strong>Chuyên khoa:</strong><%= @doctor.expertise %></li>
+          <li><strong>Chuyên khoa: </strong><%= @doctor.expertise %></li>
           <!-- <li><strong>Ngày khám</strong> Thứ 2, Thứ 4, Thứ 6</li> -->
         </ul>
       </div>
@@ -25,7 +25,7 @@
       <div class="card-content">
         <div class="card-title">Bác sĩ <%= @doctor.name %></div>
 
-        <div class="description">
+        <div class="description" style="white-space: pre-line;">
           <%= @doctor.description %>
         </div>
       </div>

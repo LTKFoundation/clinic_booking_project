@@ -25,7 +25,9 @@ class ApplicationController < ActionController::Base
 
       # Permit attribute for editing
       devise_parameter_sanitizer.permit(:account_update) do |user_params|
-        user_params.permit({ roles: [] }, :email, :current_password, :password, :password_confirmation, :name, :uid, :provider)
+        user_params.permit({ roles: [] }, :email, :current_password, :password, :password_confirmation,
+          :name, :uid, :provider, :phone,
+          :title, :expertise, :certificate, :avatar, :description )
       end
     end
 
