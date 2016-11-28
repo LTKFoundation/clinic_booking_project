@@ -27,7 +27,8 @@
       }
       .doctor-description {
         height: 100px;
-        overflow: scroll; text-overflow-multiline:ellipsis;
+        // overflow: scroll;
+        // text-overflow-multiline: ellipsis;
         text-align: justify;
       }
     }
