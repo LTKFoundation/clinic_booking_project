@@ -1,79 +1,86 @@
 <div class="row">
-    <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s3"><a class="active" href="#doctor_tab">Bác sĩ</a></li>
-        <li class="tab col s3"><a href="#clinic_tab">Phòng khám</a></li>
-      </ul>
+
+  <br><h4>Thông tin bác sĩ</h4>
+  <p>Cập nhật thông tin bác sĩ</p>
+  <br>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
+    <%= devise_error_messages! %>
+    <br>
+
+    <div class="input-field">
+      <%= f.text_field :name, autofocus: true %>
+      <%= f.label :name %>
     </div>
-    <div id="doctor_tab" class="col s12">
-			<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-				<%= devise_error_messages! %>
 
-				<h5>Personal Information</h5>
-				<p>Update your information. Leave it if you dont want to change.</p>
+    <div class="input-field">
+      <%= f.email_field :email %>
+      <%= f.label :email %>
+    </div>
 
-				<div class="input-field">
-					<%= f.text_field :name, autofocus: true %>
-					<%= f.label :name %>
-				</div>
+    <div class="input-field">
+      <%= f.label :phone %>
+      <%= f.number_field :phone %>
+    </div>
 
-				<div class="input-field">
-					<%= f.email_field :email %>
-					<%= f.label :email %>
-				</div>
+    <div class="input-field">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
 
-				<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-					<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-				<% end %>
+    <div class="input-field">
+      <%= f.label :expertise %>
+      <%= f.text_field :expertise %>
+    </div>
 
-				<h5>Change your password</h5>
-				<p>If you not plan to do so, you could ignore these fields and leave them empty</p>
+    <div class="input-field">
+      <%= f.label :certificate %>
+      <%= f.text_field :certificate %>
+    </div>
 
-				<div class="input-field">
-					<%= f.password_field :password, autocomplete: "off" %>
-					<%= f.label :password %>
-				</div>
+    <div class="input-field">
+      <%= f.label :avatar %>
+      <%= f.text_field :avatar %>
+    </div>
 
-				<div class="input-field">
-					<%= f.password_field :password_confirmation, autocomplete: "off" %>
-					<%= f.label :password_confirmation %>
-				</div>
+    <div class="text-field">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "materialize-textarea" %>
+    </div>
 
-				<h5>Verify updates
-					<a href="javascript:void(0)" class="tooltipped" data-position="bottom"
-						data-tooltip="Enter current password as a verification for update">
-						<i class="material-icons">info_outline</i>
-					</a>
-				</h5>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
 
-				<div class="input-field">
-					<%= f.password_field :current_password, autocomplete: "off", required: true %>
-					<%= f.label :current_password %>
-				</div>
+    <h5>Change your password</h5>
+    <p>If you not plan to do so, you could ignore these fields and leave them empty</p>
 
-				<div class="input-field form-actions">
-					<%= f.button "Update", class: "waves-effect waves-light btn", type: "submit" %>
-					<br><br>
-				</div>
-			<% end %>
-		</div>
-    <div id="clinic_tab" class="col s12">
+    <div class="input-field">
+      <%= f.password_field :password, autocomplete: "off" %>
+      <%= f.label :password %>
+    </div>
 
-		</div>
-  </div>
+    <div class="input-field">
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      <%= f.label :password_confirmation %>
+    </div>
 
+    <h5>Verify updates
+      <a href="javascript:void(0)" class="tooltipped" data-position="bottom"
+        data-tooltip="Enter current password as a verification for update">
+          <i class="material-icons">info_outline</i>
+      </a>
+    </h5>
 
-<!-- Not needed
-<h3>Cancel my account</h3>
-<p>Unhappy?
-<%= button_to "Cancel my account", registration_path(resource_name),
-  data: { confirm: "Are you sure?" },
-  method: :delete %>
-</p> -->
+    <div class="input-field">
+      <%= f.password_field :current_password, autocomplete: "off", required: true %>
+      <%= f.label :current_password %>
+    </div>
 
-<script type="text/javascript">
-$(document).on('turbolinks:load', function() {
-  Materialize.updateTextFields();
-	$('ul.tabs').tabs('select_tab', 'tab_id');
-});
-</script>
+    <div class="input-field form-actions">
+      <%= f.button "Update", class: "waves-effect waves-light btn", type: "submit" %>
+      <br><br>
+    </div>
+  <% end %>
+</div>

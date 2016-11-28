@@ -22,6 +22,7 @@ class Doctor < ApplicationRecord
   end
 
   def avatar_or_none
+    # https://cdn2.iconfinder.com/data/icons/professions/512/doctor_assistant-512.png
     avatar || 'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg'
   end
 
