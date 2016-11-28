@@ -22,7 +22,7 @@ class Doctor < ApplicationRecord
   end
 
   def avatar_or_none
-    avatar || 'https://dwbxi9io9o7ce.cloudfront.net/images/18_05_2016_07_42_38_508966.jpeg'
+    avatar || 'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg'
   end
 
   # Search doctor by multiple columns and assoiciated model Clinic

@@ -1,34 +1,49 @@
 .doctor {
   font-size: 14px;
+
   .row {
     margin: 0;
   }
+
   .card {
-    .card-action {padding: 10px 0px;}
+
+    .card-image img {
+      width: auto;
+      max-width: 70%;
+      margin: 0 auto;
+    }
+
     .card-content {
       .material-icons, .mi {
-        text-align:center;
+        text-align: center;
         display: inline-block;
         vertical-align: middle;
         margin-right: 5px;
       }
+
       .doctor-avatar {
-        max-width: 80px; max-height: 150px; overflow: hidden;
+        max-width: 100px;
+        height: auto;
+        overflow: hidden;
       }
+
       .doctor-name {
         font-size: 20px;
       }
+
       .basic-info {
         color: #666;
+
         p {
           margin-bottom: 5px;
         }
+
         .verify-mark {}
       }
+
       .doctor-description {
+        padding-top: 20px;
         height: 100px;
-        // overflow: scroll;
-        // text-overflow-multiline: ellipsis;
         text-align: justify;
       }
     }
@@ -37,12 +52,8 @@
 
 .reaction {
   color: #666;
+
   .material-icons, .mi {
     font-size: inherit;
   }
 }
-
-// div.mdl-layout__drawer > nav.mdl-navigation > a.mdl-navigation__link {
-//     display: inline-flex;
-//     vertical-align: middle;
-// }
