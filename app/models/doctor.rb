@@ -14,10 +14,14 @@ class Doctor < ApplicationRecord
   has_many :clinics, through: :gigs
 
   def verified?
-    self.verified_at != nil
+    verified_at.present?
   end
 
   def addresses
+  end
+
+  def avatar_or_none
+    avatar || 'https://dwbxi9io9o7ce.cloudfront.net/images/18_05_2016_07_42_38_508966.jpeg'
   end
 
   # Search doctor by multiple columns and assoiciated model Clinic

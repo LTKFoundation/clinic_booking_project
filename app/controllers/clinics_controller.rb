@@ -1,4 +1,11 @@
 class ClinicsController < ApplicationController
+  # Doctor must be signed in to add a clinic
+  before_action :authenticate_doctor!, only: [ :add_clinic_page ]
+
+  # Client must be signed in to add a clinic
+  before_action :authenticate_user!, only: [ :add_clinic_page_client ]
+
+
   @@cur_loc = nil
   @@doctor_clinics = nil
   def index
@@ -11,6 +18,12 @@ class ClinicsController < ApplicationController
     end
     gon.watch.doctor_clinics = @@doctor_clinics
     # @@doctor_clinics = DoctorClinic.clinic_around(nil)
+  end
+
+  def add_clinic_page
+    gon.watch.doctor_clinics = @@doctor_clinics
+    @@doctor_clinics = Clinic.clinic_around(nil)
+    logger.debug "GET ADD CLINIC PAGE"
   end
 
   def add_clinic_page
@@ -50,19 +63,19 @@ class ClinicsController < ApplicationController
     FROM clinics ORDER BY distance_from_current_location ASC", @@cur_loc[0].to_s.to_f, @@cur_loc[1].to_s.to_f]
   end
 
-  
+
   def create
     @clinic = Clinic.new clinic_params
     if @clinic.save
-      @flash[:success] = "Created Clinic"
+      flash[:success] = "Created Clinic"
       redirect_to clinics_path
     else
-      @flash[:error] = "cant create clinic"
-      render add_clinic_page
+      flash[:error] = "cant create clinic"
+      if doctor_signed_in? then render add_clinic_page else render add_clinic_page_client end
     end
   end
 
-  private 
+  private
 
   def clinic_params
     params.require(:clinic).permit(:doctor_id, :name, :address, :longtitude, :latitude, :photos)

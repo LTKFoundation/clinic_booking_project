@@ -11,6 +11,8 @@
 @import "_overwrite";
 @import "_common";
 
+@import "shared/_doctor_card";
+
 //Layout
 nav .brand-logo {
     text-transform: uppercase;
@@ -89,4 +91,15 @@ ul#currentUserAction {
 .tt-suggestion:hover {
   background: #bdc3c7;
   cursor: pointer;
+}
+
+// DOCTORS IN HOMEPAGE
+.doctors {
+  .row {
+    margin-bottom: 0;
+  }
+}
+
+.section {
+  padding: 0;
 }

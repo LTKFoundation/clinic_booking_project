@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     get '/' => 'home#index', as: 'root'
     resources :users
     resources :doctors
+    resources :clinics
     post 'doctors/:id/verify' => 'doctors#verify', as: 'doctor_verify'
+    post 'clinics/:id/verify' => 'clinics#verify', as: 'clinic_verify'
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
@@ -49,6 +51,7 @@ Rails.application.routes.draw do
 		end
 		collection do
 			get 'add_clinic_page'
+      get 'add_clinic_page_client'
 		end
 	end
 
