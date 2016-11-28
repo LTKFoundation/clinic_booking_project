@@ -1,4 +1,4 @@
-<h1 class="center-align">Danh sách bác sĩ</h1>
+<h3 class="center-align">Danh sách phong kham</h3>
 
 <!-- QUERY SECTION -->
 <%= form_tag(nil, method: 'get', remote: true, id: 'form-filter') do %>
@@ -76,9 +76,9 @@
 <!-- LIST OF DOCTORS -->
 <div class="section">
   <div class="row">
-    <div class="doctors">
-      <%= render partial: 'shared/doctors_card', locals: { doctors: @doctors } %>
-    </div>
+     <% @clinics.each do |clinic| %>
+       <%= render partial: 'shared/clinic', locals: { clinic: clinic } %>
+     <% end %>
   </div>
 </div>
 
