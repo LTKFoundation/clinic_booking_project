@@ -1,45 +1,76 @@
-<div class="col s12 m4">
+<div class="doctor col s12 m6 l4">
   <div class="card">
-
+    <!-- BASIS INFO OF DOCTOR -->
     <div class="card-content">
-
-      <!-- AVATAR AND NAME -->
       <div class="row">
-        <div class="col s4">
-          <img src="http://lorempixel.com/400/400/people" style="width: 100px; height: 100px; border-radius: 50%;"/>
+        <div class="col s9" style="padding-left: 0">
+          <!-- DOCTORS NAME -->
+          <a href="<%= doctor_path(doctor) %>" class="doctor-name">
+            Bác sĩ <%= doctor.name %>
+          </a>
+          <div class="basic-info" style="margin-top: 10px;">
+            <!-- LIST OF CLINICS -->
+            <p class="doctor-clinics">
+              <i class="material-icons">place</i>
+              <% if doctor.clinics.length == 0 %>
+                Không có
+              <% else %>
+                <% doctor.clinics.each do |c| %>
+                  <%= link_to "Phòng khám #{c.name}", clinic_path(c) %>
+                <% end %>
+              <% end %>
+            </p>
+            <!-- DOCTOR'S EXPERTISE -->
+            <p class="doctor-expertise">
+              <i class="material-icons">local_hospital</i>
+              <%= link_to doctor.expertise || 'Không có', '', style: 'color: #666' %>
+            </p>
+            <!-- DOCTOR'S VERIFIED MARK -->
+            <p class="verify-mark">
+              <% if doctor.verified? %>
+                <i class="material-icons green-text darken-2">check_circle</i><a style="color: #666"> Đã xác nhận</a>
+              <% else %>
+                <i class="material-icons orange-text">warning</i><a style="color: #666"> Chưa xác nhận</a>
+              <% end %>
+
+            </p>
+          </div>
         </div>
-        <div class="col s8">
-          <h4><%= doctor.name %></h4>
-          <p>
-            <%= doctor.expertise %>
-          </p>
+
+        <div class="col s3" style="padding: 0;">
+          <!-- AVATAR WITH LINK -->
+          <a href="<%= doctor_path(doctor) %>">
+            <%= image_tag doctor.avatar_or_none, class: 'doctor-avatar' %>
+          </a>
         </div>
       </div>
-
-      <!-- INFO -->
-      <!-- RATING GOES HERE -->
-      <!-- COMMENT GOES HERE -->
-      <!-- STATUS GOES HERE -->
-
-      <!-- SCHEDULE -->
-      <% unless doctor.available_schedules.length <= 0 %>
-        <ul class="collection">
-          <% doctor.available_schedules.take(3).each do |schedule| %>
-            <li class="collection-item">
-              <% wd_name = schedule.weekday + 1 %>
-              <% wd_name = 'Chủ nhật' if schedule.weekday == 0 %>
-              <strong>Thứ <%= wd_name %> - </strong> từ <strong><%= schedule.start_at %></strong> đến <strong><%= schedule.end_at %></strong>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-
     </div>
 
-    <div class="card-action">
-      <%= link_to 'Thông tin', doctor_path(doctor) %>
-      <%= link_to 'Đặt khám', doctor_gig_client_view_path(doctor_id: doctor.id, gig_id: doctor.gigs.first.id), class: 'blue-text' %>
-    </div>
 
+    <!-- DESCRIPTION + REACTION -->
+    <div class="card-content" style="padding-top: 0;">
+      <!-- DESCRIPTION -->
+      <p class="doctor-description">
+        <%= doctor.description or 'Không có mô tả nào.' %>
+      </p>
+      <br>
+      <!-- LINK TO DOCTOR SHOW -->
+      <%= link_to 'Xem tiếp...', doctor_path(doctor), style: 'display: inline;' %>
+      <!-- REACTION -->
+      <span class="reaction right" href="#" style: "cursor: pointer">
+        <span class="like"><i class="material-icons">thumb_up</i>     10    </span>
+        <span class="comment">    <i class="material-icons">mode_comment</i>    20</span>
+      </span>
+
+      <div class="center-align" style="padding-top: 10px;">
+        <% has_a_gig = doctor.has_a_gig? %>
+        <%=
+          link_to 'Đặt khám',
+            has_a_gig ? doctor_gig_client_view_path(doctor_id: doctor.id, gig_id: doctor.gigs.first.id)
+              : '#',
+          class: "btn green darken-2 #{ 'disabled' if !has_a_gig }"
+        %>
+      </div>
+    </div>
   </div>
 </div>

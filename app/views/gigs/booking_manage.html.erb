@@ -1,0 +1,83 @@
+<h4>Lịch khám</h4>
+<%= form_for Booking.new do |f|%>
+<%= hidden_field_tag "gig_id", @gig.id %>
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s5">
+          <%= text_field_tag :patient_name,nil,:required => true %>
+          <label>Tên</label>
+      </div>
+      <div class="input-field col s5">
+          <%= date_field_tag :dob, '2014-01-01', class: 'datepicker', :required => true%>
+          <label>Ngày sinh</label>
+      </div>
+      <div class="input-field col s2">
+        <%= select_tag :gender, raw("<option value='1'>Nữ</option><option value='2'>Nam</option>"), :required => true%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s4">
+          <%= text_field_tag :start_at,nil,:required => true,:readonly => true, placeholder: ''%>
+          <label>Giờ khám</label>
+      </div>
+      <div class="input-field col s8">
+          <%= text_field_tag :address %>
+          <label>Địa chỉ</label>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <%= f.button "Thêm nhanh", class: "waves-effect waves-light btn", type: "submit" %>
+    <br><br>
+  </div>
+
+</div>
+<% end %>
+<p>Chọn giờ muốn đặt</p>
+<table class="highlight centered responsive-table">
+  <% @booking_schedule.each_with_index do |data_row, index| %>
+    <% if index == 0 %>
+      <thead>
+        <tr>
+          <% data_row.each do |data_col|%>
+            <td><%= data_col["display"] %></td>
+          <% end %>
+        </tr>
+      </thead>
+        </tbody>
+    <% else %>
+      <tr>
+        <% data_row.each_with_index do |data_col, row_index|%>
+          <% timeslot_val = data_col["value"]+" "+data_col["display"] %>
+          <% if data_col["display"].length > 0 %>
+            <% if data_col["value"].length > 0 %>
+              <% if data_col["value"].start_with?('id:')%>
+                <td><%= link_to data_col["display"], booking_path(data_col["value"][3..-1])%></td>
+              <% else %>
+                <td><%= button_tag data_col["display"], :class => "waves-effect waves-light btn blue",:onclick => "fill_start_at('#{timeslot_val}')"%></td>
+              <% end %>
+            <% else %>
+              <td><%= data_col["display"]%></td>
+            <% end %>
+          <% else %>
+            <td></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+    <% if index == 0%>
+      </tbody>
+    <% end %>
+  <% end %>
+</table>
+<script>
+$('.datepicker').pickadate({
+  selectMonths: true,
+  selectYears: 50
+});
+function fill_start_at(timeslot){
+  $('input[id=start_at]').val(timeslot);
+  return false;
+};
+</script>

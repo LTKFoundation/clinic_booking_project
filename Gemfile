@@ -44,8 +44,7 @@ gem 'pickadate-rails', '~> 3.5', '>= 3.5.6.0'
 
 gem 'will_paginate', '~> 3.1.0'
 gem 'pg_search'
-
-gem 'pg_search'
+gem 'sweetalert-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

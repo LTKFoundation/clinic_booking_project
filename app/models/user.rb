@@ -21,4 +21,8 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver
   end
 
+  def commented?(doctor)
+    return DoctorComment.find_by(doctor_id: doctor.id, user_id: self.id)
+  end
+
 end

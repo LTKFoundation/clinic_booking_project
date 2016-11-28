@@ -1,15 +1,20 @@
 /*
 *= require material_icons
+*= require jquery.raty
+*= require sweetalert
 */
 
 // @import "bootstrap";
 // @import "font-awesome";
+// @import "jquery.raty";
 //
 @import "materialize";
 @import "_variables";
 @import "_pagination";
 @import "_overwrite";
 @import "_common";
+
+@import "shared/_doctor_card";
 
 //Layout
 nav .brand-logo {
@@ -89,4 +94,15 @@ ul#currentUserAction {
 .tt-suggestion:hover {
   background: #bdc3c7;
   cursor: pointer;
+}
+
+// DOCTORS IN HOMEPAGE
+.doctors {
+  .row {
+    margin-bottom: 0;
+  }
+}
+
+.section {
+  padding: 0;
 }

@@ -22,18 +22,18 @@
 			<div class="row s12">
 				<div class="col s6">
 					<p> Người đặt khám</p>
-					<div class="row">
-						<div class="label col">Tên: <%= @booking.user.name %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Tuổi: <%= "@booking.patient.age" %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Giới tính: <%= "@booking.patient.gender" %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Triệu chứng: <%= "@booking.symthom" %></div>
-					</div>
+          <div class="row">
+            <div class="label col">Tên: <%= @booking.patient ? @booking.patient.name : @booking.user.name %></div>
+          </div>
+          <div class="row">
+            <div class="label col">Tuổi: <%= @booking.patient ? @booking.patient.dob : '' %></div>
+          </div>
+          <div class="row">
+            <div class="label col">Giới tính: <%= @booking.patient ? @booking.patient.gender : '' %></div>
+          </div>
+          <div class="row">
+            <div class="label col">Triệu chứng: <%= "@booking.symthom" %></div>
+          </div>
 			</div>
 				<div class="col s6">
 					<p> Lịch khám</p>

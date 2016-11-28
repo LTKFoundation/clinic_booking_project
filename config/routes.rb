@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     get '/' => 'home#index', as: 'root'
     resources :users
     resources :doctors
+    resources :clinics
     post 'doctors/:id/verify' => 'doctors#verify', as: 'doctor_verify'
+    post 'clinics/:id/verify' => 'clinics#verify', as: 'clinic_verify'
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
@@ -25,17 +27,19 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, only: [ :show, :update ]
+  resources :bookings, only: [ :show, :update, :create ]
+  resources :patients
 
-	resources :doctors do
-		collection do
-			get 'add_clinic'
-		end
-		resources :gigs do
-			get 'client_view' => 'clients#view_gig'
-			get 'doctor_view' => 'gigs#booking_manage'
-		end
-	end
+  resources :doctors do
+    collection do
+      get 'add_clinic'
+    end
+    resources :gigs do
+      get 'client_view' => 'clients#view_gig'
+      get 'doctor_view' => 'gigs#booking_manage'
+    end
+    resources :comments
+  end
 
   resources :clients, only: [ :show, :create, :update, :destroy ]
 
@@ -48,6 +52,7 @@ Rails.application.routes.draw do
 		end
 		collection do
 			get 'add_clinic_page'
+      get 'add_clinic_page_client'
 		end
 	end
 

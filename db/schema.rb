@@ -10,12 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121100847) do
-
+ActiveRecord::Schema.define(version: 20161125151545) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "cube"
-  enable_extension "earthdistance"
   enable_extension "unaccent"
 
   create_table "admins", force: :cascade do |t|
@@ -47,8 +44,10 @@ ActiveRecord::Schema.define(version: 20161121100847) do
     t.integer  "cart_id"
     t.integer  "gig_id"
     t.string   "confirm_code"
+    t.integer  "patient_id"
     t.index ["cart_id"], name: "index_bookings_on_cart_id", using: :btree
     t.index ["gig_id"], name: "index_bookings_on_gig_id", using: :btree
+    t.index ["patient_id"], name: "index_bookings_on_patient_id", using: :btree
     t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
   end
 
@@ -64,17 +63,17 @@ ActiveRecord::Schema.define(version: 20161121100847) do
 
   create_table "clinics", force: :cascade do |t|
     t.integer  "doctor_id"
-    t.string   "name",       null: false
-    t.string   "address",    null: false
+    t.string   "name",        null: false
+    t.string   "address",     null: false
     t.float    "latitude"
     t.string   "license"
     t.string   "phone"
     t.string   "photos"
     t.string   "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.float    "longtitude"
-    t.index "ll_to_earth(latitude, longtitude)", name: "clinic_loc_index", using: :gist
+    t.datetime "verified_at"
     t.index ["doctor_id"], name: "index_clinics_on_doctor_id", using: :btree
   end
 
@@ -85,6 +84,8 @@ ActiveRecord::Schema.define(version: 20161121100847) do
     t.string   "content"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "rate"
+    t.string   "title"
     t.index ["doctor_id"], name: "index_doctor_comments_on_doctor_id", using: :btree
     t.index ["doctor_rating_id"], name: "index_doctor_comments_on_doctor_rating_id", using: :btree
     t.index ["user_id"], name: "index_doctor_comments_on_user_id", using: :btree
@@ -124,6 +125,7 @@ ActiveRecord::Schema.define(version: 20161121100847) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.string   "title"
     t.index ["email"], name: "index_doctors_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_doctors_on_reset_password_token", unique: true, using: :btree
   end
@@ -141,6 +143,20 @@ ActiveRecord::Schema.define(version: 20161121100847) do
     t.index ["doctor_id"], name: "index_gigs_on_doctor_id", using: :btree
   end
 
+  create_table "patients", force: :cascade do |t|
+    t.string   "BloodType"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "doctor_id"
+    t.string   "name",       null: false
+    t.datetime "dob",        null: false
+    t.string   "gender",     null: false
+    t.string   "address",    null: false
+    t.index ["doctor_id"], name: "index_patients_on_doctor_id", using: :btree
+    t.index ["user_id"], name: "index_patients_on_user_id", using: :btree
+  end
+
   create_table "payment_methods", force: :cascade do |t|
     t.string   "cc_no"
     t.string   "ccv_no"
@@ -153,17 +169,12 @@ ActiveRecord::Schema.define(version: 20161121100847) do
 
   create_table "schedules", force: :cascade do |t|
     t.integer  "gig_id"
+    t.text     "start_at"
     t.text     "end_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text     "start_at"
     t.integer  "weekday"
     t.index ["gig_id"], name: "index_schedules_on_gig_id", using: :btree
-  end
-
-  create_table "searches", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -187,12 +198,17 @@ ActiveRecord::Schema.define(version: 20161121100847) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
   add_foreign_key "bookings", "carts"
   add_foreign_key "bookings", "gigs"
+  add_foreign_key "bookings", "patients"
   add_foreign_key "bookings", "users"
   add_foreign_key "doctor_comments", "doctor_ratings"
   add_foreign_key "doctor_comments", "doctors"
@@ -202,6 +218,8 @@ ActiveRecord::Schema.define(version: 20161121100847) do
   add_foreign_key "doctor_ratings", "users"
   add_foreign_key "gigs", "clinics"
   add_foreign_key "gigs", "doctors"
+  add_foreign_key "patients", "doctors"
+  add_foreign_key "patients", "users"
   add_foreign_key "payment_methods", "users"
   add_foreign_key "schedules", "gigs"
 end
