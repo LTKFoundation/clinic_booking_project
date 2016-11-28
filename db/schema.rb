@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 20161125151545) do
     t.string   "content"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "rate"
+    t.string   "title"
     t.index ["doctor_id"], name: "index_doctor_comments_on_doctor_id", using: :btree
     t.index ["doctor_rating_id"], name: "index_doctor_comments_on_doctor_rating_id", using: :btree
     t.index ["user_id"], name: "index_doctor_comments_on_user_id", using: :btree
@@ -123,6 +125,7 @@ ActiveRecord::Schema.define(version: 20161125151545) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.string   "title"
     t.index ["email"], name: "index_doctors_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_doctors_on_reset_password_token", unique: true, using: :btree
   end
@@ -195,6 +198,10 @@ ActiveRecord::Schema.define(version: 20161125151545) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

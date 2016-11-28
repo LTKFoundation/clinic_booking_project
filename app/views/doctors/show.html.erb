@@ -1,2 +1,127 @@
-<h1>Trang cá nhân</h1>
-<h3>Bác sĩ Lò Văn A</h3>
+<!-- http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/doctor-profile.html -->
+<br><br>
+
+<!-- Doctor overview -->
+<div class="row">
+  <div class="col s12 m4">
+    <div class="card">
+      <div class="card-image">
+        <img src="http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg">
+      </div>
+      <div class="card-content">
+        <h5>Bác sĩ <%= @doctor.name %></h5>
+        <span><%= @doctor.title %></span>
+      </div>
+      <div class="card-action">
+        <ul>
+          <li><strong>Chuyên khoa:</strong><%= @doctor.expertise %></li>
+          <!-- <li><strong>Ngày khám</strong> Thứ 2, Thứ 4, Thứ 6</li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m8">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-title">Bác sĩ <%= @doctor.name %></div>
+
+        <div class="description">
+          <%= @doctor.description %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- List Comments -->
+<div class="row">
+  <div class="comments col s12">
+    <h5>Bình luận</h5>
+    <% @doctor.comments.each do |comment| %>
+      <%= render "comment", { comment: comment } %>
+    <% end %>
+  </div>
+</div>
+
+<!-- Form Comments -->
+<% if current_user && !current_user.commented?(@doctor) %>
+  <div class="row">
+    <div class="comment-form col s12">
+      <h5>Bình luận của bạn</h5>
+      <%= form_for [@doctor, DoctorComment.new],
+        url: doctor_comments_path(doctor_id: @doctor.id),
+        html: { class: "card"},
+        remote: true do |f| %>
+
+        <div class="card-content">
+
+          <div class="input-field">
+            <div id="rate"></div>
+            <%= f.hidden_field :rate %>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_field :title %>
+            <%= f.label :title, "What do you think about this doctor?" %>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_area :content, class: "materialize-textarea" %>
+            <%= f.label :content, "Anything more?" %>
+          </div>
+        </div>
+
+        <div class="card-action">
+          <%= submit_tag "Add Comment", class: "waves-effect light-wave btn btn-submit" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function() {
+
+    displayRatingStars();
+
+    manageFormState();
+
+  });
+
+  var displayRatingStars = function() {
+    $('.doctor-rating').each(function() {
+      $(this).raty({
+        path: '/',
+        readOnly: true,
+        score: $(this).data('score')
+      });
+    });
+  }
+
+  var manageFormState = function() {
+
+    // Active rating
+    $('#rate').raty({
+      path: '/',
+      targetScore: '#doctor_comment_rate'
+    });
+
+    // Form status
+    $('#new_doctor_comment')
+      .bind("ajax:beforeSend", function() {
+        $('.btn-submit').addClass('disabled');
+      })
+      .bind("ajax:success", function(evt, data, status, xhr) {
+        sweetAlert("Thành công", "Bình luận của bạn đã được thêm thành công!");
+        location.reload();
+      })
+      .bind('ajax:error', function(evt, data, status, xhr) {
+        sweetAlert("Oops...", "Có lỗi, xin hãy xem lại dữ liệu", "error");
+      })
+      .bind('ajax:complete', function(evt, data, status, xhr) {
+        $('.btn-submit').removeClass('disabled');
+      })
+  }
+
+</script>
+
