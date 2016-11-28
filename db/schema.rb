@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121100847) do
+ActiveRecord::Schema.define(version: 20161123032932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,8 +47,10 @@ ActiveRecord::Schema.define(version: 20161121100847) do
     t.integer  "cart_id"
     t.integer  "gig_id"
     t.string   "confirm_code"
+    t.integer  "patient_id"
     t.index ["cart_id"], name: "index_bookings_on_cart_id", using: :btree
     t.index ["gig_id"], name: "index_bookings_on_gig_id", using: :btree
+    t.index ["patient_id"], name: "index_bookings_on_patient_id", using: :btree
     t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
   end
 
@@ -141,6 +143,20 @@ ActiveRecord::Schema.define(version: 20161121100847) do
     t.index ["doctor_id"], name: "index_gigs_on_doctor_id", using: :btree
   end
 
+  create_table "patients", force: :cascade do |t|
+    t.string   "BloodType"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "doctor_id"
+    t.string   "name",       null: false
+    t.datetime "dob",        null: false
+    t.string   "gender",     null: false
+    t.string   "address",    null: false
+    t.index ["doctor_id"], name: "index_patients_on_doctor_id", using: :btree
+    t.index ["user_id"], name: "index_patients_on_user_id", using: :btree
+  end
+
   create_table "payment_methods", force: :cascade do |t|
     t.string   "cc_no"
     t.string   "ccv_no"
@@ -193,6 +209,7 @@ ActiveRecord::Schema.define(version: 20161121100847) do
 
   add_foreign_key "bookings", "carts"
   add_foreign_key "bookings", "gigs"
+  add_foreign_key "bookings", "patients"
   add_foreign_key "bookings", "users"
   add_foreign_key "doctor_comments", "doctor_ratings"
   add_foreign_key "doctor_comments", "doctors"
@@ -202,6 +219,8 @@ ActiveRecord::Schema.define(version: 20161121100847) do
   add_foreign_key "doctor_ratings", "users"
   add_foreign_key "gigs", "clinics"
   add_foreign_key "gigs", "doctors"
+  add_foreign_key "patients", "doctors"
+  add_foreign_key "patients", "users"
   add_foreign_key "payment_methods", "users"
   add_foreign_key "schedules", "gigs"
 end
