@@ -112,11 +112,17 @@
         $('.btn-submit').addClass('disabled');
       })
       .bind("ajax:success", function(evt, data, status, xhr) {
-        sweetAlert("Thành công", "Bình luận của bạn đã được thêm thành công!");
-        location.reload();
+        swal({
+          title: "Thành công!",
+          text: "Bình luận của bạn đã được thêm thành công! Load lại trang để thấy cập nhật",
+          allowEscapeKey: false
+        }, function() {
+          location.reload();
+        });
+
       })
       .bind('ajax:error', function(evt, data, status, xhr) {
-        sweetAlert("Oops...", "Có lỗi, xin hãy xem lại dữ liệu", "error");
+        sweetAlert("Oops...", "Có lỗi, xin hãy nhập hết các ô dữ liệu.", "error");
       })
       .bind('ajax:complete', function(evt, data, status, xhr) {
         $('.btn-submit').removeClass('disabled');
