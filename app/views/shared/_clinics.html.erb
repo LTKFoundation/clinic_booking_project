@@ -1,0 +1,5 @@
+<% clinics.each do |clinic| %>
+  <%= render(partial: 'shared/clinic', locals: { clinic: clinic }) if clinic.present? %>
+<% end %>
+
+<%= no_clinics_check(clinics) %>

@@ -1,15 +1,50 @@
-<div class="clinic col s12 m6 l4">
-  <div class="clinic-name">
-    <%= clinic.name %>
+<div class="clinic col s12 m6 l6">
+  <div class="clinic-name center-align">
+    <a href="<%= clinic_path(clinic) %>">
+      <h5><%= clinic.name %></h5>
+    </a>
   </div>
-  <div class="clinic-photo">
-    <%= image_tag clinic.photos %>
+  <div class="row">
+    <div class="clinic-photo col s12 m4 l3 center-align">
+      <%= image_tag clinic.photos || 'https://dwbxi9io9o7ce.cloudfront.net/images/2016-04-15_031825.7928940000.JPG' %>
+      <span class="clinic-distance"><strong><i class="material-icons">my_location</i>2.3km</strong></span>
+    </div>
+    <div class="clinic-details col s12 m8 l9">
+      <div class="row">
+        <div class="clinic-address">
+          <span><i class="material-icons">place</i><%= clinic.address %></span>
+        </div>
+        <div class="clinic-phone">
+          <i class="material-icons">phone</i><%= clinic.phone %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="clinic-expertise">
+          <i class="material-icons">local_hospital</i>
+          <% clinic.expertises.each do |e| %>
+            <%= e %>
+          <% end %>
+        </div>
+        <!-- NUMBER OF DOCTORS -->
+        <span>
+          <i class="material-icons">perm_identity</i><span><%= clinic.doctors.count %> bac si</span>
+        </span>
+        <br>
+        <!-- LIST OF DOCTOR -->
+        <% clinic.doctors.take(3).each do |doctor| %>
+          <a class="chip" href="<%= doctor_path(doctor) %>" class: 'blue-text'>
+            <%= image_tag doctor.avatar || 'https://randomuser.me/api/portraits/men/94.jpg' %>
+            <%= doctor.name %>
+          </a>
+        <% end %>
+      </div>
+    </div>
   </div>
 
-  <div class="clinic-address">
-    <p>
-      <i class="material-icons">place</i>
-      <%= clinic.address %>
-    </p>
+  <div class="action center-align">
+    <button class="btn light-blue">
+      Dat Kham
+    </button>
   </div>
 </div>

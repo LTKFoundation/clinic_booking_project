@@ -1,8 +1,8 @@
 class Clinic < ApplicationRecord
   # Only show verified clinic to users and doctors
-  def self.default_scope
-    where.not(verified_at: nil)
-  end
+  # def self.default_scope
+  #   where.not(verified_at: nil)
+  # end
 
   has_many :gigs
   has_many :doctors, through: :gigs
@@ -71,7 +71,26 @@ class Clinic < ApplicationRecord
 		@return
 	end
 
-  def self.default_clinics
-    Clinic.create name: 'Hong ngoc', address: 'Dai La, Hai Ba Trung'
+
+  include PgSearch
+  pg_search_scope :search_by_city, :against => :address
+  pg_search_scope :search_by_expertise,
+    associated_against: { doctors: [ :expertise ] }
+
+  def expertises
+    expertises = []
+    self.doctors.each do |doctor| expertises << doctor.expertise if not expertises.include?(doctor.expertise) end
+    return expertises
+  end
+
+  def available?(expect_time)
+    gigs.each do |g|
+      g.schedules.each do |s|
+        if s.available?(expect_time)
+          return true
+        end
+      end
+    end
+    false
   end
 end

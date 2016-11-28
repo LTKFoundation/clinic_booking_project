@@ -65,5 +65,7 @@ Rails.application.routes.draw do
   # Use with current_user
   resources :payment_method
 
+  get '/search', to: 'search#index', as: :search
+
   root 'home#index'
 end

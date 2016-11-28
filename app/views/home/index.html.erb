@@ -1,7 +1,7 @@
 <h3 class="center-align">Danh sách phong kham</h3>
 
 <!-- QUERY SECTION -->
-<%= form_tag(nil, method: 'get', remote: true, id: 'form-filter') do %>
+<%= form_tag(search_path, method: 'get', remote: true, id: 'form-filter') do %>
   <div class="section">
     <div class="row">
       <!-- CITY -->
@@ -75,17 +75,15 @@
 
 <!-- LIST OF DOCTORS -->
 <div class="section">
-  <div class="row">
-     <% @clinics.each do |clinic| %>
-       <%= render partial: 'shared/clinic', locals: { clinic: clinic } %>
-     <% end %>
-  </div>
+   <div class="row clinics">
+     <%= render partial: 'shared/clinics', locals: { clinics: @clinics } %>
+   </div>
 </div>
 
 <div class="divider">
 
 </div>
 
-<div class="clearfix">
-  <%= will_paginate @doctors, :class => "digg_pagination right" %>
-</div>
+<!-- <div class="clearfix">
+  <%# will_paginate @doctors, :class => "digg_pagination right" %>
+</div> -->
