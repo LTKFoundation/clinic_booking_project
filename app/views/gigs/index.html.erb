@@ -1,9 +1,13 @@
 <div class="row">
     <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s3"><a href="#doctor_tab">Bác sĩ</a></li>
-        <li class="tab col s3"><a class="active" href="#clinic_tab">Phòng khám</a></li>
-      </ul>
+      <nav>
+        <div class="nav-wrapper">
+          <div class="col s12">
+            <%= link_to "Thông tin bác sĩ", edit_doctor_registration_path, class: "breadcrumb"%>
+            <%= link_to "Thông tin phòng khám", doctor_gigs_path(curent_doctor.id), class: "breadcrumb"%>
+          </div>
+        </div>
+      </nav>
     </div>
     <div id="doctor_tab" class="col s12">
     </div>
@@ -16,12 +20,12 @@
           <p>Thông tin dịch vụ</p>
           <div class="form-group">
             <label for="clinic_id">Chọn phòng khám</label>
-            <div class="form-control">
-              <%= text_field_tag 'clinic_name', nil, class: 'typeahead' %>
+            <div class="form-control col s12">
+              <%= text_field_tag 'clinic_name', nil, class: 'typeahead', placeholder: 'gõ tên phòng khám để tìm kiếm' %>
               <%= new_gig_form.hidden_field :clinic_id %>
             </div>
           </div>
-
+          <p>Không tìm thấy phòng khám của bác sĩ? Mời bác sĩ <%= link_to "tạo phòng khám của mình tại đây", add_clinic_page_clinics_path, method: 'get' %></p>
           <div class="form-group">
             <label for="price">Giá dịch vụ khám bệnh</label>
             <div class="input-field col s12">

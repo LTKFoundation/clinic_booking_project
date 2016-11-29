@@ -27,12 +27,8 @@
       <%= link_to 'Datkham.Online', root_path, class: "brand-logo", id: "logo-container" %>
 
         <ul class="right hide-on-med-and-down">
-          <li><a href="#">Home</a></li>
           <li>
             <%= link_to "Bản đồ phòng khám", clinics_path, method: 'get' %>
-          </li>
-          <li>
-            <%= link_to "Thêm phòng khám", doctor_signed_in? ? add_clinic_page_clinics_path : add_clinic_page_client_clinics_path, method: 'get' %>
           </li>
           <% if current_user %>
             <!-- Dropdown Trigger -->
@@ -108,10 +104,7 @@
         <div class="row">
           <div class="col l6 s12">
             <h5 class="white-text">About Us</h5>
-            <p class="grey-text text-lighten-4">Lorem ipsum dolor sit amet, consectetur adipisicing
-            elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+            <p class="grey-text text-lighten-4">Lorem ipsum dolor sit amet, </p>
 
 
           </div>

@@ -1,9 +1,4 @@
 class Clinic < ApplicationRecord
-  # Only show verified clinic to users and doctors
-  def self.default_scope
-    where.not(verified_at: nil)
-  end
-
   has_many :gigs
   has_many :doctors, through: :gigs
 
@@ -27,20 +22,6 @@ class Clinic < ApplicationRecord
 			@return = all_clinic
 		end
 
-		@return
-	end
-
-	def self.all_clinic_with_gig
-		logger.debug "Querying all clinics from DB....."
-		@return = []
-		@clinics = Clinic.left_outer_joins(:gigs).uniq.select("clinics.*, gigs.id as gig_id, gigs.doctor_id as doctor_id")
-		# @clinics = Clinic.all
-		if @clinics
-			@clinics.each do |clinic|
-				@return.push([clinic.latitude,clinic.longtitude,clinic.name,clinic.address,clinic.id,clinic.gig_id,clinic.doctor_id])
-				logger.debug "Added: lat:"+clinic.latitude.to_s+"||"+clinic.longtitude.to_s+"|clinic:"+clinic.id.to_s+"gig:"+clinic.gig_id.to_s+" to return array"
-			end
-		end
 		@return
 	end
 

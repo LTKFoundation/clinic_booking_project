@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Tìm bác sỹ gần đây</title>
+    <title>Thêm phòng khám bạn biết</title>
   </head>
 <body>
 
@@ -13,7 +13,7 @@
     </div>
 
     <div class = "input-field">
-      <%= f.text_field :address%>
+      <%= f.text_field :address, placeholder: ''%>
       <%= f.label :address %>
     </div>
       <%= f.hidden_field :latitude, id: 'map-lat', value: "" %>
@@ -28,9 +28,9 @@
     <div><%= f.submit "Create", class: "btn waves-effect waves-light" %></div>
   <% end %>
 
-  <script src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMap' >
+  <script src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapWithCurLoc' >
         $(document).ready(function() {
-            initMap();
+            initMapWithCurLoc();
 
          });
   </script>

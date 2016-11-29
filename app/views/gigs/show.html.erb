@@ -1,16 +1,16 @@
 <!--TODO: @Tu please help to do fix the label thing, it's overlap the value-->
 <div class="row">
     <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s3"><a href="#doctor_tab">Bác sĩ</a></li>
-        <li class="tab col s3"><a class="active" href="#clinic_tab">Phòng khám</a></li>
-				
-      </ul>
+      <nav>
+        <div class="nav-wrapper">
+          <div class="col s12">
+            <%= link_to "Thông tin bác sĩ", edit_doctor_registration_path, class: "breadcrumb"%>
+            <%= link_to "Thông tin phòng khám", doctor_gigs_path(current_doctor.id), class: "breadcrumb"%>
+            <%= link_to "Thông tin dịch vụ", doctor_gigs_path(current_doctor.id), class: "breadcrumb"%>
+          </div>
+        </div>
+      </nav>
     </div>
-    <div id="doctor_tab" class="col s12">
-		</div>
-    <div id="clinic_tab" class="col s12">
-			<h5>Thông tin phòng khám</h5>
 			<% if @gig %>
 			<div class="row">
 				<div class="col s8">
@@ -95,7 +95,7 @@
 					</button>
 				<% end %>
 			<% end %>
-		</div>
+		
 </div>
 <script>
 $(document).on('turbolinks:load', function() {

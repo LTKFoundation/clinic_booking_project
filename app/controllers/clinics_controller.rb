@@ -26,12 +26,6 @@ class ClinicsController < ApplicationController
     logger.debug "GET ADD CLINIC PAGE"
   end
 
-  def add_clinic_page
-    gon.watch.doctor_clinics = @@doctor_clinics
-    @@doctor_clinics = Clinic.clinic_around(nil)
-    logger.debug "GET ADD CLINIC PAGE"
-  end
-
   def add_clinic
     logger.debug "adding new Clinic => Name:"+params[:name]+
     " Lat: "+ params[:latitude].to_s+
@@ -63,12 +57,11 @@ class ClinicsController < ApplicationController
     FROM clinics ORDER BY distance_from_current_location ASC", @@cur_loc[0].to_s.to_f, @@cur_loc[1].to_s.to_f]
   end
 
-
   def create
     @clinic = Clinic.new clinic_params
     if @clinic.save
       flash[:success] = "Created Clinic"
-      redirect_to clinics_path
+      redirect_to doctor_gigs_path(clinic_params[:doctor_id])
     else
       flash[:error] = "cant create clinic"
       if doctor_signed_in? then render add_clinic_page else render add_clinic_page_client end

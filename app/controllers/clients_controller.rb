@@ -135,21 +135,6 @@ class ClientsController < ApplicationController
 		end
 	end
 
-	def roll_array(array,first_pos)
-		@return_arr = []
-		i = 0
-		while i < array.size
-			@return_arr.push(array[first_pos-1])
-			if(first_pos == array.size-1)
-				first_pos = 0
-			else
-				first_pos = first_pos + 1
-			end
-			i = i + 1
-		end
-		@return_arr
-	end
-
 	def print_array(array2dim)
 		i = 0
 		array2dim.each do |array|
