@@ -100,40 +100,28 @@
     </div>
 
     <!-- Site Footer -->
-    <footer class="page-footer orange">
+    <footer class="page-footer grey">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
-            <h5 class="white-text">About Us</h5>
-            <p class="grey-text text-lighten-4">Lorem ipsum dolor sit amet, consectetur adipisicing
-            elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-
-
+            <p class="grey-text text-lighten-4">
+              A little effort in solving a small pain of our society 
+            </p>
           </div>
           <div class="col l3 s12">
             <% unless user_signed_in? or doctor_signed_in? %>
-              <h5 class="white-text">For doctors</h5>
+              <h6 class="white-text">For doctors</h6>
               <ul>
                 <li><%= link_to "Sign in", new_doctor_session_path, class: "white-text" %></li>
                 <li><%= link_to "Sign up", new_doctor_registration_path, class: "white-text" %></li>
               </ul>
             <% end %>
           </div>
-          <div class="col l3 s12">
-            <h5 class="white-text">Connect</h5>
-            <ul>
-              <li><a class="white-text" href="#!">Link 1</a></li>
-              <li><a class="white-text" href="#!">Link 2</a></li>
-              <li><a class="white-text" href="#!">Link 3</a></li>
-            </ul>
-          </div>
         </div>
       </div>
       <div class="footer-copyright">
         <div class="container">
-        Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+        Inspired by <a class="orange-text text-lighten-3" href="http://www.coderschool.vn/">CoderSchool.vn</a>
         </div>
       </div>
     </footer>

@@ -50,7 +50,7 @@
 										<%= hidden_field_tag "clinic_id", @gig.clinic.id %>
 										<%= hidden_field_tag "gig_id", @gig.id %>
 										<%= hidden_field_tag "timeslot", data_col["value"]+" "+data_col["display"] %>
-									<td><%= submit_tag data_col["display"], class:"link" %></td>
+                  <td><%= button_tag data_col["display"], :class => "waves-effect waves-light btn blue"%></td>
 								<% end %>
 							<% else %>
 								<td><%= label_tag data_col["display"]%></td>
