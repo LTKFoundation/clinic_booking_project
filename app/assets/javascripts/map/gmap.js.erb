@@ -90,31 +90,61 @@ function addClinic(lat, lng) {
   $.post('/clinics/add_clinic', { name: "Dr. Slum", latitude: lat, longtitude: lng, doctor_id:"-1", address:"somewhere over the rainbow" });
 }
 
-function showDoctor(lat, lng, dr_name) {
+function showDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo, clinic_id, gig_id, doctor_id) {
   var pos = {
     lat: lat,
     lng: lng
   };
   var marker = createCustomMarker(pos, map, dr_name, false);
 
-    var contentString = '<div class="card">'+
-  '<div class="card-content">'+
-    '<div class="row">'+
-    '<div class="col s4">'+
-     ' <img src="http://lorempixel.com/400/400/people" style="width: 100px; height: 100px; border-radius: 50%;">'+
-    '</div>'+
-    '<div class="col s8">'+
-     ' <h4>'+dr_name+'</h4>'+
-    '  <p>'+
-     '   </p>'+
-    '  </div>'+
-   ' </div>'+
-  '</div>'+
-  '<div class="card-action">'+
-    '<a href="/doctors/7">Thông tin</a>'+
-   ' <a class="blue-text" href="/doctors/7/gigs/1/client_view">Đặt khám</a>'+
-  '</div>'+
-  '</div>';
+    var contentString = 
+'<div class="clinic col s12"> '+
+'  <div class="card"> '+
+'    <div class="card-image"> '+
+        '<img class="clinic-photo" src="'+clinic_photo+'">'+
+'    </div> '+
+'    <div class="card-content"> '+
+'      <div class="row"> '+
+'        <div class="basic-info" style="margin-top: 10px;"> '+
+'          <p> '+
+'            <i class="material-icons">home</i> '+
+'                <a href="/clinics/'+clinic_id+'">'+clinic_name+'</a> '+
+'          </p> '+
+'          <p> '+
+'            <i class="material-icons">place</i>'+clinic_add+
+'          </p></div></div></div></div></div>';
+  if(clinic_photo==null)
+  {
+    clinic_photo = 'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg';
+  }
+
+  if(dr_name!=null){
+contentString = 
+'<div class="clinic col s12"> '+
+'  <div class="card"> '+
+'    <div class="card-image"> '+
+        '<img class="clinic-photo" src="'+clinic_photo+'">'+
+'    </div> '+
+'    <div class="card-content"> '+
+'      <div class="row"> '+
+'        <div class="basic-info" style="margin-top: 10px;"> '+
+'          <p> '+
+'            <i class="material-icons">home</i> '+
+'                <a href="/clinics/'+clinic_id+'">'+clinic_name+'</a> '+
+'          </p> '+
+'          <p> '+
+'            <i class="material-icons">account_circle</i> '+
+'                <a href="/doctors/'+doctor_id+'">'+dr_name+'</a> '+
+'          </p> '+
+'          <p> '+
+'            <i class="material-icons">place</i>'+clinic_add+
+'          </p> '+
+'          <p> '+
+'                <a href="doctors/'+doctor_id+'/gigs/'+gig_id+'/client_view">Đặt khám ngay</a> '+
+'          </p> '+
+'</div></div></div></div></div>';
+  }
+
 
 
   var user_window = new google.maps.InfoWindow({ content: contentString });
@@ -132,7 +162,7 @@ function displayDoctors() {
     for (var i = 0; i < a.length; i++) {
             console.log("Doctor number " + i);
       var doctor = a[i];
-      showDoctor(doctor[0], doctor[1], doctor[2]);
+      showDoctor(doctor[0], doctor[1], doctor[2], doctor[3], doctor[9], doctor[7], doctor[4], doctor[5], doctor[6]);
     }
   }
 }

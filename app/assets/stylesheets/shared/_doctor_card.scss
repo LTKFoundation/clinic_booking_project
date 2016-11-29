@@ -1,60 +1,80 @@
 .doctor {
-  font-size: 14px;
-
-  .row {
-    margin: 0;
-  }
-
-  .card {
-
-    .card-image img {
-      width: auto;
-      max-width: 100%;
-      margin: 0 auto;
-      height: 200px;
+    font-size: 14px;
+    .row {
+        margin: 0;
     }
-
-    .card-content {
-      .material-icons, .mi {
-        text-align: center;
-        display: inline-block;
-        vertical-align: middle;
-        margin-right: 5px;
-      }
-
-      .doctor-avatar {
-        max-width: 100px;
-        height: auto;
-        overflow: hidden;
-      }
-
-      .doctor-name {
-        font-size: 20px;
-      }
-
-      .basic-info {
-        color: #666;
-
-        p {
-          margin-bottom: 5px;
+    .card {
+        .card-image img {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            height: 200px;
         }
-
-        .verify-mark {}
-      }
-
-      .doctor-description {
-        padding-top: 20px;
-        height: 100px;
-        text-align: justify;
-      }
+        .card-content {
+            .material-icons,
+            .mi {
+                text-align: center;
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+            .doctor-avatar {
+                max-width: 100px;
+                height: auto;
+                overflow: hidden;
+            }
+            .doctor-name {
+                font-size: 20px;
+            }
+            .basic-info {
+                color: #666;
+                p {
+                    margin-bottom: 5px;
+                }
+                .verify-mark {}
+            }
+            .doctor-description {
+                padding-top: 20px;
+                height: 100px;
+                text-align: justify;
+            }
+        }
     }
-  }
+}
+
+.clinic {
+    font-size: 14px;
+    .row {
+        margin: 0;
+    }
+    .card {
+        .card-image img {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            height: 100px;
+        }
+        .card-content {
+            .material-icons,
+            .mi {
+                text-align: center;
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+            .clinic-photo {
+                max-width: 60px;
+                height: auto;
+                overflow: hidden;
+            }
+        }
+    }
 }
 
 .reaction {
-  color: #666;
-
-  .material-icons, .mi {
-    font-size: inherit;
-  }
+    color: #666;
+    .material-icons,
+    .mi {
+        font-size: inherit;
+    }
 }
