@@ -90,7 +90,7 @@ function addClinic(lat, lng) {
   $.post('/clinics/add_clinic', { name: "Dr. Slum", latitude: lat, longtitude: lng, doctor_id:"-1", address:"somewhere over the rainbow" });
 }
 
-function showDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo, clinic_id, gig_id, doctor_id) {
+function showDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo, clinic_id, gig_id, doctor_id, doctor_avatar) {
   var pos = {
     lat: lat,
     lng: lng
@@ -113,9 +113,15 @@ function showDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo, cl
 '          <p> '+
 '            <i class="material-icons">place</i>'+clinic_add+
 '          </p></div></div></div></div></div>';
-  if(clinic_photo==null)
+  
+  display_photo = doctor_avatar;
+  if(display_photo==null)
   {
-    clinic_photo = 'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg';
+    display_photo = clinic_photo;
+    if(display_photo==null)
+    {
+      display_photo = 'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg';
+    }
   }
 
   if(dr_name!=null){
@@ -123,7 +129,7 @@ contentString =
 '<div class="clinic col s12"> '+
 '  <div class="card"> '+
 '    <div class="card-image"> '+
-        '<img class="clinic-photo" src="'+clinic_photo+'">'+
+        '<img class="clinic-photo" src="'+display_photo+'">'+
 '    </div> '+
 '    <div class="card-content"> '+
 '      <div class="row"> '+
@@ -162,7 +168,7 @@ function displayDoctors() {
     for (var i = 0; i < a.length; i++) {
             console.log("Doctor number " + i);
       var doctor = a[i];
-      showDoctor(doctor[0], doctor[1], doctor[2], doctor[3], doctor[9], doctor[7], doctor[4], doctor[5], doctor[6]);
+      showDoctor(doctor[0], doctor[1], doctor[2], doctor[3], doctor[9], doctor[7], doctor[4], doctor[5], doctor[6], doctor[12]);
     }
   }
 }
