@@ -1,0 +1,13 @@
+<% if @bookings %>
+  <ul class="collection with-header">
+  <li class="collection-header"><h4>Lịch đặt khám của bạn</h4></li>
+  <% @bookings.each do |booking| %>
+    <li class="collection-item">
+      <%=render partial: "shared/cart_item", locals:{booking: booking} %>
+      <p>Mã xác nhận: <b><%= booking.confirm_code%></b></p>
+    </li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>Bạn chưa có đặt khám nào. <%= link_to "Hãy chọn 1 phòng khám để đặt lịch khám", clinics_path%></p>
+<% end %>

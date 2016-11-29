@@ -40,6 +40,7 @@
              <!-- Dropdown Structure -->
              <ul id='currentUserAction' class='dropdown-content'>
                <li><%= link_to "Cá nhân", edit_user_registration_path %></li>
+               <li><%= link_to "Phiếu khám", view_my_booking_path %></li>
                <li class="divider"></li>
                <li><%= link_to "Đăng xuất", destroy_user_session_path, :method => 'delete' %></li>
              </ul>

@@ -2,6 +2,6 @@
   <h5>BẠN ĐÃ ĐẶT KHÁM THÀNH CÔNG</h5>
 	<% @bookings.each do |booking|%>
      <h6>CONFIRMATION CODE: <b><%= booking.confirm_code%></b></h6>
-     <%=render partial: "cart_item", locals:{booking: booking} %>
+     <%=render partial: "shared/cart_item", locals:{booking: booking} %>
 	 <% end %>
 </div>

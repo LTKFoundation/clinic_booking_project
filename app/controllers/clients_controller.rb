@@ -14,6 +14,10 @@ class ClientsController < ApplicationController
   def destroy
   end
 
+  def view_my_booking
+    @bookings = Booking.where(user_id: current_user.id)
+  end
+
 	def view_gig
 		@doctor = Doctor.where(id: params[:doctor_id])
 		@gig = Gig.where(id: params[:gig_id]).first

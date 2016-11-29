@@ -62,6 +62,7 @@ Rails.application.routes.draw do
 		end
 	end
 
+  get 'view_my_booking' => 'clients#view_my_booking'
   # Use with current_user
   resources :payment_method
 

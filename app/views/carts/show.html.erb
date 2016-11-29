@@ -2,7 +2,7 @@
 <% if @bookings %>
 	<%= form_for @cart do |cart|%>
 		<% @bookings.each do |booking|%>
-      <%=render partial: "cart_item", locals:{booking: booking} %>
+      <%=render partial: "shared/cart_item", locals:{booking: booking} %>
 		<% end %>
 		<button class="btn waves-effect waves-light" type="submit" name="action">
 				Thanh Toán<i class="material-icons right">send</i>

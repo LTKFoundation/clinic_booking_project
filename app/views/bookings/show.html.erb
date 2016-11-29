@@ -1,20 +1,16 @@
 <h1>Thông tin đặt khám</h1>
 <div class="row">
 			<div class="row s12">
-        <%= form_for @booking, :html => { :onsubmit => "return verify_code('#{@booking.confirm_code}')"} do |f|%>
-          <p class="col s3">Xác nhận mã đặt chỗ:</p>
+        <%= form_for @booking, :html => { :onsubmit => "verify_code('#{@booking.confirm_code}')"} do |f|%>
           <% if @booking.status == "1"%>
-            <div class="col s1">
-              <label for="booking_status">Chưa xác nhận image</label>
-            </div>
+          <p class="col s3">Xác nhận mã đặt chỗ:</p>
             <div class="form-control col s4"><%= text_field_tag :confirm_code %></div>
             <button class="btn waves-effect waves-light col s2" id="button_validate" type="submit" name="action">Kiểm tra
               <i class="material-icons right">send</i>
             </button>
           <% elsif @booking.status == "2" %>
-            <div class="col s1">
-              <label for="booking_status">Đã xác nhận image</label>
-            </div>
+          <p class="col s3">Mã đặt chỗ:</p>
+            <i class="material-icons s1">check_circle</i>
             <h5 class="col s4"><%= @booking.confirm_code %></h5>
           <% end %>
         <% end %>
@@ -57,15 +53,12 @@ function verify_code(correct_code){
   inputcode = $('input[id=confirm_code]').val();
   if(inputcode == correct_code)
   {
-    $("label[for='booking_status']").html("CORRECT");
     return true;
   }
   else
   {
     alert("Mã xác nhận không đúng. Xin vui lòng kiểm tra lại!");
-    $("label[for='booking_status']").html("Mã Không Đúng");
     return false;
   }
-  // CONFIRMCODEXYZ123
 }
 </script>
