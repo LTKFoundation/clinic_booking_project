@@ -1,0 +1,15 @@
+<div class ='container' >
+  <div class = 'card-panel'>
+    <h3 class = 'center-align'>Bài viết mới</h3>
+    <%= form_for [@doctor, Article.new] do |f| %>
+      <div class = 'input-field'>
+        <%= f.text_field :title %>
+        <%= f.label :title, "Tiêu đề" %>
+      </div>
+      <p class = 'center-align'><%= f.label :content, "Nội dung" %></p>
+      <div class = 'input-field'>
+        <%= f.text_area :content %>
+      </div>
+    <% end %>
+  </div>
+</div>

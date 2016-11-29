@@ -1,4 +1,10 @@
 class Doctor < ApplicationRecord
+  
+  #Upload Photo
+  mount_uploader :certificate, DoctorCertificateUploader
+  mount_uploader :avatar, DoctorAvatarUploader
+
+
   # Devise stuff
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -13,6 +19,7 @@ class Doctor < ApplicationRecord
   has_many :gigs
   has_many :clinics, through: :gigs
   has_many :comments, :class_name => "DoctorComment"
+  has_many :articles
 
   def verified?
     verified_at.present?

@@ -46,6 +46,9 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'pg_search'
 gem 'sweetalert-rails'
 
+gem 'carrierwave'
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

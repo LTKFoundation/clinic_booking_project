@@ -1,6 +1,13 @@
 <h3>User - Log in</h3>
 <br>
+<% if doctor_signed_in? %>
+  <h2> You have to log our first </h2>
+  <div class = 'container'>
+    <%= link_to "Log Out", destroy_doctor_session_path, method: 'delete', class: "waves-light btn" %>
+    <%= link_to "Back", :back, class: "waves-light btn" %>
+  </div>
 
+<% else %>
 <div class="row">
   <div class="col s12 m6">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -36,3 +43,5 @@
 </div>
 
 <%= render "users/shared/links" %>
+
+<% end %>

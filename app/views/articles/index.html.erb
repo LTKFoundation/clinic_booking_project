@@ -1,0 +1,15 @@
+
+<div class = 'container'>
+  <% @articles.each do |article| %>
+    <div class = 'card-panel hoverable'>
+      <h3 class = 'center-align'>
+        <%= link_to article.title, doctor_article_path(@doctor, article.id) %>
+      </h3>
+      <div class = 'truncate'><%= article.content %></div>
+    </div>
+  <% end %>
+</div>
+
+<% if doctor_signed_in? %>
+  <%= link_to "Bài viết mới", new_doctor_article_path, class: 'waves-effect waves-light btn' %>
+<% end %>

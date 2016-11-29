@@ -1,32 +1,46 @@
 <h3>Đăng kí tài khoản bác sĩ</h3>
 <p>Chào mừng bác sĩ đến với hệ thống Đặt Khám Online</p>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
 
-  <div class="input-field">
-    <%= f.text_field :name, autofocus: true %>
-    <%= f.label :name %>
+<% if user_signed_in? %>
+  <h2> Bạn phải đăng xuất! </h2>
+  <div class = 'container'>
+    <%= link_to "Log Out", destroy_user_session_path, method: 'delete', class: "waves-light btn" %>
+    <%= link_to "Back", :back, class: "waves-light btn" %>
   </div>
 
-  <div class="input-field">
-    <%= f.email_field :email %>
-    <%= f.label :email %>
-  </div>
+<% else %>
+  <h3>Đăng kí tài khoản bác sĩ</h3>
+  <p>Chào mừng bác sĩ đến với hệ thống Đặt Khám Online</p>
 
-  <div class="input-field">
-    <%= f.password_field :password, autocomplete: "off" %>
-    <%= f.label :password %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:multipart => true})  do |f| %>
+    <%= devise_error_messages! %>
 
-  <div class="input-field">
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-    <%= f.label :password_confirmation %>
-  </div>
+    <div class="input-field">
+      <%= f.text_field :name, autofocus: true %>
+      <%= f.label :name %>
+    </div>
 
-  <div class="input-field form-actions">
-    <%= f.button "Sign up", class: "waves-effect waves-light btn", type:"submit" %>
-  </div>
+    <div class="input-field">
+      <%= f.email_field :email %>
+      <%= f.label :email %>
+    </div>
+
+    <div class="input-field">
+      <%= f.password_field :password, autocomplete: "off" %>
+      <%= f.label :password %>
+    </div>
+
+    <div class="input-field">
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      <%= f.label :password_confirmation %>
+    </div>
+
+    <div class="input-field form-actions">
+      <%= f.button "Sign up", class: "waves-effect waves-light btn", type:"submit" %>
+    </div>
+  <% end %>
+
+  <%= render "doctors/shared/links" %>
+
 <% end %>
-
-<%= render "doctors/shared/links" %>
