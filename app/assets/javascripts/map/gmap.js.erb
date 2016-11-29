@@ -97,11 +97,21 @@ function showDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo, cl
   };
   var marker = createCustomMarker(pos, map, dr_name, false);
 
+  display_photo = doctor_avatar;
+  if(display_photo==null)
+  {
+    display_photo = clinic_photo;
+    if(display_photo==null)
+    {
+      display_photo = 'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg';
+    }
+  }
+
     var contentString = 
 '<div class="clinic col s12"> '+
 '  <div class="card"> '+
 '    <div class="card-image"> '+
-        '<img class="clinic-photo" src="'+clinic_photo+'">'+
+        '<img class="clinic-photo" src="'+display_photo+'">'+
 '    </div> '+
 '    <div class="card-content"> '+
 '      <div class="row"> '+
@@ -113,16 +123,6 @@ function showDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo, cl
 '          <p> '+
 '            <i class="material-icons">place</i>'+clinic_add+
 '          </p></div></div></div></div></div>';
-  
-  display_photo = doctor_avatar;
-  if(display_photo==null)
-  {
-    display_photo = clinic_photo;
-    if(display_photo==null)
-    {
-      display_photo = 'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg';
-    }
-  }
 
   if(dr_name!=null){
 contentString = 
