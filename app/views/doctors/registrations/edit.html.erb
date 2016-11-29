@@ -29,6 +29,28 @@
       <%= f.text_field :title %>
     </div>
 
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>Upload Avatar</span>
+        <%= f.file_field :avatar %>
+      </div>
+      <div class="file-path-wrapper">
+        <%= f.text_field :avatar, class: "file-path validate" %>
+      </div>
+    </div>
+
+
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>Upload Certificate</span>
+        <%= f.file_field :certificate %>
+      </div>
+      <div class="file-path-wrapper">
+        <%= f.text_field :certificate, class: "file-path validate" %>
+      </div>
+    </div>
+
+
     <div class="input-field">
       <%= f.label :expertise %>
       <%= f.text_field :expertise %>
@@ -82,5 +104,32 @@
       <%= f.button "Update", class: "waves-effect waves-light btn", type: "submit" %>
       <br><br>
     </div>
+<<<<<<< 13fccfeeb58ceab0180ab46c81d84aeae790ed8d
   <% end %>
 </div>
+=======
+    
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Upload Avatar</span>
+            <%= f.file_field :avatar %>
+          </div>
+          <div class="file-path-wrapper">
+            <%= f.text_field :avatar, class: "file-path validate" %>
+          </div>
+        </div>
+
+
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Upload Certificate</span>
+            <%= f.file_field :certificate %>
+          </div>
+          <div class="file-path-wrapper">
+            <%= f.text_field :certificate, class: "file-path validate" %>
+          </div>
+        </div>
+
+        
+
+  

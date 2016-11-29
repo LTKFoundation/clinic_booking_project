@@ -1,27 +1,35 @@
 <h3>Doctor - Log in</h3>
 <br>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="input-field">
-    <%= f.email_field :email, autofocus: true %>
-    <%= f.label :email %>
+<% if user_signed_in? %>
+  <h2> You have to log our first </h2>
+  <div class = 'container'>
+    <%= link_to "Log Out", destroy_user_session_path, method: 'delete', class: "waves-light btn" %>
+    <%= link_to "Back", :back, class: "waves-light btn" %>
   </div>
 
-  <div class="input-field">
-    <%= f.password_field :password, autocomplete: "off" %>
-    <%= f.label :password %>
-  </div>
+<% else %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="input-field">
+      <%= f.email_field :email, autofocus: true %>
+      <%= f.label :email %>
+    </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <p class="field">
-      <%= f.check_box :remember_me, class: "filled-in" %>
-      <%= f.label :remember_me %>
-    </p>
-  <% end -%>
+    <div class="input-field">
+      <%= f.password_field :password, autocomplete: "off" %>
+      <%= f.label :password %>
+    </div>
 
-  <div class="input-field form-actions">
-    <%= f.button "Log in", class: "waves-effect waves-light btn", type: "submit" %>
-  </div>
+    <% if devise_mapping.rememberable? -%>
+      <p class="field">
+        <%= f.check_box :remember_me, class: "filled-in" %>
+        <%= f.label :remember_me %>
+      </p>
+    <% end -%>
+
+    <div class="input-field form-actions">
+      <%= f.button "Log in", class: "waves-effect waves-light btn", type: "submit" %>
+    </div>
+  <% end %>
+  <br>
+  <%= render "doctors/shared/links" %>
 <% end %>
-<br>
-<%= render "doctors/shared/links" %>

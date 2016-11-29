@@ -1,0 +1,18 @@
+<div class = 'container'>
+  <h1><%= @clinic.name %></h1>
+  <div class = 'col s6 m6'>
+    <div style="background-image:url('<%= @clinic.photos %>');width:300;height:300;overflow:hidden;">
+    </div>
+      <i class="material-icons">location_on</i>
+  </div>
+  <div id = 'map-container'>
+    <div id = 'map-canvas'></div>
+  </div>
+</div>
+
+<script src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapWithNear'>
+  $(document).ready(function() {
+            loadScript();
+
+         });
+</script>
