@@ -26,23 +26,20 @@ class ClinicsController < ApplicationController
     logger.debug "GET ADD CLINIC PAGE"
   end
 
-  def add_clinic_page
-    gon.watch.doctor_clinics = @@doctor_clinics
-    @@doctor_clinics = Clinic.clinic_around(nil)
-    logger.debug "GET ADD CLINIC PAGE"
+  def show
+    @clinic = Clinic.where(id: params[:id]).first
   end
-
-  def add_clinic
-    logger.debug "adding new Clinic => Name:"+params[:name]+
-    " Lat: "+ params[:latitude].to_s+
-    " Lng: "+ params[:longtitude].to_s
-    @clinic = Clinic.create!(doctor_id: params[:doctor],name: params[:name],address: params[:address],
-    latitude: params[:latitude].to_s.to_f, longtitude: params[:longtitude].to_s.to_f)
-    unless @clinic
-      raise 'CAN NOT ADD CLINIC'
-    end
-    @clinic_near_by = Clinic.clinic_around(@@cur_loc)
-  end
+  # def add_clinic
+  #   logger.debug "adding new Clinic => Name:"+params[:name]+
+  #   " Lat: "+ params[:latitude].to_s+
+  #   " Lng: "+ params[:longtitude].to_s
+  #   @clinic = Clinic.create!(doctor_id: params[:doctor],name: params[:name],address: params[:address],
+  #   latitude: params[:latitude].to_s.to_f, longtitude: params[:longtitude].to_s.to_f)
+  #   unless @clinic
+  #     raise 'CAN NOT ADD CLINIC'
+  #   end
+  #   @clinic_near_by = Clinic.clinic_around(@@cur_loc)
+  # end
 
   def clinic_near_by
     logger.debug "Loading Clinics near Loc: "+@@cur_loc[0].to_s+"||"+@@cur_loc[1].to_s
@@ -67,8 +64,12 @@ class ClinicsController < ApplicationController
   def create
     @clinic = Clinic.new clinic_params
     if @clinic.save
-      flash[:success] = "Created Clinic"
-      redirect_to clinics_path
+      flash[:success] = "Đã tạo phòng khám thành công"
+      if doctor_signed_in? 
+        redirect_to doctor_gigs_path(clinic_params[:doctor_id])
+      else
+        redirect_to clinics_path
+      end
     else
       flash[:error] = "cant create clinic"
       if doctor_signed_in? then render add_clinic_page else render add_clinic_page_client end
@@ -78,6 +79,6 @@ class ClinicsController < ApplicationController
   private
 
   def clinic_params
-    params.require(:clinic).permit(:doctor_id, :name, :address, :longtitude, :latitude, :photos)
+    params.require(:clinic).permit(:doctor_id, :user_id, :name, :address, :longtitude, :latitude, :photos)
   end
 end

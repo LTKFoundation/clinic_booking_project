@@ -70,7 +70,7 @@ class CartsController < ApplicationController
 	end
 	#TODO generate true random code
 	def generate_confirm_code
-		code = "CONFIRMCODEXYZ123"
+		code = ('A'..'Z').to_a.shuffle[0,8].join
 	end
 
 	def current_cart(user_id)

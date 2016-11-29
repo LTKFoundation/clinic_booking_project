@@ -1,35 +1,62 @@
-<div class="card">
-	<div class="card-content">
-		<span class="card-title"><%=gig[2]%></span>
-		<p><%=gig[3]%></p>
-	</div>
-	<div class="card-action">
-		<% if gig[4]!=nil%>
-			<%=link_to "Xem thông tin" ,clinic_path(gig[4])%>
-		<% end%>
-		<% if gig[5]!=nil%>
-			<%=link_to "Đặt khám ngay", doctor_gig_client_view_path(gig[6],gig[5])%>
-		<% end %>
-	</div>
-  <div class="card-action">
-    <div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div>
+<div class="doctor col s12">
+  <div class="card">
+    <!-- BASIS INFO OF DOCTOR -->
+    <% if gig[6] %>
+    <div class="card-image">
+      <a href="<%= doctor_path(gig[6]) %>">
+        <%= image_tag gig[11]?gig[11]:'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg',
+         class: 'doctor-avatar' %>
+      </a>
+    </div>
+    <% else %>
+    <div class="card-image">
+      <a href="<%= clinic_path(gig[4]) %>">
+        <%= image_tag gig[7]?gig[7]:'http://classroomclipart.com/images/gallery/Clipart/Architecture/medical-clinic-2-building-clipart-046.jpg',
+         class: 'doctor-avatar' %>
+      </a>
+    </div>
+    <% end %>
+
+    <div class="card-content">
+      <div class="row">
+        <!-- DOCTORS NAME -->
+        <% if gig[6] %>
+        <a href="<%= doctor_path(gig[6]) %>" class="doctor-name">
+          Bác sĩ <%= gig[9] %>
+        </a>
+        <% end %>
+        <div class="basic-info" style="margin-top: 10px;">
+          <!-- LIST OF CLINICS -->
+          <p class="doctor-clinics">
+            <i class="material-icons">home</i>
+                <%= link_to "#{gig[2]}", clinic_path(gig[4]) %>
+          </p>
+          <p class="doctor-clinics">
+            <i class="material-icons">place</i>
+                <%= gig[3] %>
+          </p>
+          <!-- DOCTOR'S EXPERTISE -->
+          <p class="doctor-expertise">
+            <i class="material-icons">local_hospital</i>
+            <%= link_to gig[10] || 'Không có', '', style: 'color: #666' %>
+          </p>
+          <!-- DOCTOR'S VERIFIED MARK -->
+          <p class="verify-mark">
+            <% if gig[11] %>
+              <i class="material-icons green-text darken-2">check_circle</i>
+              Đã xác nhận
+            <% else %>
+              <i class="material-icons orange-text">warning</i>
+              Chưa xác nhận
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <% if gig[5]!=nil%>
+      <div class="card-action">
+        <%=link_to "Đặt khám ngay", doctor_gig_client_view_path(gig[6],gig[5])%>
+      </div>
+    <% end %>
   </div>
 </div>
-
-<script type="text/javascript">
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '180807378662921',
-      xfbml      : true,
-      version    : 'v2.8'
-    });
-  };
-
-(function(d, s, id){
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
