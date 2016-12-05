@@ -1,4 +1,5 @@
 class CartsController < ApplicationController
+  before_action :authenticate_user!
 	def create
 		user_id = params[:user_id]
 			@gig = Gig.find_by_id(params[:gig_id])
@@ -70,7 +71,7 @@ class CartsController < ApplicationController
 	end
 	#TODO generate true random code
 	def generate_confirm_code
-		code = ('A'..'Z').to_a.shuffle[0,8].join
+		code = ('A'..'Z').to_a.shuffle[0,4].join
 	end
 
 	def current_cart(user_id)

@@ -1,4 +1,7 @@
 class BookingsController < ApplicationController
+  # before_action :authenticate_user!
+  # before_action :authenticate_doctor!
+  before_action :authenticate_user_or_doctor
   def new
   end
 
@@ -23,14 +26,13 @@ class BookingsController < ApplicationController
     end
   end
 
-  def update
-    @booking = Booking.find_by_id params[:id]
+  def show_checked
+    @booking = Booking.find_by_id params[:booking_id]
     @booking.status = "2"
     @booking.save
   end
 
   def show
     @booking = Booking.find_by_id(params[:id])
-    # gon.verify_code = @booking.confirm_code
   end
 end

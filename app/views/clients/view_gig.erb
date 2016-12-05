@@ -44,14 +44,20 @@
 					<% data_row.each_with_index do |data_col, row_index|%>
 						<% if data_col["display"].length > 0 %>
 							<% if data_col["value"].length > 0 %>
-								<%= form_for Cart.new do |cart| %>
+                <% if data_col["value"].start_with?('you')%>
+                  <td><%= link_to data_col["display"], view_my_booking_path%></td>
+                <% else %>
+                  <td>
+                  <%= form_for Cart.new do |cart| %>
 										<%= hidden_field_tag "user_id", current_user.id %>
 										<%= hidden_field_tag "doctor_id", @gig.doctor.id %>
 										<%= hidden_field_tag "clinic_id", @gig.clinic.id %>
 										<%= hidden_field_tag "gig_id", @gig.id %>
 										<%= hidden_field_tag "timeslot", data_col["value"]+" "+data_col["display"] %>
-                  <td><%= button_tag data_col["display"], :class => "waves-effect waves-light btn blue"%></td>
-								<% end %>
+                    <button class="waves-effect waves-light btn blue" type="submit" name="action"><%=data_col["display"]%></button>
+                  <% end %>
+                  </td>
+                <% end %>
 							<% else %>
 								<td><%= label_tag data_col["display"]%></td>
 							<% end %>
@@ -64,6 +70,4 @@
 			</tbody>
 		<% end %>
 </table>
-<script>
 
-</script>
