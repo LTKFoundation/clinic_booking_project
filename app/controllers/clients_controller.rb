@@ -133,7 +133,7 @@ class ClientsController < ApplicationController
 			daily_schedule.each_with_index do |timeslot, index|
         if index > 0
           check_val = timeslot["value"].to_s+" "+timeslot["display"].to_s
-          # logger.debug "checking::#{check_val}................."    
+          logger.debug "Prepare to parse DateTime for #{check_val}................."    
           check_date = DateTime.strptime(check_val, "%d/%m/%Y %I:%M%p") 
           booked_list = Booking.where(gig_id: gig_id,start_at:check_date).where.not(status: "0" ).first
           if booked_list
