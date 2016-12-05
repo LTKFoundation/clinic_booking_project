@@ -132,18 +132,22 @@ class ClientsController < ApplicationController
 		schedules.each do |daily_schedule|
 			daily_schedule.each_with_index do |timeslot, index|
         if index > 0
-          check_val = timeslot["value"].to_s+" "+timeslot["display"].to_s
-          logger.debug "Prepare to parse DateTime for #{check_val}................."    
-          check_date = DateTime.strptime(check_val, "%d/%m/%Y %I:%M%p") 
-          booked_list = Booking.where(gig_id: gig_id,start_at:check_date).where.not(status: "0" ).first
-          if booked_list
-            # logger.debug "Value checked:#{check_val}"
-            if booked_list.user_id == current_user.id
-              timeslot["value"] = "you#{booked_list.id}"
-              timeslot["display"] = "Xem đặt chỗ"              
-            else
-              timeslot["value"] = ""
-              timeslot["display"] = "Đã bận"
+          cur_date = timeslot["value"].to_s
+          cur_time = timeslot["display"].to_s
+          if cur_date.length > 0 && cur_time.length >0
+            check_val = timeslot["value"].to_s+" "+timeslot["display"].to_s
+            logger.debug "Prepare to parse DateTime for #{check_val}................."    
+            check_date = DateTime.strptime(check_val, "%d/%m/%Y %I:%M%p") 
+            booked_list = Booking.where(gig_id: gig_id,start_at:check_date).where.not(status: "0" ).first
+            if booked_list
+              # logger.debug "Value checked:#{check_val}"
+              if booked_list.user_id == current_user.id
+                timeslot["value"] = "you#{booked_list.id}"
+                timeslot["display"] = "Xem đặt chỗ"              
+              else
+                timeslot["value"] = ""
+                timeslot["display"] = "Đã bận"
+              end
             end
           end
         end
