@@ -1,39 +1,7 @@
 <div class="row">
-BẠN ĐÃ ĐẶT KHÁM THÀNH CÔNG. CHI TIẾT ĐẶT KHÁM:
-		<% @bookings.each do |booking|%>
-			<div class="row s12">
-				CONFIRMATION CODE: <%= booking.confirm_code%>
-			</div>
-			<div class="row s12">
-				<div class="col s6">
-					<p> Phòng khám</p>
-					<div class="row">
-						<div class="label col">Phòng khám: <%= booking.gig.clinic.name %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Địa chỉ: <%= booking.gig.clinic.address %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Doctor Name: <%= booking.gig.doctor.name %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Doctor Name: <%= booking.gig.doctor.expertise %></div>
-					</div>
-			</div>
-				<div class="col s6">
-					<p> Lịch khám</p>
-					<div class="row">
-						<div class="label col">Giờ khám <%= booking.start_at %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Giá dịch vụ <%= booking.price %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Phí đặt cọc (hoàn lại) <%= booking.deposit %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Trạng thái <%= booking.status %></div>
-					</div>
-			</div>
-	<% end %>
+  <h5>BẠN ĐÃ ĐẶT KHÁM THÀNH CÔNG</h5>
+	<% @bookings.each do |booking|%>
+     <h6>CONFIRMATION CODE: <b><%= booking.confirm_code%></b></h6>
+     <%=render partial: "shared/cart_item", locals:{booking: booking} %>
+	 <% end %>
 </div>

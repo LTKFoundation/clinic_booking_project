@@ -3,10 +3,10 @@
 
 <!-- Doctor overview -->
 <div class="row">
-  <div class="col s12 m4">
+  <div class="doctor col s12 m4">
     <div class="card">
       <div class="card-image">
-        <img src="http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg">
+        <%= image_tag @doctor.avatar_or_none, class: 'doctor-avatar' %>
       </div>
       <div class="card-content">
         <h5>Bác sĩ <%= @doctor.name %></h5>
@@ -14,7 +14,7 @@
       </div>
       <div class="card-action">
         <ul>
-          <li><strong>Chuyên khoa:</strong><%= @doctor.expertise %></li>
+          <li><strong>Chuyên khoa: </strong><%= @doctor.expertise %></li>
           <!-- <li><strong>Ngày khám</strong> Thứ 2, Thứ 4, Thứ 6</li> -->
         </ul>
       </div>
@@ -25,7 +25,7 @@
       <div class="card-content">
         <div class="card-title">Bác sĩ <%= @doctor.name %></div>
 
-        <div class="description">
+        <div class="description" style="white-space: pre-line;">
           <%= @doctor.description %>
         </div>
       </div>
@@ -112,11 +112,17 @@
         $('.btn-submit').addClass('disabled');
       })
       .bind("ajax:success", function(evt, data, status, xhr) {
-        sweetAlert("Thành công", "Bình luận của bạn đã được thêm thành công!");
-        location.reload();
+        swal({
+          title: "Thành công!",
+          text: "Bình luận của bạn đã được thêm thành công! Load lại trang để thấy cập nhật",
+          allowEscapeKey: false
+        }, function() {
+          location.reload();
+        });
+
       })
       .bind('ajax:error', function(evt, data, status, xhr) {
-        sweetAlert("Oops...", "Có lỗi, xin hãy xem lại dữ liệu", "error");
+        sweetAlert("Oops...", "Có lỗi, xin hãy nhập hết các ô dữ liệu.", "error");
       })
       .bind('ajax:complete', function(evt, data, status, xhr) {
         $('.btn-submit').removeClass('disabled');

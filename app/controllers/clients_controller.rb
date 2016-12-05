@@ -14,6 +14,10 @@ class ClientsController < ApplicationController
   def destroy
   end
 
+  def view_my_booking
+    @bookings = Booking.where(user_id: current_user.id)
+  end
+
 	def view_gig
 		@doctor = Doctor.where(id: params[:doctor_id])
 		@gig = Gig.where(id: params[:gig_id]).first
@@ -120,17 +124,29 @@ class ClientsController < ApplicationController
 	end
 
 	def update_reserved(schedules,gig_id)
-		booked_list = Booking.where(gig_id: gig_id,status: "1" ).pluck(:start_at)
-		booked_list.each do |booking|
-			logger.debug "Booking at: "+booking.strftime("%m/%d/%Y %I:%M%p")
-		end
+		# booked_list = Booking.where(gig_id: gig_id,status: "1" ).pluck(:start_at)
+    # booked_list = Booking.where(gig_id: gig_id).where.not(status: "0" ).pluck(:start_at)
+		# booked_list.each do |booking|
+		# 	logger.debug "Booked at: "+booking.strftime("%m/%d/%Y %I:%M%p")
+		# end
 		schedules.each do |daily_schedule|
-			daily_schedule.each do |timeslot|
-				check_val = timeslot["value"].to_s+" "+timeslot["display"].to_s
-				if booked_list.include? check_val
-					timeslot["value"] = ""
-					timeslot["display"] = "booked already"
-				end
+			daily_schedule.each_with_index do |timeslot, index|
+        if index > 0
+          check_val = timeslot["value"].to_s+" "+timeslot["display"].to_s
+          # logger.debug "checking::#{check_val}................."    
+          check_date = DateTime.strptime(check_val, "%d/%m/%Y %I:%M%p") 
+          booked_list = Booking.where(gig_id: gig_id,start_at:check_date).where.not(status: "0" ).first
+          if booked_list
+            # logger.debug "Value checked:#{check_val}"
+            if booked_list.user_id == current_user.id
+              timeslot["value"] = "you#{booked_list.id}"
+              timeslot["display"] = "Xem đặt chỗ"              
+            else
+              timeslot["value"] = ""
+              timeslot["display"] = "Đã bận"
+            end
+          end
+        end
 			end
 		end
 	end

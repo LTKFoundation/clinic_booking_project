@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="doctor col s12 m4">
+    <div class="card">
+      <div class="card-image">
+        <%= image_tag @clinic.photo_or_default, class: 'doctor-avatar' %>
+      </div>
+      <div class="card-content">
+        <h6>Phòng khám <%= @clinic.name %></h6>
+        <h6>Địa chỉ <%= @clinic.address %></h6>
+        <h6>Điện thoại <%= @clinic.phone %></h6>
+        <h6><%= @clinic.latitude %></h6>
+        <h6><%= @clinic.longtitude %></h6>
+        <%= hidden_field_tag value: @clinic.latitude, id:"map-lat" %>
+        <%= hidden_field_tag value: @clinic.longtitude, id:"map-ng" %>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m8">
+    <div id="map-container">
+      <div id="map-canvas"></div>
+    </div>
+  </div>
+</div>
+<script>
+<%#TODO: Load this script only when page are loaded and lat and long are set for hidden_field_tag%>
+$(document).on('turbolinks:load', function() {
+  lat_val = $('input[id=map-lat]').val();
+  lng_val = $('input[id=map-lat]').val();
+  loadMapWithOneLoc(lat_val,lng_val);
+});
+</script>

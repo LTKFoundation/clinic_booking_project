@@ -1,0 +1,37 @@
+
+			<div class="row s12">
+				<div class="col s6">
+					<div class="row">
+            <h5> Phòng khám</h5>
+          </div>
+					<div class="row">
+						<div class="label col">Phòng khám: <%= booking.gig.clinic.name %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Địa chỉ: <%= booking.gig.clinic.address %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Bác sĩ: <%= booking.gig.doctor.name %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Chuyên khoa: <%= booking.gig.doctor.expertise %></div>
+					</div>
+			</div>
+				<div class="col s6">
+          <div class="row">
+            <h5>Lịch khám</h5>
+          </div>
+					<div class="row">
+						<div class="label col">Giờ khám: <%= booking.start_at %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Giá dịch vụ: <%= number_to_currency(booking.price, unit: "VNĐ", separator: ",", delimiter: ".", format: "%n %u") %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Phí đặt cọc (hoàn lại vào tiền khám): <%= number_to_currency(booking.deposit, unit: "VNĐ", separator: ",", delimiter: ".", format: "%n %u") %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Trạng thái: <%= booking.status.to_i==0?'Chưa thanh toán':'Đã thanh toán' %>
+            </div>
+					</div>
+			</div>

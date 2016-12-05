@@ -1,17 +1,11 @@
 <h1>Thông tin đặt khám</h1>
 <div class="row">
 			<div class="row s12">
-        <%= form_tag booking_view_checked_path(@booking.id), :method => 'get' do%>
-          <% if @booking.status == "1"%>
-          <p class="col s3">Xác nhận mã đặt chỗ:</p>
-            <div class="form-control col s4"><%= text_field_tag :confirm_code %></div>
-            <%= submit_tag "Kiểm tra", {class: "btn waves-effect waves-light col s2",:name => nil,:onclick => "return verify_code('#{@booking.confirm_code}')"}  %>
-          <% elsif @booking.status == "2" %>
+          <% if @booking.status == "2" %>
           <p class="col s3">Mã đặt chỗ:</p>
             <i class="material-icons s1">check_circle</i>
             <h5 class="col s4"><%= @booking.confirm_code %></h5>
           <% end %>
-        <% end %>
 			</div>
 			<div class="row s12">
 				<div class="col s6">

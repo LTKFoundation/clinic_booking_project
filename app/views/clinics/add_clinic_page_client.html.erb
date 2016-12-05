@@ -8,30 +8,26 @@
   <h3> Đóng góp dữ liệu phòng khám </h3>
   <%= form_for Clinic.new do |f| %>
     <div class = "input-field">
-      <%= f.text_field :name %>
-      <%= f.label :name %>
+      <%= f.text_field :name, placeholder: '' %>
+      <label>Tên phòng khám</label>
     </div>
-
     <div class = "input-field">
-      <%= f.text_field :address%>
-      <%= f.label :address %>
+      <%= f.text_field :address, placeholder: ''%>
+      <label>Địa chỉ</label>
     </div>
       <%= f.hidden_field :latitude, id: 'map-lat', value: "" %>
       <%= f.hidden_field :longtitude, id: 'map-lng', value: "" %>
-    <div> Add location on map: </div>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+    <div>Kéo thả để chọn vị trí chính xác của phòng khám: </div>
     <div id="map-container">
       <div id="map-canvas"></div>
     </div>
-
     <br/>
-
     <div><%= f.submit "Create", class: "btn waves-effect waves-light" %></div>
   <% end %>
-
-  <script src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMap' >
+  <script src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapWithCurLoc' >
         $(document).ready(function() {
-            initMap();
-
+            initMapWithCurLoc();
          });
   </script>
 </body>
