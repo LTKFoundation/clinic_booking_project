@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   # resources :bookings, only: [ :show, :update, :create ]
   resources :bookings do
     get 'view_checked' => 'bookings#show_checked'
+    get 'create_patient' => 'bookings#create_patient'
   end
   resources :patients
 

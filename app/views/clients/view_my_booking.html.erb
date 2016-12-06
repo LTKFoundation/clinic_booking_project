@@ -4,7 +4,6 @@
   <% @bookings.each do |booking| %>
     <li class="collection-item">
       <%=render partial: "shared/cart_item", locals:{booking: booking} %>
-      <p>Mã xác nhận: <b><%= booking.confirm_code%></b></p>
     </li>
   <% end %>
   </ul>

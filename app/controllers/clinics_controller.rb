@@ -5,6 +5,7 @@ class ClinicsController < ApplicationController
   # Client must be signed in to add a clinic
   before_action :authenticate_user!, only: [ :add_clinic_page_client ]
 
+  # before_filter :require_ssl
 
   @@cur_loc = nil
   @@doctor_clinics = nil

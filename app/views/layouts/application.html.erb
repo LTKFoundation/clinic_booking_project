@@ -59,6 +59,10 @@
                   <li class="divider"></li>
                   <li><%= link_to "Quản lý Phòng khám", doctor_gigs_path(current_doctor.id) %></li>
                   <li class="divider"></li>
+                  <% if doctor_gig %>
+                  <li><%= link_to "Bảng đặt chỗ", doctor_gig_doctor_view_path(current_doctor.id,doctor_gig.id)%></li>
+                  <li class="divider"></li>
+                  <% end %>
                   <li><%= link_to "Đăng xuất", destroy_doctor_session_path, :method => 'delete' %></li>
                </ul>
 
@@ -74,10 +78,49 @@
         <!-- TODO : Update mobile menu later -->
         <ul id="nav-mobile" class="side-nav">
           <li class="nav-heading">Booking.doctor</li>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Doctors</a></li>
-          <li><a href="#">Login</a></li>
-          <li><%= link_to "Sign Up", new_user_registration_path %></li>
+          <li><%= link_to "Bản đồ phòng khám", clinics_path, method: 'get' %></li>
+          <% if current_user %>
+            <!-- Dropdown Trigger -->
+             <li>
+               <a class='dropdown-button' href='#' data-activates='currentUserAction'>
+                 Chào <%= current_user.name %>
+               </a>
+             </li>
+
+             <!-- Dropdown Structure -->
+             <ul id='currentUserAction' class='dropdown-content'>
+               <li><%= link_to "Cá nhân", edit_user_registration_path %></li>
+               <li><%= link_to "Phiếu khám", view_my_booking_path %></li>
+               <li class="divider"></li>
+               <li><%= link_to "Đăng xuất", destroy_user_session_path, :method => 'delete' %></li>
+             </ul>
+          <% else %>
+            <% if current_doctor %>
+              <!-- Dropdown Trigger -->
+               <li>
+                 <a class='dropdown-button' href='#' data-activates='currentDoctorAction'>
+                    Chào Dr.<%= current_doctor.name %>
+                 </a>
+               </li>
+
+               <!-- Dropdown Structure -->
+               <ul id='currentDoctorAction' class='dropdown-content'>
+                  <li><%= link_to "Cá nhân", edit_doctor_registration_path %></li>
+                  <li class="divider"></li>
+                  <li><%= link_to "Quản lý Phòng khám", doctor_gigs_path(current_doctor.id) %></li>
+                  <li class="divider"></li>
+                  <% if doctor_gig %>
+                  <li><%= link_to "Bảng đặt chỗ", doctor_gig_doctor_view_path(current_doctor.id,doctor_gig.id)%></li>
+                  <li class="divider"></li>
+                  <% end %>
+                  <li><%= link_to "Đăng xuất", destroy_doctor_session_path, :method => 'delete' %></li>
+               </ul>
+
+            <% else %>
+              <li><%= link_to "Đăng nhập", new_user_session_path %></li>
+              <li><%= link_to "Đăng kí", new_user_registration_path %></li>
+            <% end %>
+          <% end %>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse">MENU</a>
       </div>

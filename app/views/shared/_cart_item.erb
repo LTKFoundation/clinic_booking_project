@@ -2,19 +2,26 @@
 			<div class="row s12">
 				<div class="col s6">
 					<div class="row">
-            <h5> Phòng khám</h5>
+            <h5>Phòng khám</h5>
           </div>
 					<div class="row">
-						<div class="label col">Phòng khám: <%= booking.gig.clinic.name %></div>
+						<div class="label col">Phòng khám: <%= link_to booking.gig.clinic.name, clinic_path(booking.gig.clinic_id) %></div>
 					</div>
 					<div class="row">
 						<div class="label col">Địa chỉ: <%= booking.gig.clinic.address %></div>
 					</div>
 					<div class="row">
-						<div class="label col">Bác sĩ: <%= booking.gig.doctor.name %></div>
+						<div class="label col">Bác sĩ: <%= link_to booking.gig.doctor.name, doctor_path(booking.gig.doctor_id) %></div>
 					</div>
 					<div class="row">
 						<div class="label col">Chuyên khoa: <%= booking.gig.doctor.expertise %></div>
+					</div>
+					<div class="row">
+						<div class="label col">
+              <div class="panel yellow lighten-2">
+                Mã xác nhận: <span class="red-text text-darken-2"><b><%= booking.confirm_code%></b></span>
+              </div>
+            </div>
 					</div>
 			</div>
 				<div class="col s6">
@@ -22,7 +29,7 @@
             <h5>Lịch khám</h5>
           </div>
 					<div class="row">
-						<div class="label col">Giờ khám: <%= booking.start_at %></div>
+						<div class="label col">Giờ khám: <%= link_to booking.start_at.strftime("%m/%d/%Y %I:%M%p"),doctor_gig_client_view_path(booking.gig.doctor_id,booking.gig_id) %></div>
 					</div>
 					<div class="row">
 						<div class="label col">Giá dịch vụ: <%= number_to_currency(booking.price, unit: "VNĐ", separator: ",", delimiter: ".", format: "%n %u") %></div>
@@ -31,7 +38,10 @@
 						<div class="label col">Phí đặt cọc (hoàn lại vào tiền khám): <%= number_to_currency(booking.deposit, unit: "VNĐ", separator: ",", delimiter: ".", format: "%n %u") %></div>
 					</div>
 					<div class="row">
-						<div class="label col">Trạng thái: <%= booking.status.to_i==0?'Chưa thanh toán':'Đã thanh toán' %>
+						<div class="label col">Trạng thái: <%= booking.status.to_i==0?'Chưa đặt cọc':'Đã đặt cọc' %>
             </div>
+					</div>
+					<div class="row">
+						<div class="label col">Còn phải trả: <span class="red-text text-darken-2"><%= number_to_currency(booking.price - booking.deposit, unit: 'VND ', precision: 0) %></span></div>
 					</div>
 			</div>
