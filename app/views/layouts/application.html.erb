@@ -82,29 +82,29 @@
           <% if current_user %>
             <!-- Dropdown Trigger -->
              <li>
-               <a class='dropdown-button' href='#' data-activates='currentUserAction'>
+               <a class='dropdown-button' href='#' data-activates='currentUserActionMini'>
                  Chào <%= current_user.name %>
                </a>
              </li>
 
              <!-- Dropdown Structure -->
-             <ul id='currentUserAction' class='dropdown-content'>
+             <ul id='currentUserActionMini' class='dropdown-content'>
                <li><%= link_to "Cá nhân", edit_user_registration_path %></li>
                <li><%= link_to "Phiếu khám", view_my_booking_path %></li>
                <li class="divider"></li>
                <li><%= link_to "Đăng xuất", destroy_user_session_path, :method => 'delete' %></li>
              </ul>
           <% else %>
-            <% if current_doctor %>
+<% if current_doctor %>
               <!-- Dropdown Trigger -->
                <li>
-                 <a class='dropdown-button' href='#' data-activates='currentDoctorAction'>
+                 <a class='dropdown-button' href='#' data-activates='currentDoctorActionMini'>
                     Chào Dr.<%= current_doctor.name %>
                  </a>
                </li>
 
                <!-- Dropdown Structure -->
-               <ul id='currentDoctorAction' class='dropdown-content'>
+               <ul id='currentDoctorActionMini' class='dropdown-content'>
                   <li><%= link_to "Cá nhân", edit_doctor_registration_path %></li>
                   <li class="divider"></li>
                   <li><%= link_to "Quản lý Phòng khám", doctor_gigs_path(current_doctor.id) %></li>
@@ -121,6 +121,7 @@
               <li><%= link_to "Đăng kí", new_user_registration_path %></li>
             <% end %>
           <% end %>
+
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse">MENU</a>
       </div>
