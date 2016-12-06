@@ -8,10 +8,9 @@
         <h6>Phòng khám <%= @clinic.name %></h6>
         <h6>Địa chỉ <%= @clinic.address %></h6>
         <h6>Điện thoại <%= @clinic.phone %></h6>
-        <h6><%= @clinic.latitude %></h6>
-        <h6><%= @clinic.longtitude %></h6>
-        <%= hidden_field_tag value: @clinic.latitude, id:"map-lat" %>
-        <%= hidden_field_tag value: @clinic.longtitude, id:"map-ng" %>
+        <%= hidden_field_tag "clinic-name", @clinic.name %>
+        <%= hidden_field_tag "map-lat", @clinic.latitude %>
+        <%= hidden_field_tag "map-lng", @clinic.longtitude  %>
       </div>
     </div>
   </div>
@@ -25,7 +24,8 @@
 <%#TODO: Load this script only when page are loaded and lat and long are set for hidden_field_tag%>
 $(document).on('turbolinks:load', function() {
   lat_val = $('input[id=map-lat]').val();
-  lng_val = $('input[id=map-lat]').val();
-  loadMapWithOneLoc(lat_val,lng_val);
+  lng_val = $('input[id=map-lng]').val();
+  name = $('input[id=clinic-name]').val();
+  loadMapWithOneLoc(lat_val,lng_val,name);
 });
 </script>

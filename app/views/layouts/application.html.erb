@@ -59,6 +59,10 @@
                   <li class="divider"></li>
                   <li><%= link_to "Quản lý Phòng khám", doctor_gigs_path(current_doctor.id) %></li>
                   <li class="divider"></li>
+                  <% if doctor_gig %>
+                  <li><%= link_to "Bảng đặt chỗ", doctor_gig_doctor_view_path(current_doctor.id,doctor_gig.id)%></li>
+                  <li class="divider"></li>
+                  <% end %>
                   <li><%= link_to "Đăng xuất", destroy_doctor_session_path, :method => 'delete' %></li>
                </ul>
 

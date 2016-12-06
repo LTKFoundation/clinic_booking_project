@@ -17,15 +17,27 @@ class BookingsController < ApplicationController
       @booking.patient_id = @patient.id
       @booking.gig_id = @gig.id
       if @booking.save
-        flash.now[:success] = "Đặt thành công"
+        flash[:success] = "Đặt khám thành công"
         redirect_back(fallback_location: doctor_gig_doctor_view_path(@gig.doctor.id,@gig.id))
       else
-        flash.now[:error] = "Không đặt được lịch khám này"
+        flash[:error] = "Không đặt được lịch khám này"
         redirect_back(fallback_location: doctor_gig_client_view_path(@gig.doctor.id,@gig.id))
       end
     end
   end
 
+  def create_patient
+    @patient = Patient.find_or_create_by!(name: params[:patient_name], dob: params[:dob], gender: params[:gender], address: params[:address])
+    @patient.user_id = current_user.id
+    @patient.save
+    @booking = Booking.find_by_id(params[:booking_id])
+    @booking.patient_id = @patient.id
+    @booking.symthom = params[:symthom]
+    @booking.save
+    flash[:success] = "Đã thêm thông tin người được khám"
+    redirect_to view_my_booking_path
+  end
+  
   def show_checked
     @booking = Booking.find_by_id params[:booking_id]
     @booking.status = "2"

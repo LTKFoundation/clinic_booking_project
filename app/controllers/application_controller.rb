@@ -3,11 +3,22 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   layout :layout_by_resource
+  helper_method :doctor_gig
+
+  # def require_ssl
+  #   redirect_to :protocol => "https://" unless (request.ssl? or local_request?)  
+  # end
 
   def authenticate_user_or_doctor
     unless current_user || current_doctor
       flash[:alert] = 'Xin hãy đăng nhập trước!'
       redirect_to user_session_path
+    end
+  end
+
+  def doctor_gig
+    if current_doctor
+      @gig = Gig.where(doctor_id: current_doctor.id).first
     end
   end
 

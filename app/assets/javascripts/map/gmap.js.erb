@@ -2,7 +2,9 @@ var map;
 var poly;
 var linePath;
 var marker //var for new clinic marker
-
+var clinic_lat = 0;
+var clinic_lng = 0;
+var clinic_name = "";
 function setMarkerPosition(marker, position) {
   marker.setPosition(
     new google.maps.LatLng(
@@ -37,7 +39,7 @@ function initMapWithCurLoc() {
   });
 
   // Try HTML5 geolocation.
-  var infoWindow = new google.maps.InfoWindow({ map: map });
+  
   if (navigator.geolocation) {
     var marker;
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -66,11 +68,12 @@ function initMapWithCurLoc() {
 
 
       });
-
+ 
       map.setCenter(browser_loc);
       console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
 
     }, function() {
+      var infoWindow = new google.maps.InfoWindow({ map: map });
       handleLocationError(true, infoWindow, map.getCenter(), "");
     });
 
@@ -81,6 +84,7 @@ function initMapWithCurLoc() {
     });
   } else {
     // Browser doesn't support Geolocation
+    var infoWindow = new google.maps.InfoWindow({ map: map });
     handleLocationError(false, infoWindow, map.getCenter(), "");
   }
 }
@@ -221,7 +225,7 @@ function initMapWithNear() {
   map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
   // Try HTML5 geolocation.
-  var infoWindow = new google.maps.InfoWindow({ map: map });
+  
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       browser_loc = {
@@ -247,10 +251,12 @@ function initMapWithNear() {
       console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
 
     }, function() {
+      var infoWindow = new google.maps.InfoWindow({ map: map });
       handleLocationError(true, infoWindow, map.getCenter(), "");
     });
   } else {
     // Browser doesn't support Geolocation
+    var infoWindow = new google.maps.InfoWindow({ map: map });
     handleLocationError(false, infoWindow, map.getCenter(), "");
   }
 
@@ -271,7 +277,6 @@ function initMapWithAll() {
   map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     displayDoctors();
   // Try HTML5 geolocation.
-  var infoWindow = new google.maps.InfoWindow({ map: map });
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       browser_loc = {
@@ -294,35 +299,42 @@ function initMapWithAll() {
       console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
     }, function(error) {
       console.log('ERROR(' + error.code + '): ' + error.message);
+      var infoWindow = new google.maps.InfoWindow({ map: map });
       handleLocationError(true, infoWindow, map.getCenter(), 'ERROR(' + error.code + '): ' + error.message);
     });
   } else {
     // Browser doesn't support Geolocation
+    var infoWindow = new google.maps.InfoWindow({ map: map });
     handleLocationError(false, infoWindow, map.getCenter(), "");
   }
 }
 
-function initMapWithLoc(lat,lng) {
+function initBlankMapClinicLoc() {
   var mapOptions = {
-    center: new google.maps.LatLng(lat, lng),
     zoom: 15,
     mapTypeId: google.maps.MapTypeId.NORMAL
   };
   // initializing map
   map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-    displayDoctors();
-    loc = {
-        lat: lat,
-        lng: lng
-      };
-      
-      var user_window = new google.maps.InfoWindow({ content: "Phòng khám ở đây" });
-      var marker;
-      marker = createMarker(loc, map, "Phòng khám ở đây",true);
-      user_window.open(map, marker);
-      google.maps.event.addListener(marker, 'click', function() {
-        user_window.open(map, marker);
-      });
+
+  var clinicLoc = new google.maps.LatLng(clinic_lat, clinic_lng) 
+  var pos = {
+    lat: parseFloat(clinic_lat),
+    lng: parseFloat(clinic_lng)
+  };
+
+  // Displaying User's Current Location
+  var user_window = new google.maps.InfoWindow({ content: clinic_name });
+  var marker = createCustomMarker(pos, map, clinic_name,true);
+  user_window.open(map, marker);
+  console.log("creating current location marker ");
+  google.maps.event.addListener(marker, 'click', function() {
+    user_window.open(map, marker);
+  });
+
+  map.setCenter(clinicLoc);
+  console.log("map set to center at: " + browser_loc.coords.latitude + "||" + browser_loc.coords.longitude);
+
 }
 
 function animateCircle() {
@@ -417,10 +429,14 @@ function loadAllClinicScript() {
   document.body.appendChild(script);
 }
 
-function loadMapWithOneLoc(lat,lng) {
-  console.log("map loading with lat:"+lat+" and long "+lng);
+function loadMapWithOneLoc(lat,lng,name) {
+  clinic_lat = lat;
+  clinic_lng = lng;
+  clinic_name = name;
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapWithLoc(lat,lng)';
+  console.log("map loading with lat:"+lat+" and long "+lng);
+  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initBlankMapClinicLoc";
+  
   document.body.appendChild(script);
 }
