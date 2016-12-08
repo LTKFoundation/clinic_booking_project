@@ -1,6 +1,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.action_cable.url = "ws://datkhamonline.herokuapp.com:3000/cable"
+  config.action_cable.allowed_request_origins = [ 'https://datkhamonline.herokuapp.com', /http:\/\/datkhamonline.herokuapp.com.*/ ]
   # Code is not reloaded between requests.
   config.cache_classes = true
 
