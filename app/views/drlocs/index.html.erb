@@ -1,0 +1,19 @@
+<h5>Doctor Location</h>
+<div>
+    <div>Kéo thả để chọn vị trí chính xác của phòng khám: </div>
+    <div id="map-container">
+      <div id="map-canvas"></div>
+    </div>
+    <br/>
+      <%= hidden_field_tag :uber_lat, value: "" %>
+      <%= hidden_field_tag :uber_lng, value: "" %>
+      <%= hidden_field_tag :uber_name, "#{current_doctor.name}" %>
+      <%= hidden_field_tag :uber_id, "#{current_doctor.id}" %>
+<%= text_field_tag :doctor_current_loc,nil,placeholder:"",class:"form-control"%>
+<%= submit_tag "send", class: 'btn', :onclick => "sendLoc()"%>
+</div>
+<script src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapForUberDr' >
+$(document).ready(function() {
+    initMapForUberDr();
+  });
+</script>

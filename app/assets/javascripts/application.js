@@ -23,22 +23,23 @@
 //= require jquery.raty
 //= require sweetalert
 //= require_tree .
+//= require_tree ./channels
 
 $(document).on('turbolinks:load', function() {
-  $('.button-collapse').sideNav();
-  Materialize.updateTextFields();
-  $('select').material_select();
+    $('.button-collapse').sideNav();
+    Materialize.updateTextFields();
+    $('select').material_select();
 });
 
 
 // Initialize select tag for Materialize
- $(document).ready(function() {
+$(document).ready(function() {
     $('select').material_select();
-  });
+});
 
 
 // Date tag Materialize
- $('.datepicker').pickadate({
+$('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year
-  });
+});

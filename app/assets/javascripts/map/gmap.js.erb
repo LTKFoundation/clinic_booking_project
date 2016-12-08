@@ -1,10 +1,154 @@
 var map;
+var uber_map;
 var poly;
 var linePath;
 var marker //var for new clinic marker
 var clinic_lat = 0;
 var clinic_lng = 0;
 var clinic_name = "";
+var dr_uber_pool = new HashTable();
+
+function initMapUserViewUber() {
+  console.log("Initializing map....");
+  uber_map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 15
+  });
+
+  // Try HTML5 geolocation.
+  console.log("Getting location data....");
+  if (navigator.geolocation) {
+    var marker;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      browser_loc = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      // Displaying User's Current Location
+      var user_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
+      
+      console.log("creating current location marker ");
+      marker = createMarker(browser_loc, uber_map, "Bạn đang ở đây",true);
+      user_window.open(uber_map, marker);
+      google.maps.event.addListener(marker, 'click', function() {
+        user_window.open(uber_map, marker);
+      });
+
+      google.maps.event.addListener(marker, 'dragend', function() 
+      {
+        console.log("Marker moved to " + marker.getPosition().lat() + "||" + marker.getPosition().lng() + "...");
+      });
+      uber_map.setCenter(browser_loc);
+      console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
+    }, function() {
+      var infoWindow = new google.maps.InfoWindow({ map: uber_map });
+      handleLocationError(true, infoWindow, uber_map.getCenter(), "");
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    var infoWindow = new google.maps.InfoWindow({ map: uber_map });
+    handleLocationError(false, infoWindow, uber_map.getCenter(), "");
+  }
+}
+function showUberDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo, clinic_id, gig_id, doctor_id, doctor_avatar) {
+  var pos = {
+    lat: lat,
+    lng: lng
+  };
+  var marker;
+  if(dr_uber_pool.hasItem(doctor_id))
+  {
+    console.log("Setting new loc for existing doctor: "+dr_name);
+    marker = dr_uber_pool.getItem(doctor_id);
+    marker.setMap(null);
+  }
+  marker = createUberMarker(pos, uber_map, dr_name, false);
+  dr_uber_pool.setItem(doctor_id,marker);
+
+  display_photo = doctor_avatar;
+  if(display_photo==null)
+  {
+    display_photo = clinic_photo;
+    if(display_photo==null)
+    {
+      display_photo = 'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg';
+    }
+  }
+    var contentString = '<div class="clinic col s12"> '+
+'  <div class="card"> '+
+'    <div class="card-content"> '+
+'      <div class="row"> '+
+'        <div class="basic-info" style="margin-top: 10px;"> '+
+'          <p> '+
+'            <i class="material-icons">account_circle</i> '+
+'                <a href="/doctors/'+doctor_id+'">'+dr_name+'</a> '+
+'          </p> '+
+'          <p> '+
+'                <a href="doctors/'+doctor_id+'/gigs/'+gig_id+'/client_view">Đặt khám ngay</a> '+
+'          </p> '+
+'</div></div></div></div></div>';
+
+  var user_window = new google.maps.InfoWindow({ content: contentString });
+  <%#user_window.open(uber_map, marker);%>
+  google.maps.event.addListener(marker, 'click', function() {
+    user_window.open(uber_map, marker);
+  });
+}
+
+function initMapForUberDr() {
+  console.log("Initializing map....");
+  map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 15
+  });
+
+  // Try HTML5 geolocation.
+  console.log("Getting location data....");
+  if (navigator.geolocation) {
+    var marker;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      browser_loc = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      document.getElementById("uber_lat").value = browser_loc.lat;
+      document.getElementById("uber_lng").value = browser_loc.lng;
+      sendLoc();
+      // Displaying User's Current Location
+      var user_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
+      
+      console.log("creating current location marker ");
+      marker = createMarker(browser_loc, map, "Bạn đang ở đây",true);
+      user_window.open(map, marker);
+      google.maps.event.addListener(marker, 'click', function() {
+        user_window.open(map, marker);
+      });
+
+      google.maps.event.addListener(marker, 'dragend', function() 
+      {
+        document.getElementById("uber_lat").value = marker.getPosition().lat();
+        document.getElementById("uber_lng").value = marker.getPosition().lng();
+        console.log("Marker moved to " + marker.getPosition().lat() + "||" + marker.getPosition().lng() + "...");
+        sendLoc();
+      });
+ 
+      map.setCenter(browser_loc);
+      console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
+
+    }, function() {
+      var infoWindow = new google.maps.InfoWindow({ map: map });
+      handleLocationError(true, infoWindow, map.getCenter(), "");
+    });
+
+    navigator.geolocation.watchPosition(function (position) {
+      setMarkerPosition(
+        marker, position
+      );
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    var infoWindow = new google.maps.InfoWindow({ map: map });
+    handleLocationError(false, infoWindow, map.getCenter(), "");
+  }
+}
 function setMarkerPosition(marker, position) {
   marker.setPosition(
     new google.maps.LatLng(
@@ -412,7 +556,16 @@ function createCustomMarker(coords, map, title, dragable) {
   });
   return marker;
 }
-
+function createUberMarker(coords, map, title, dragable) {
+  marker = new google.maps.Marker({
+    position: coords,
+    map: map,
+    title: title,
+    icon: "http://uniqueapparelsolutions.com/wp-content/uploads/2016/02/bike-medic-icon.png",
+    draggable: false
+  });
+  return marker;
+}
 function loadScript() {
   console.log("map loading ...");
   var script = document.createElement('script');
