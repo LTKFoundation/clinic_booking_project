@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  # Serve websocket cable requests in-process
+  mount ActionCable.server => '/cable'
+
   namespace :admins do
     resources :users
   end
@@ -25,6 +28,11 @@ Rails.application.routes.draw do
         resources :bookings, only: [ :new, :create ]
       end
     end
+  end
+
+  get 'uber_doctors' => 'drlocs#user_view'
+
+  resources :drlocs do
   end
 
   # resources :bookings, only: [ :show, :update, :create ]

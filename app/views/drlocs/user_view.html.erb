@@ -1,0 +1,12 @@
+<h5>Doctor available for home service</h>
+<div>
+<%= text_field_tag :uber_doctor_loc,nil,placeholder:"",class:"form-control"%>
+</div>
+    <div id="map-container">
+    <div id="map-canvas"></div>
+</div>
+<script src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapUserViewUber' >
+$(document).ready(function() {
+    initMapUserViewUber();
+  });
+</script>

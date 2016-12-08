@@ -13,9 +13,7 @@
 @import "_pagination";
 @import "_overwrite";
 @import "_common";
-
 @import "shared/_doctor_card";
-
 //Layout
 nav .brand-logo {
     text-transform: uppercase;
@@ -56,57 +54,57 @@ ul#currentUserAction {
 
 // Users
 .users-shared-links {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 // Gigs
 //
 .tt-input {
-  margin: 0px !important;
+    margin: 0px !important;
 }
 
 .tt-open {
-  background: #fff;
-  padding: 5px;
+    background: #fff;
+    padding: 5px;
 }
 
 .tt-menu {
-  width: 422px;
-  margin: 0px 0 12px 0;
-  padding: 8px 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    width: 422px;
+    margin: 0px 0 12px 0;
+    padding: 8px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
 }
 
 .tt-suggestion {
-  padding: 3px 20px;
-  font-size: 18px;
-  line-height: 24px;
+    padding: 3px 20px;
+    font-size: 18px;
+    line-height: 24px;
 }
 
 .tt-suggestion:hover {
-  background: #bdc3c7;
-  cursor: pointer;
+    background: #bdc3c7;
+    cursor: pointer;
 }
 
 // DOCTORS IN HOMEPAGE
 .doctors {
-  .row {
-    margin-bottom: 0;
-  }
+    .row {
+        margin-bottom: 0;
+    }
 }
 
 .section {
-  padding: 0;
+    padding: 0;
 }
 
 .twitter-typeahead {
-  display: block !important;
+    display: block !important;
 }

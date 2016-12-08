@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <title>Đặt khám online</title>
-
+    <%= action_cable_meta_tag %>
     <%= csrf_meta_tags %>
     <%= include_gon %>
     <meta name="description" content="Đặt khám online" />
@@ -40,6 +40,8 @@
              <!-- Dropdown Structure -->
              <ul id='currentUserAction' class='dropdown-content'>
                <li><%= link_to "Cá nhân", edit_user_registration_path %></li>
+               <li><%= link_to "yêu cầu khám tại gia", uber_doctors_path %></li>
+               
                <li><%= link_to "Phiếu khám", view_my_booking_path %></li>
                <li class="divider"></li>
                <li><%= link_to "Đăng xuất", destroy_user_session_path, :method => 'delete' %></li>
@@ -59,6 +61,9 @@
                   <li class="divider"></li>
                   <li><%= link_to "Quản lý Phòng khám", doctor_gigs_path(current_doctor.id) %></li>
                   <li class="divider"></li>
+                  <li><%= link_to "Khám tại nhà", drlocs_path %></li>
+                  <li class="divider"></li>
+                  
                   <% if doctor_gig %>
                   <li><%= link_to "Bảng đặt chỗ", doctor_gig_doctor_view_path(current_doctor.id,doctor_gig.id)%></li>
                   <li class="divider"></li>
