@@ -7,6 +7,10 @@ var clinic_lat = 0;
 var clinic_lng = 0;
 var clinic_name = "";
 var dr_uber_pool = new HashTable();
+var dr_self_marker;
+var dr_self_window;
+var cur_lat = 0;
+var cur_lng = 0;
 
 function initMapUserViewUber() {
   console.log("Initializing map....");
@@ -93,7 +97,10 @@ function showUberDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo
     user_window.open(uber_map, marker);
   });
 }
-
+var new_lat;
+var new_lng;
+var new_loc;
+var new_pos;
 function initMapForUberDr() {
   console.log("Initializing map....");
   map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -101,56 +108,80 @@ function initMapForUberDr() {
   });
   setInterval(function(){
     // Try HTML5 geolocation.
-    console.log("Getting doctor location...");
     if (navigator.geolocation) {
-      var marker;
+      console.log("Current loc: lat-"+cur_lat+" | lng-"+cur_lng);
+
       navigator.geolocation.getCurrentPosition(function(position) {
         browser_loc = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        document.getElementById("uber_lat").value = browser_loc.lat;
-        document.getElementById("uber_lng").value = browser_loc.lng;
-        //sendLoc();
-        // Displaying User's Current Location
-        var user_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
-        
-        console.log("creating current location marker ");
-        marker = createMarker(browser_loc, map, "Bạn đang ở đây",true);
-        user_window.open(map, marker);
-        google.maps.event.addListener(marker, 'click', function() {
-          user_window.open(map, marker);
+        new_pos = position;
+        new_loc = browser_loc;
+        new_lat = browser_loc.lat;
+        new_lng = browser_loc.lng;
+        console.log("Browser loc: lat-"+browser_loc.lat+" | lng-"+browser_loc.lng);
+
+        }, function() {
+          var infoWindow = new google.maps.InfoWindow({ map: map });
+          handleLocationError(true, infoWindow, map.getCenter(), "");
         });
 
-        google.maps.event.addListener(marker, 'dragend', function() 
+        console.log("NEW loc: lat-"+new_lat+" | lng-"+new_lng);
+
+        if(new_lat!=cur_lat || new_lng != cur_lng)
         {
-          document.getElementById("uber_lat").value = marker.getPosition().lat();
-          document.getElementById("uber_lng").value = marker.getPosition().lng();
-          console.log("Marker moved to " + marker.getPosition().lat() + "||" + marker.getPosition().lng() + "...");
-          //sendLoc();
-        });
-  
-        map.setCenter(browser_loc);
-        console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
-
-      }, function() {
-        var infoWindow = new google.maps.InfoWindow({ map: map });
-        handleLocationError(true, infoWindow, map.getCenter(), "");
+          cur_lat = new_lat;
+          cur_lng = new_lng;
+          console.log("Doctor is at: lat-"+new_lat+" | lng-"+new_lng);
+          if(dr_self_marker!=null)
+          {
+            dr_self_marker.setMap(null);
+            dr_self_window.close();
+          }
+          // Displaying User's Current Location
+          dr_self_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
+          dr_self_marker = createMarker(new_loc, map, "Bạn đang ở đây",true);
+          dr_self_window.open(map, dr_self_marker);
+          google.maps.event.addListener(dr_self_marker, 'click', function() {
+            dr_self_window.open(map, dr_self_marker);
+          });
+          google.maps.event.addListener(dr_self_marker, 'dragend', function() 
+          {
+            cur_lat = dr_self_marker.getPosition().lat();
+            cur_lng = dr_self_marker.getPosition().lng();
+            document.getElementById("uber_lat").value = cur_lat;
+            document.getElementById("uber_lng").value = cur_lng;
+            console.log("dr_self_marker moved to " + dr_self_marker.getPosition().lat() + "||" + dr_self_marker.getPosition().lng() + "...");
+            sendLoc(cur_lat,cur_lng);
+          });
+          map.setCenter(new_loc);
+          console.log("map set to center at: " + new_pos.coords.latitude + "||" + new_pos.coords.longitude);
+          sendLoc(cur_lat,cur_lng);
+        }
+        else
+        {
+          console.log("Doctor is standing still");
+        }
+        
+        navigator.geolocation.watchPosition(function (position) {
+          setMarkerPosition(
+            dr_self_marker, position
+          );
       });
-
-      navigator.geolocation.watchPosition(function (position) {
-        setMarkerPosition(
-          marker, position
-        );
-      });
-    } else {
+    } 
+    else {
       // Browser doesn't support Geolocation
       var infoWindow = new google.maps.InfoWindow({ map: map });
       handleLocationError(false, infoWindow, map.getCenter(), "");
     }
-    sendLoc();
-  }
-  , 2000);
+
+  }, 5000);
+
+
+//  setInterval(function(){
+//    sendLoc(new_lat,new_lng);
+//  }, 2000);  
 }
 function setMarkerPosition(marker, position) {
   marker.setPosition(
@@ -543,8 +574,7 @@ function createMarker(coords, map, title, dragable) {
     position: coords,
     map: map,
     title: title,
-    draggable: dragable,
-    animation: google.maps.Animation.DROP
+    draggable: dragable
   });
   return marker;
 }
@@ -564,7 +594,7 @@ function createUberMarker(coords, map, title, dragable) {
     position: coords,
     map: map,
     title: title,
-    icon: "http://uniqueapparelsolutions.com/wp-content/uploads/2016/02/bike-medic-icon.png",
+    icon: "<%= asset_path('medicuber.png') %>",
     draggable: false
   });
   return marker;
