@@ -12,8 +12,8 @@
 <%= text_field_tag :doctor_current_loc,nil,placeholder:"",class:"form-control"%>
 <%= submit_tag "send", class: 'btn', :onclick => "sendLoc()"%>
 </div>
-<script src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapForUberDr' >
-$(document).ready(function() {
-    initMapForUberDr();
-  });
+<script>
+$(document).ready(function() {  
+  startDoctorUber();
+});
 </script>
