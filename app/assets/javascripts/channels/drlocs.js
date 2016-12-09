@@ -18,7 +18,7 @@ App.drlocs = App.cable.subscriptions.create("DrlocsChannel", {
             des_box.val(data.drloc.lat + "-" + data.drloc.lng + "-" + data.drloc.dr_name + "-" + data.drloc.dr_id);
             showUberDoctor(parseFloat(data.drloc.lat), parseFloat(data.drloc.lng), data.drloc.dr_name, data.drloc.dr_id, data.drloc.dr_avatar, data.drloc.dr_cost);
         } else if (data.drloc.command == "confirm_booking") {
-            confirmBooking(data.drloc.dr_id, data.drloc.user_id, data.drloc.dr_name);
+            showBookingConfirm(data.drloc.dr_id, data.drloc.user_id, data.drloc.dr_name);
         } else {
             console.log("Data details: " + data.drloc.command + ", dr_id:" + data.drloc.dr_id + ", user_id: " + data.drloc.user_id);
             showUserRequest(parseFloat(data.drloc.lat), parseFloat(data.drloc.lng), data.drloc.dr_id, data.drloc.user_id, data.drloc.user_name, data.drloc.user_phone, data.drloc.user_address);

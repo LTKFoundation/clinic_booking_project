@@ -63,6 +63,20 @@ function initMapUserViewUber() {
   }
 }
 
+function displayUserRequest(lat, lng, user_name){
+  console.log("preparing to display marker for user: "+user_name+"at lat:#{lat} and lng:#{lng}");
+  var pos = {
+    lat: lat,
+    lng: lng
+  };
+  var user_marker = createUserRequestMarker(pos, map, user_name, false);
+  var user_window = new google.maps.InfoWindow({ content: user_name });
+  user_window.open(map, user_marker);
+  google.maps.event.addListener(user_marker, 'click', function() {
+    user_window.open(map, user_marker);
+  });
+}
+
 function showUberDoctor(lat, lng, dr_name, doctor_id, doctor_avatar, cost) {
   var pos = {
     lat: lat,
@@ -115,6 +129,66 @@ var new_lng;
 var new_loc;
 var new_pos;
 function initMapForUberDr() {
+  console.log("Initializing map....");
+  map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 15
+  });
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      console.log("Current loc: lat-"+cur_lat+" | lng-"+cur_lng);
+
+      navigator.geolocation.getCurrentPosition(function(position) {
+        browser_loc = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        new_pos = position;
+        new_loc = browser_loc;
+        new_lat = browser_loc.lat;
+        new_lng = browser_loc.lng;
+        console.log("Browser loc: lat-"+browser_loc.lat+" | lng-"+browser_loc.lng);
+        console.log("NEW loc: lat-"+new_lat+" | lng-"+new_lng);
+
+          console.log("Doctor is at: lat-"+new_lat+" | lng-"+new_lng);
+          // Displaying User's Current Location
+          dr_self_window = new google.maps.InfoWindow({ content: "Bác sĩ đang ở đây" });
+          dr_self_marker = createUberMarker(new_loc, map, "Bác sĩ đang ở đây",true);
+          dr_self_window.open(map, dr_self_marker);
+          google.maps.event.addListener(dr_self_marker, 'click', function() {
+            dr_self_window.open(map, dr_self_marker);
+          });
+          google.maps.event.addListener(dr_self_marker, 'dragend', function() 
+          {
+            cur_lat = dr_self_marker.getPosition().lat();
+            cur_lng = dr_self_marker.getPosition().lng();
+            document.getElementById("uber_lat").value = cur_lat;
+            document.getElementById("uber_lng").value = cur_lng;
+            console.log("dr_self_marker moved to " + dr_self_marker.getPosition().lat() + "||" + dr_self_marker.getPosition().lng() + "...");
+            sendLoc(cur_lat,cur_lng);
+          });
+          map.setCenter(new_loc);
+          console.log("map set to center at: " + new_pos.coords.latitude + "||" + new_pos.coords.longitude);
+          sendLoc(browser_loc.lat,browser_loc.lng);
+        }, function() {
+          var infoWindow = new google.maps.InfoWindow({ map: map });
+          handleLocationError(true, infoWindow, map.getCenter(), "");
+        });
+        
+        navigator.geolocation.watchPosition(function (position) {
+          setMarkerPosition(
+            dr_self_marker, position
+          );
+      });
+    } 
+    else {
+      // Browser doesn't support Geolocation
+      var infoWindow = new google.maps.InfoWindow({ map: map });
+      handleLocationError(false, infoWindow, map.getCenter(), "");
+    }
+
+}
+
+function production_initMapForUberDr() {
   console.log("Initializing map....");
   map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 15
@@ -190,13 +264,7 @@ function initMapForUberDr() {
     }
 
   }, 5000);
-
-
-//  setInterval(function(){
-//    sendLoc(new_lat,new_lng);
-//  }, 2000);  
 }
-
 
 function setMarkerPosition(marker, position) {
   marker.setPosition(
@@ -631,6 +699,17 @@ function createCustomMarker(coords, map, title, dragable) {
   });
   return marker;
 }
+function createUserRequestMarker(coords, map, title, dragable) {
+  console.log("building marker...");
+  marker = new google.maps.Marker({
+    position: coords,
+    map: map,
+    title: title,
+    icon: "<%= asset_path('user_request_icon.png') %>",
+    draggable: dragable
+  });
+  return marker;
+}
 function createUberMarker(coords, map, title, dragable) {
   marker = new google.maps.Marker({
     position: coords,
@@ -641,6 +720,43 @@ function createUberMarker(coords, map, title, dragable) {
   });
   return marker;
 }
+var directionsService;
+var directionsDisplay;
+function showRoute(a_lat,a_lng,b_lat,b_lng) {
+  console.log("starting showing route...."+a_lat+":"+a_lng+"||"+b_lat+":"+b_lng);
+  directionsDisplay.setMap(null);
+  var origin = new google.maps.LatLng(
+      a_lat,a_lng);
+  var destination = new google.maps.LatLng(
+      b_lat,b_lng);
+  directionsService = new google.maps.DirectionsService;
+  directionsDisplay = new google.maps.DirectionsRenderer;
+  directionsDisplay.setMap(map);
+  calculateAndDisplayRoute(directionsService, directionsDisplay,origin,destination);
+}
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {
+  console.log("calculating routes....");
+  var waypts = [];
+
+  console.log("Displaying routes....");
+  directionsService.route({
+    origin: origin,
+    destination: destination,
+    waypoints: waypts,
+    optimizeWaypoints: true,
+    travelMode: 'DRIVING'
+  }, function(response, status) {
+    if (status === 'OK') {
+      console.log("Setting direction....");
+      directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+  }
+});
+}
+
+
 function loadScript() {
   console.log("map loading ...");
   var script = document.createElement('script');
@@ -674,6 +790,6 @@ function startDoctorUber()
   console.log("loading uber for doctor ...");
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapForUberDr';
+  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=production_initMapForUberDr';
   document.body.appendChild(script); 
 }

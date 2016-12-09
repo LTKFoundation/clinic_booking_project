@@ -59,11 +59,13 @@ function showUserRequest(lat, lng, dr_id, user_id, user_name, user_phone, user_a
         user_add_txt = $('input[id=user_request_address]');
         user_add_txt.val(user_address);
 
+        displayUserRequest(lat, lng, user_name);
         alert("User " + user_name + " . Phone: " + user_phone + " requested your service at address: " + user_address);
+        showRoute($("input#uber_lat").val(), $("input#uber_lng").val(), lat, lng);
     }
 }
 
-function confirmBooking(dr_id, user_id, dr_name) {
+function showBookingConfirm(dr_id, user_id, dr_name) {
     uber_dr_id_txt = $('input[id=selected_uber_doctor_id]');
     doctor_id = uber_dr_id_txt.val();
 
@@ -72,7 +74,8 @@ function confirmBooking(dr_id, user_id, dr_name) {
 
     if (doctor_id == dr_id && my_id == user_id) {
         $('input[id=uber_doctor_confirm]').val("Confirmed Booking");
-        alert("Booking confirmed! "+dr_name+"Is on his way.");
+        alert("Booking confirmed! " + dr_name + "Is on his way.");
     }
 }
+
 $(document).on("turbolinks:load", setupMap)
