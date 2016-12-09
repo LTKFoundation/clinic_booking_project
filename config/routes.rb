@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   get 'uber_doctors' => 'drlocs#user_view'
 
   resources :drlocs do
+    collection do
+      get 'before_start' => 'drlocs#before_start'
+    end 
   end
 
   # resources :bookings, only: [ :show, :update, :create ]
