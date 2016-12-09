@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col s12">
+      <h5>Review your service set up before start</h5>
+      <div>
+      <%= form_tag drlocs_path, :method => 'get' do %>
+        Service cost<%= number_field_tag :fee,"0",placeholder:"",class:"form-control"%>
+        <%= submit_tag "send", class: 'btn waves-effect waves-light', :onclick => "confirm('Are you sure?')"%>
+      <% end %>
+      </div>
+    </div>
+</div>

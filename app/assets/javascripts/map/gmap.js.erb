@@ -12,6 +12,8 @@ var dr_self_window;
 var cur_lat = 0;
 var cur_lng = 0;
 
+
+
 function initMapUserViewUber() {
   console.log("Initializing map....");
   uber_map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -27,6 +29,11 @@ function initMapUserViewUber() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
+      user_lat = $('input[id=user_request_lat]');
+      user_lat.val(position.coords.latitude);
+      user_lng = $('input[id=user_request_lng]');
+      user_lng.val(position.coords.longitude);
+
       // Displaying User's Current Location
       var user_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
       
@@ -40,9 +47,11 @@ function initMapUserViewUber() {
       google.maps.event.addListener(marker, 'dragend', function() 
       {
         console.log("Marker moved to " + marker.getPosition().lat() + "||" + marker.getPosition().lng() + "...");
+        strAdd = getAddForUser(marker.getPosition());
       });
       uber_map.setCenter(browser_loc);
       console.log("map set to center at: " + position.coords.latitude + "||" + position.coords.longitude);
+      strAdd = getAddForUser(marker.getPosition());
     }, function() {
       var infoWindow = new google.maps.InfoWindow({ map: uber_map });
       handleLocationError(true, infoWindow, uber_map.getCenter(), "");
@@ -53,7 +62,8 @@ function initMapUserViewUber() {
     handleLocationError(false, infoWindow, uber_map.getCenter(), "");
   }
 }
-function showUberDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo, clinic_id, gig_id, doctor_id, doctor_avatar) {
+
+function showUberDoctor(lat, lng, dr_name, doctor_id, doctor_avatar, cost) {
   var pos = {
     lat: lat,
     lng: lng
@@ -69,16 +79,15 @@ function showUberDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo
   dr_uber_pool.setItem(doctor_id,marker);
 
   display_photo = doctor_avatar;
-  if(display_photo==null)
+  if(display_photo=="")
   {
-    display_photo = clinic_photo;
-    if(display_photo==null)
-    {
-      display_photo = 'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg';
-    }
+    display_photo = 'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg';
   }
     var contentString = '<div class="clinic col s12"> '+
 '  <div class="card"> '+
+'    <div class="card-image"> '+
+        '<img class="clinic-photo" src="'+display_photo+'">'+
+'    </div> '+
 '    <div class="card-content"> '+
 '      <div class="row"> '+
 '        <div class="basic-info" style="margin-top: 10px;"> '+
@@ -87,7 +96,11 @@ function showUberDoctor(lat, lng, clinic_name, clinic_add, dr_name, clinic_photo
 '                <a href="/doctors/'+doctor_id+'">'+dr_name+'</a> '+
 '          </p> '+
 '          <p> '+
-'                <a href="doctors/'+doctor_id+'/gigs/'+gig_id+'/client_view">Đặt khám ngay</a> '+
+'            <i class="material-icons">payment</i> '+
+'                <p>'+cost+'</p> '+
+'          </p> '+
+'          <p> '+
+'                <button class="btn btn-primary" onclick="bookDoctor('+doctor_id+',\''+dr_name+'\')">Đặt khám ngay</a> '+
 '          </p> '+
 '</div></div></div></div></div>';
 
@@ -140,8 +153,8 @@ function initMapForUberDr() {
             dr_self_window.close();
           }
           // Displaying User's Current Location
-          dr_self_window = new google.maps.InfoWindow({ content: "Bạn đang ở đây" });
-          dr_self_marker = createMarker(new_loc, map, "Bạn đang ở đây",true);
+          dr_self_window = new google.maps.InfoWindow({ content: "Bác sĩ đang ở đây" });
+          dr_self_marker = createUberMarker(new_loc, map, "Bác sĩ đang ở đây",true);
           dr_self_window.open(map, dr_self_marker);
           google.maps.event.addListener(dr_self_marker, 'click', function() {
             dr_self_window.open(map, dr_self_marker);
@@ -183,6 +196,8 @@ function initMapForUberDr() {
 //    sendLoc(new_lat,new_lng);
 //  }, 2000);  
 }
+
+
 function setMarkerPosition(marker, position) {
   marker.setPosition(
     new google.maps.LatLng(
@@ -190,8 +205,10 @@ function setMarkerPosition(marker, position) {
       position.coords.longitude)
   );
 }
-function geocodePosition(pos) 
+function getAddForUser(pos)
 {
+  console.log("getting address for loc: " + pos.lat + "||" + pos.lng);
+  strAdd = "";
    geocoder = new google.maps.Geocoder();
    geocoder.geocode
   ({
@@ -201,7 +218,33 @@ function geocodePosition(pos)
     {
       if (status == google.maps.GeocoderStatus.OK) 
       {
-        document.getElementById("clinic_address").value = results[0].formatted_address; 
+        strAdd = results[0].formatted_address;
+        document.getElementById("user_request_address").value = strAdd;
+      } 
+      else 
+      {
+        console.log("Cannot determine address at this location."+status);
+        strAdd = "Can not get address for this location";
+        document.getElementById("user_request_address").value = strAdd;
+      }
+    }
+  );
+}
+function getAddFromPos(pos) 
+{
+  console.log("getting address for loc: " + pos.lat + "||" + pos.lng);
+   geocoder = new google.maps.Geocoder();
+   geocoder.geocode
+  ({
+    latLng: pos
+  }, 
+    function(results, status) 
+    {
+      if (status == google.maps.GeocoderStatus.OK) 
+      {
+        strAdd = results[0].formatted_address;
+        console.log("found address:"+strAdd); 
+        document.getElementById("clinic_address").value = strAdd;
       } 
       else 
       {
@@ -242,8 +285,7 @@ function initMapWithCurLoc() {
         document.getElementById("map-lat").value = marker.getPosition().lat();
         document.getElementById("map-lng").value = marker.getPosition().lng();
         console.log("Marker moved to " + marker.getPosition().lat() + "||" + marker.getPosition().lng() + "...");
-        geocodePosition(marker.getPosition());
-
+        getAddFromPos(marker.getPosition());
 
       });
  
@@ -595,7 +637,7 @@ function createUberMarker(coords, map, title, dragable) {
     map: map,
     title: title,
     icon: "<%= asset_path('medicuber.png') %>",
-    draggable: false
+    draggable: dragable
   });
   return marker;
 }

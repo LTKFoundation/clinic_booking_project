@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161205154323) do
+ActiveRecord::Schema.define(version: 20161209024840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,14 @@ ActiveRecord::Schema.define(version: 20161205154323) do
     t.index ["booking_id"], name: "index_doctor_ratings_on_booking_id", using: :btree
     t.index ["doctor_id"], name: "index_doctor_ratings_on_doctor_id", using: :btree
     t.index ["user_id"], name: "index_doctor_ratings_on_user_id", using: :btree
+  end
+
+  create_table "doctor_ubers", force: :cascade do |t|
+    t.integer  "doctor_id"
+    t.float    "fee"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["doctor_id"], name: "index_doctor_ubers_on_doctor_id", using: :btree
   end
 
   create_table "doctors", force: :cascade do |t|
@@ -225,6 +233,7 @@ ActiveRecord::Schema.define(version: 20161205154323) do
   add_foreign_key "doctor_ratings", "bookings"
   add_foreign_key "doctor_ratings", "doctors"
   add_foreign_key "doctor_ratings", "users"
+  add_foreign_key "doctor_ubers", "doctors"
   add_foreign_key "gigs", "clinics"
   add_foreign_key "gigs", "doctors"
   add_foreign_key "patients", "doctors"

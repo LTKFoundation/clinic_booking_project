@@ -13,4 +13,15 @@ class DrlocsChannel < ApplicationCable::Channel
     Rails.logger.info("data is: #{data.inspect}")
     ActionCable.server.broadcast("drlocs",data)
   end
+
+  def request_uber(data)
+    # Rails.log("passing: #{data}")
+    Rails.logger.info("requesting doctor: #{data.inspect}")
+    ActionCable.server.broadcast("drlocs",data)
+  end
+
+  def confirm_booking(data)
+    Rails.logger.info("confirming booking: #{data.inspect}")
+    ActionCable.server.broadcast("drlocs",data)
+  end
 end
