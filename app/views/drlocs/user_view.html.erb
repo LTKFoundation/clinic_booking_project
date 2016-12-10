@@ -1,8 +1,15 @@
 <h5>Doctor available for home service</h>
 <div class="row">
+  <div class="col s2">
+  <h6>Your address:<h6>
+  </div>
+  <div class="col s10">
+    <label id="user_request_address"></label>
+  </div>
+</div>
+<div class="row">
   <div class="col s12">
-  <%= label_tag "Your current address",nil,placeholder:"",class:"form-control"%>
-  <%= text_field_tag :user_request_address,nil,placeholder:"",class:"form-control"%>
+    <label id="uber_doctor_avais"></label>
   </div>
 </div>
 <%= hidden_field_tag :uber_doctor_loc,nil,placeholder:"",class:"form-control"%>
@@ -16,13 +23,18 @@
 </div>
 <div class="row">
   <div class="col s12">
-    <div class="col s6">
-    <%= text_field_tag :selected_uber_doctor,nil,placeholder:"",class:"form-control"%>
-    <%= hidden_field_tag :selected_uber_doctor_id,nil,placeholder:"",class:"form-control"%>
+    <div class="col s4">
+      <h6>Doctor:</h6> <label id="selected_uber_doctor"></label>
     </div>
     <div class="col s4">
-    <%= text_field_tag :uber_doctor_confirm,nil,placeholder:"",class:"form-control"%>
+      <h6>Price:</h6> <label id="selected_uber_doctor_price"></label>
     </div>
+    <div class="col s4">
+      <h6>Status:</h6> <label id="uber_doctor_confirm"></label>
+    </div>
+    <%= hidden_field_tag :selected_uber_doctor_id,nil,placeholder:"",class:"form-control"%>
+    <%= hidden_field_tag :selected_uber_doctor_lat,nil,placeholder:"",class:"form-control"%>
+    <%= hidden_field_tag :selected_uber_doctor_lng,nil,placeholder:"",class:"form-control"%>
   </div>
 </div>
 <script src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapUserViewUber' >

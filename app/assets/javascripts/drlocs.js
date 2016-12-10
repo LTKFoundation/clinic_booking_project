@@ -18,7 +18,7 @@ function request_uber(dr_id) {
     lat = $("input#user_request_lat").val();
     lng = $("input#user_request_lng").val();
     user_phone = $("input#user_request_phone").val();
-    user_address = $("input#user_request_address").val();
+    user_address = $("#user_request_address").html();
     App.drlocs.request_uber({ command: "request_uber", lat: lat, lng: lng, user_id: user_id, dr_id: dr_id, user_name: user_name, user_phone: user_phone, user_address: user_address });
 }
 
@@ -27,12 +27,13 @@ function confirmUberBooking(dr_id, dr_name) {
     App.drlocs.confirm_booking({ command: "confirm_booking", dr_id: dr_id, dr_name: dr_name, user_id: user_id });
 }
 
-function bookDoctor(dr_id, dr_name) {
-    uber_dr_name_txt = $('input[id=selected_uber_doctor]');
-    uber_dr_name_txt.val(dr_name);
-    uber_dr_id_txt = $('input[id=selected_uber_doctor_id]');
-    uber_dr_id_txt.val(dr_id);
-    $('input[id=uber_doctor_confirm]').val("Waiting for approval");
+function bookDoctor(dr_id, dr_name, lat, lng, cost) {
+    $('input[id=selected_uber_doctor_id]').val(dr_id);
+    $('input[id=selected_uber_doctor_lat]').val(lat);
+    $('input[id=selected_uber_doctor_lng]').val(lng);
+    document.getElementById('selected_uber_doctor').innerHTML = "<span class='red-text text-darken-2'>" + dr_name + "</span>";
+    document.getElementById('selected_uber_doctor_price').innerHTML = "<span class='red-text text-darken-2'>" + cost + "</span>";
+    document.getElementById('uber_doctor_confirm').innerHTML = "<span class='red-text text-darken-2'>Waiting for approval</span>";
     request_uber(dr_id);
 }
 
@@ -41,8 +42,9 @@ function showUserRequest(lat, lng, dr_id, user_id, user_name, user_phone, user_a
     var my_id = doctor_txt.val();
 
     if (my_id == dr_id) {
-        user_name_txt = $('input[id=user_request_name]');
-        user_name_txt.val(user_name);
+        document.getElementById('user_request_name').innerHTML = "<span class='red-text text-darken-2'>" + user_name + "</span>";
+        document.getElementById('user_request_phone').innerHTML = "<span class='red-text text-darken-2'>" + user_phone + "</span>";
+        document.getElementById('user_request_address').innerHTML = user_address;
 
         user_id_txt = $('input[id=user_request_id]');
         user_id_txt.val(user_id);
@@ -53,15 +55,9 @@ function showUserRequest(lat, lng, dr_id, user_id, user_name, user_phone, user_a
         user_lng_txt = $('input[id=user_request_lng]');
         user_lng_txt.val(lng);
 
-        user_phone_txt = $('input[id=user_request_phone]');
-        user_phone_txt.val(user_phone);
-
-        user_add_txt = $('input[id=user_request_address]');
-        user_add_txt.val(user_address);
-
         displayUserRequest(lat, lng, user_name);
         alert("User " + user_name + " . Phone: " + user_phone + " requested your service at address: " + user_address);
-        showRoute($("input#uber_lat").val(), $("input#uber_lng").val(), lat, lng);
+        showRoute($("input#uber_lat").val(), $("input#uber_lng").val(), lat, lng, map);
     }
 }
 
@@ -73,8 +69,13 @@ function showBookingConfirm(dr_id, user_id, dr_name) {
     my_id = user_id_txt.val();
 
     if (doctor_id == dr_id && my_id == user_id) {
-        $('input[id=uber_doctor_confirm]').val("Confirmed Booking");
-        alert("Booking confirmed! " + dr_name + "Is on his way.");
+        document.getElementById('uber_doctor_confirm').innerHTML = "<span class='red-text text-darken-2'>Confirmed. Doctor is coming!</span>";
+        alert("Booking confirmed! Doctor " + dr_name + " is on his way.");
+        user_lat = $('input[id=user_request_lat]').val();
+        user_lng = $('input[id=user_request_lng]').val();
+        doctor_lat = $('input[id=selected_uber_doctor_lat]').val();
+        doctor_lng = $('input[id=selected_uber_doctor_lng]').val();
+        showRoute(doctor_lat, doctor_lng, user_lat, user_lng, uber_map);
     }
 }
 
