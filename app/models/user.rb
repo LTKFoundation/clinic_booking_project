@@ -7,6 +7,10 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: {case_sensitive: false}
 
+  def image_or_nil
+    avatar || "http://media.auswalk.com.au/wp-content/themes/auswalk/img/blank-avatar.svg"
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

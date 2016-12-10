@@ -84,4 +84,5 @@ Rails.application.routes.draw do
   resources :payment_method
 
   root 'clinics#index'
+  # root 'home#index'
 end
