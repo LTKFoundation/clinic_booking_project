@@ -1,3 +1,5 @@
+Booking.destroy_all
+Gig.destroy_all
 Clinic.destroy_all
 clinic_list = [
     [ "Phòng khám sản phụ khoa bác sĩ Đỗ Thị Ngọc Lan", "Số 26 ngõ 30 Nguyễn Đình Chiểu Hai Bà Trưng, Hà Nội", "https://dwbxi9io9o7ce.cloudfront.net/images/11_07_2016_10_06_14_661256.jpeg", 21.014324, 105.846925,"Sản"],
@@ -9,7 +11,7 @@ clinic_list = [
     [ "Phòng khám Tai Mũi Họng - Bác sĩ Nguyễn Thị Thanh","87 Ngõ 218 chợ Khâm Thiên, Khâm Thiên, Đống Đa, Hà Nội", "https://dwbxi9io9o7ce.cloudfront.net/images/2015-11-25_233725.3638480000.jpeg",21.01541,105.83666,"Tai mũi họng"],
     [ "Phòng khám Tai Mũi Họng My Anh","362C Xã Đàn, Nam Đồng, Đống Đa, Hà Nội", "https://dwbxi9io9o7ce.cloudfront.net/images/2015-12-18_092928.0989930000.jpeg", 21.01443,105.83453,"Tai mũi họng"],
     [ "Phòng khám Đa khoa Medelab", "86-88 Nguyễn Lương Bằng, Quang Trung, Đống Đa, Hà Nội", "https://dwbxi9io9o7ce.cloudfront.net/images/2015-12-11_020720.3832380000.jpeg", 21.018516, 105.842071 ,"Đa khoa"],
-    [ "Phòng khám,  Đa khoa Quốc Tế VietSing", "Pacific Place 83B Lý Thường Kiệt, Lý Thường Kiệt, Hoàn Kiếm, Hà Nội ",  "https://dwbxi9io9o7ce.cloudfront.net/images/2015-11-27_182933.2461330000.jpeg", 21.025371, 105.843433 ,"Đa khoa"],
+    [ "Phòng khám Đa khoa Quốc Tế VietSing", "Pacific Place 83B Lý Thường Kiệt, Lý Thường Kiệt, Hoàn Kiếm, Hà Nội ",  "https://dwbxi9io9o7ce.cloudfront.net/images/2015-11-27_182933.2461330000.jpeg", 21.025371, 105.843433 ,"Đa khoa"],
     [ "Phòng khám Vietlife MRI", "14 Trần Bình Trọng, Hai Bà Trưng, Hoàn Kiếm, Hà Nội", "https://dwbxi9io9o7ce.cloudfront.net/images/2015-12-12_043002.6635410000.jpeg", 21.020742, 105.844517 ,"Đa khoa"],
     [ "Phòng Khám Đa khoa 70 Nguyễn Chí Thanh (VIETDOCTOR) - Cơ sở 1", "70 Nguyễn Chí Thanh, Láng Thượng, Đống Đa, Hà Nội", "https://dwbxi9io9o7ce.cloudfront.net/images/2016-01-12_071554.5350500000.jpeg", 21.01867, 105.8073,"Đa khoa"],
     [ "Phòng khám chuyên khoa nhi Bác sĩ Nguyễn Văn Lộc", "69/19 Lạc Trung, Vĩnh Tuy, Hai Bà Trưng, Hà Nội", "https://dwbxi9io9o7ce.cloudfront.net/images/2015-11-27_180639.9265160000.jpeg", 21.001, 105.86304,"Nhi"],
@@ -58,5 +60,5 @@ clinic_list = [
   ]
 
   clinic_list.each do |clinic|
-    Clinic.create( name: clinic[0], address: clinic[1], photos: clinic[2], latitude: clinic[3].to_f, longtitude: clinic[4].to_f )
+    Clinic.create!( name: clinic[0], address: clinic[1], photos: clinic[2], latitude: clinic[3].to_f, longtitude: clinic[4].to_f, expertise: clinic[5])
   end

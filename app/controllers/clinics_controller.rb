@@ -11,8 +11,13 @@ class ClinicsController < ApplicationController
   @@cur_loc = nil
   @@doctor_clinics = nil
   def index
-    if params[:q].present?
-      @@doctor_clinics = Clinic.search_for(params[:q])
+    
+    if params[:q].present? || params[:bookable].present? 
+      if params[:bookable]
+        @@doctor_clinics = Clinic.search_for(params[:q],true)
+      else
+        @@doctor_clinics = Clinic.search_for(params[:q],false)
+      end
     else
       @@doctor_clinics = Clinic.all_clinic_with_gig
     end

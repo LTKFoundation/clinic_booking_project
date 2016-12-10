@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161209024840) do
+ActiveRecord::Schema.define(version: 20161210100036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20161209024840) do
     t.float    "longtitude"
     t.datetime "verified_at"
     t.integer  "user_id"
+    t.string   "expertise"
     t.index "ll_to_earth(latitude, longtitude)", name: "clinic_loc_index", using: :gist
     t.index ["doctor_id"], name: "index_clinics_on_doctor_id", using: :btree
     t.index ["user_id"], name: "index_clinics_on_user_id", using: :btree
