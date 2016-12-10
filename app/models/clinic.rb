@@ -30,6 +30,42 @@ class Clinic < ApplicationRecord
 		@return
 	end
 
+	def self.search_for(q)
+		logger.debug "Querying all clinics from DB with name like: "+q
+		@return = []
+		# @clinics = Clinic.left_outer_joins(:gigs).uniq.select("clinics.*, gigs.id as gig_id, gigs.doctor_id as doctor_id")
+		# @clinics = Clinic.all
+    # LongV: load clinic and display gig_id of gig that has schedules set up already. Only clinic has schedules are displayed as bookable to User
+    sql_string = "select clinics.latitude, clinics.longtitude, clinics.name, clinics.address, clinics.id, clinics.photos, clinics.phone, "+
+    "gig_doctors.doctor_id, gig_doctors.gig_id, gig_doctors.doctor_name, gig_doctors.expertise,gig_doctors.verified_at, gig_doctors.avatar "+
+    "from clinics left outer join "+
+    "(select gigs.*,doctors.name as doctor_name,doctors.expertise,doctors.verified_at,doctors.avatar  "+
+    "from (select * from gigs join (select distinct gig_id from schedules) as schedules "+ 
+    "on gigs.id = schedules.gig_id) as gigs  "+
+    "join doctors on gigs.doctor_id = doctors.id) as gig_doctors "+
+    "on clinics.id = gig_doctors.clinic_id "+
+    "where clinics.name like '%"+q+"%' "+
+    "or clinics.address like '%"+q+"%' "+
+    "or gig_doctors.doctor_name like '%"+q+"%' "+
+    "or gig_doctors.expertise like '%"+q+"%' "+
+    ";"
+    @clinics = Clinic.find_by_sql sql_string 
+    # raise sql_string
+		if @clinics
+			@clinics.each do |clinic|
+				@return.push([clinic.latitude,clinic.longtitude,
+        clinic.name,clinic.address,
+        clinic.id,clinic.gig_id,
+        clinic.doctor_id,clinic.photos,
+        clinic.phone,clinic.doctor_name,
+        clinic.expertise,clinic.avatar
+        ])
+				# logger.debug "Added: lat:"+clinic.latitude.to_s+"||"+clinic.longtitude.to_s+"|clinic:"+clinic.id.to_s+"gig:"+clinic.gig_id.to_s+" Name:"+clinic.name+" to return array"
+			end
+		end
+		@return
+	end
+
 	def self.all_clinic_with_gig
 		logger.debug "Querying all clinics from DB....."
 		@return = []

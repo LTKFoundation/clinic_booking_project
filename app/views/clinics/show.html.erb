@@ -5,9 +5,9 @@
         <%= image_tag @clinic.photo_or_default, class: 'doctor-avatar' %>
       </div>
       <div class="card-content">
-        <h6>Phòng khám <%= @clinic.name %></h6>
-        <h6>Địa chỉ <%= @clinic.address %></h6>
-        <h6>Điện thoại <%= @clinic.phone %></h6>
+        <h6>Clinic <%= @clinic.name %></h6>
+        <h6>Address <%= @clinic.address %></h6>
+        <h6>Phone <%= @clinic.phone %></h6>
         <%= hidden_field_tag "clinic-name", @clinic.name %>
         <%= hidden_field_tag "map-lat", @clinic.latitude %>
         <%= hidden_field_tag "map-lng", @clinic.longtitude  %>

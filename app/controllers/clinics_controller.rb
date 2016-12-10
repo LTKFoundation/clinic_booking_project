@@ -6,16 +6,22 @@ class ClinicsController < ApplicationController
   before_action :authenticate_user!, only: [ :add_clinic_page_client ]
 
   # before_filter :require_ssl
+  respond_to :html, :js, :json
 
   @@cur_loc = nil
   @@doctor_clinics = nil
   def index
-    @@doctor_clinics = Clinic.all_clinic_with_gig
+    if params[:q].present?
+      @@doctor_clinics = Clinic.search_for(params[:q])
+    else
+      @@doctor_clinics = Clinic.all_clinic_with_gig
+    end
     @all_clinic = @@doctor_clinics
     logger.debug "GET INDEX"
     respond_to do |format|
       format.html
-      format.json { render json: Clinic.all }
+      format.js
+      format.json { render json: Clinic.search_for(params[:q]) }
     end
     gon.watch.doctor_clinics = @@doctor_clinics
     # @@doctor_clinics = DoctorClinic.clinic_around(nil)

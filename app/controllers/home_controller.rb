@@ -61,22 +61,4 @@ class HomeController < ApplicationController
       format.js
     end
   end
-
-  private
-
-  def city_params
-    params.require(:city)
-  end
-
-  def search_params
-    params.require(:q)
-  end
-
-  def expertise_params
-    params.require(:expertise)
-  end
-
-  def datetime_params
-    params.require(:date, :time)
-  end
 end
