@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   resources :drlocs do
     collection do
       get 'before_start' => 'drlocs#before_start'
+      get 'before_simulator' => 'drlocs#before_simulator'
+      get 'simulator' => 'drlocs#simulator'
     end 
   end
 
@@ -81,5 +83,5 @@ Rails.application.routes.draw do
   # Use with current_user
   resources :payment_method
 
-  root 'home#index'
+  root 'clinics#index'
 end

@@ -43,9 +43,8 @@
       <%= hidden_field_tag :uber_cost, "#{number_to_currency(@uberfee.fee, unit: 'VND ', precision: 0)}" %>
       <%= hidden_field_tag :uber_avatar, "#{current_doctor.avatar}" %>
       <%= hidden_field_tag :doctor_current_loc,nil,placeholder:"",class:"form-control"%>
-
 <script>
 $(document).ready(function() {  
-  startDoctorUber();
+  startSimulatorUber();
 });
 </script>
