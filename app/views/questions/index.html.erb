@@ -1,0 +1,24 @@
+<br>
+<h5 class="center-align">Chưa trả lời</h5>
+<div class="notanswered">
+  <% @unanswered_questions.each do |question| %>
+        <%= form_for [current_doctor, question] do |f|  %>
+          <p><%= question.content %></p>
+          <p class="timestamp"><%= distance_of_time_in_words(question.created_at, Time.now) %></p>
+          <div class="input-field">
+            <%= f.text_area :answer, placeholder: "Câu trả lời", class: "materialize-textarea" %>
+          </div>
+          <%= f.submit 'Trả lời', class: 'waves-effect light-wave btn btn-submit' %>
+        <% end %>
+        <br>
+        <br>
+  <% end %>
+</div>
+<br>
+<br>
+<h5 class="center-align">Đã trả lời</h5>
+<div class="answered">
+  <% @answered_questions.each do |question| %>
+    <%= render partial: 'shared/question', locals: { question: question } %>
+  <% end %>
+</div>

@@ -31,6 +31,38 @@
       </div>
     </div>
   </div>
+
+  <!-- Q&A -->
+  <div class="col s12 m8">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-title">
+          Hỏi đáp
+        </div>
+
+        <!-- Question form -->
+        <p id="toggle-q-a-form" class="blue-text" style="cursor: pointer">Đặt câu hỏi (miễn phí)</p>
+        <%= form_for [@doctor, @doctor.questions.build], id: 'q-a-form' do |f| %>
+          <div class="input-field">
+            <%= f.text_area :content, placeholder: "Đặt câu hỏi cho bác sĩ #{ @doctor.name }", class: "materialize-textarea" %>
+          </div>
+          <%= f.submit 'Hỏi', class: 'waves-effect light-wave btn btn-submit' %>
+        <% end %>
+        <br>
+        <br>
+        <!-- Questions list -->
+        <% @doctor.questions.answered.each do |question| %>
+          <%= render partial: 'shared/question', locals: { question: question }%>
+          <% if current_user = question.user %>
+            <% question.update seen_at: DateTime.now %>
+          <% end %>
+        <% end %>
+        <% if @doctor.questions.answered.count <= 0 %>
+          <p class="timestamp">Không có hoạt động nào</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- List Comments -->
@@ -86,6 +118,10 @@
 
     manageFormState();
 
+    $('#new_question').toggle();
+    $('#toggle-q-a-form').click(function(){
+      $('#new_question').toggle('medium');
+    })
   });
 
   var displayRatingStars = function() {
@@ -130,4 +166,3 @@
   }
 
 </script>
-

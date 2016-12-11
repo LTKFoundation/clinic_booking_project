@@ -1,0 +1,11 @@
+<div class="question" id="question-<%= question.id %>">
+  <div class="content">
+    <strong><%= question.content %></strong>
+  </div>
+  <div class="timestamps">
+    <p class="timestamp"><%= distance_of_time_in_words(question.created_at, Time.now) %></p>
+  </div>
+  <div class="answer">
+    <%= question.answer %>
+  </div>
+</div>

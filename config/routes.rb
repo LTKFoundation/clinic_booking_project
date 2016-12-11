@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       get 'before_start' => 'drlocs#before_start'
       get 'before_simulator' => 'drlocs#before_simulator'
       get 'simulator' => 'drlocs#simulator'
-    end 
+    end
   end
 
   # resources :bookings, only: [ :show, :update, :create ]
@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       get 'doctor_view' => 'gigs#booking_manage'
     end
     resources :comments
+    resources :questions
   end
 
   resources :clients, only: [ :show, :create, :update, :destroy ]
