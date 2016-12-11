@@ -54,6 +54,9 @@
         <% @doctor.questions.answered.each do |question| %>
           <%= render partial: 'shared/question', locals: { question: question }%>
         <% end %>
+        <% if @doctor.questions.answered.count <= 0 %>
+          <p class="timestamp">Không có hoạt động nào</p>
+        <% end %>
       </div>
     </div>
   </div>
