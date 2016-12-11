@@ -88,8 +88,8 @@ function showDoctorTakeMyRequest(dr_id, dr_name, user_id, dr_lat, dr_lng) {
         showRoute(dr_lat, dr_lng, user_lat, user_lng, uber_map);
         alert("Doctor " + dr_name + " accepted your request. Can you confirm that he can come now?");
         // enable confirm button now
-        $("#btn_confirm").prop("disabled", false);
-        $("#btn_reject").prop("disabled", false);
+        $("#btn_confirm").prop("hidden", false);
+        $("#btn_reject").prop("hidden", false);
     }
 }
 
@@ -144,7 +144,11 @@ function userRaiseRequest() {
     user_phone = $("input#user_request_phone").val();
     user_address = $("#user_request_address").html();
     budget = $('input[id=my_budget]').val();
+    symthom = $('input[id=my_symthom]').val();
     document.getElementById('uber_doctor_confirm').innerHTML = "<span class='red-text text-darken-2'>Request raised. Waiting for doctors to accept!</span>";
-    App.drlocs.raise_request_uber({ command: "raise_request_uber", lat: lat, lng: lng, user_id: user_id, user_name: user_name, user_phone: user_phone, user_address: user_address, budget: budget });
+    // disable confirm button now
+    $("#btn_confirm").prop("hidden", true);
+    $("#btn_reject").prop("hidden", true);
+    App.drlocs.raise_request_uber({ command: "raise_request_uber", lat: lat, lng: lng, user_id: user_id, user_name: user_name, user_phone: user_phone, user_address: user_address, budget: budget, symthom: symthom });
 }
 $(document).on("turbolinks:load", setupMap)

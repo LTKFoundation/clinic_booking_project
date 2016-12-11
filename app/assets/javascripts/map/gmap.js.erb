@@ -78,10 +78,10 @@ function displayUserRequest(lat, lng, user_name){
   });
 }
 
-function showUserHomeRequest(lat, lng, user_id, user_name, user_phone, user_address, budget) {
+function showUserHomeRequest(lat, lng, user_id, user_name, user_phone, user_address, budget, symthom) {
   $('input[id=user_request_lat]').val(lat);
   $('input[id=user_request_lng]').val(lng);
-  
+
   var pos = {
     lat: lat,
     lng: lng
@@ -112,6 +112,10 @@ function showUserHomeRequest(lat, lng, user_id, user_name, user_phone, user_addr
 '          <p> '+
 '            <i class="material-icons">payment</i> '+
 '                '+budget+' '+
+'          </p> '+
+'          <p> '+
+'            <i class="material-icons">comment</i> '+
+'                '+symthom+' '+
 '          </p> '+
 '          <p> '+
 '                <button class="btn btn-primary" onclick="serveThisRequest('+user_id+','+lat+','+lng+',\''+user_name+'\',\''+user_phone+'\',\''+user_address+'\','+budget+')">Serve This</a> '+

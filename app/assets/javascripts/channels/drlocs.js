@@ -19,12 +19,12 @@ App.drlocs = App.cable.subscriptions.create("DrlocsChannel", {
         } else if (data.drloc.command == "confirm_booking") {
             showBookingConfirm(data.drloc.dr_id, data.drloc.user_id, data.drloc.dr_name);
         } else if (data.drloc.command == "raise_request_uber") {
-            showUserHomeRequest(parseFloat(data.drloc.lat), parseFloat(data.drloc.lng), data.drloc.user_id, data.drloc.user_name, data.drloc.user_phone, data.drloc.user_address, data.drloc.budget);
+            showUserHomeRequest(parseFloat(data.drloc.lat), parseFloat(data.drloc.lng), data.drloc.user_id, data.drloc.user_name, data.drloc.user_phone, data.drloc.user_address, data.drloc.budget, data.drloc.symthom);
         } else if (data.drloc.command == "take_request") {
             showDoctorTakeMyRequest(data.drloc.dr_id, data.drloc.dr_name, data.drloc.user_id, parseFloat(data.drloc.dr_lat), parseFloat(data.drloc.dr_lng));
-        } else if (data.drloc.command == "response_dr_confirm"){
-            showUserResponse(data.drloc.dr_id,data.drloc.user_id,data.drloc.confirmed);
-        }else {
+        } else if (data.drloc.command == "response_dr_confirm") {
+            showUserResponse(data.drloc.dr_id, data.drloc.user_id, data.drloc.confirmed);
+        } else {
             console.log("Data details: " + data.drloc.command + ", dr_id:" + data.drloc.dr_id + ", user_id: " + data.drloc.user_id);
             showUserRequest(parseFloat(data.drloc.lat), parseFloat(data.drloc.lng), data.drloc.dr_id, data.drloc.user_id, data.drloc.user_name, data.drloc.user_phone, data.drloc.user_address);
         }
