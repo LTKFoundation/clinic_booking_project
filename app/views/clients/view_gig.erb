@@ -3,10 +3,10 @@
 		<p>Thông tin bác sĩ</p>
 		<div class="row">
       <div class="card small">
-          <div class="card-image">
-          <img src="<%= @gig.doctor.avatar %>">
-          </div>
-          <div class="card-stacked">
+        <div class="card-image">
+          <%= image_tag @gig.doctor.avatar, class: 'doctor-avatar' %>
+        </div>
+        <div class="card-stacked">
           <div class="card-content">
           <p>Tên: <%= @gig.doctor.name%></p>
           <p>Chuyên khoa: <%= @gig.doctor.expertise %></p>
@@ -14,7 +14,7 @@
           <div class="card-action">
           <%=link_to "Xem thông tin",doctor_path(@gig.doctor.id)%>
           </div>
-          </div>
+        </div>
       </div>
 		</div>
 	</div>
