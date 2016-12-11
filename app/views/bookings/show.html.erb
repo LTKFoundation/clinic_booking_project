@@ -1,50 +1,34 @@
-<h1>Thông tin đặt khám</h1>
-<div class="row">
-			<div class="row s12">
-        <%= form_tag booking_view_checked_path(@booking.id), :method => 'get' do%>
-          <% if @booking.status == "1"%>
-          <p class="col s3">Xác nhận mã đặt chỗ:</p>
-            <div class="form-control col s4"><%= text_field_tag :confirm_code %></div>
-            <%= submit_tag "Kiểm tra", {class: "btn waves-effect waves-light col s2",:name => nil,:onclick => "return verify_code('#{@booking.confirm_code}')"}  %>
-          <% elsif @booking.status == "2" %>
-          <p class="col s3">Mã đặt chỗ:</p>
-            <i class="material-icons s1">check_circle</i>
-            <h5 class="col s4"><%= @booking.confirm_code %></h5>
+<h5>Thông tin đặt khám</h5>
+<div class="col s12">
+  <div class="row s12">
+    <% if @booking.status == "1"%>
+      <%= form_tag booking_view_checked_path(@booking.id), :method => 'get' do%>
+      <div class="row s12">
+      <p class="col s3">Xác nhận mã đặt chỗ:</p>
+        <div class="form-control col s4"><%= text_field_tag :confirm_code %></div>
+        <%= submit_tag "Kiểm tra", {class: "btn waves-effect waves-light col s2",:name => nil,:onclick => "return verify_code('#{@booking.confirm_code}')"}  %>
+      </div>
+      <% end %>
+    <% elsif @booking.status == "2" %>
+      <div class="row s12">
+        <p class="col s3">Mã đặt chỗ:</p>
+        <i class="material-icons s1">check_circle</i>
+        <h5 class="col s4"><%= @booking.confirm_code %></h5>
+      </div>
+      <div class="row s12">
+        <div class="input-field col s12">
+          <%= form_tag booking_add_prescription_path(@booking.id), :method => 'get',:id => "add_prescription_form" do %>
+            <%= hidden_field_tag :booking_id, @booking.id %>
+            Hướng dẫn điều trị/đơn thuốc: <textarea id="prescription" name="prescription" class="materialize-textarea"><%= @booking.prescription%> </textarea>       
+            <%= link_to 'Thêm thông tin', "", :onclick => "$('#add_prescription_form').submit()",:class => "btn" %>
           <% end %>
-        <% end %>
-			</div>
-			<div class="row s12">
-				<div class="col s6">
-					<p><b>Người đặt khám</b></p>
-          <div class="row">
-            <div class="label col">Tên: <%= @booking.patient ? @booking.patient.name : @booking.user.name %></div>
-          </div>
-          <div class="row">
-            <div class="label col">Tuổi: <%= @booking.patient ? @booking.patient.age : '' %></div>
-          </div>
-          <div class="row">
-            <div class="label col">Giới tính: <%= @booking.patient ? @booking.patient.gender_title : '' %></div>
-          </div>
-          <div class="row">
-            <div class="label col">Triệu chứng: <%= @booking.symthom %></div>
-          </div>
-			</div>
-				<div class="col s6">
-					<p><b>Lịch khám</b></p>
-					<div class="row">
-						<div class="label col">Giờ khám <%= @booking.start_at %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Giá dịch vụ <%= number_to_currency(@booking.price, unit: 'VND ', precision: 0) %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Phí đặt cọc (hoàn lại) <%= number_to_currency(@booking.deposit, unit: 'VND ', precision: 0)  %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Còn phải thu: <%= number_to_currency(@booking.price - @booking.deposit, unit: 'VND ', precision: 0) %></div>
-					</div>
-			</div>
-	
+        </div>
+      </div>
+    <% end %>
+    
+			
+
+      <%=render partial: "booking_details", locals:{booking: @booking,patient: @patient} %>
 </div>
 <script>
 function verify_code(correct_code){

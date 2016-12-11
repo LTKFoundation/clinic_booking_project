@@ -19,10 +19,15 @@
 					<div class="row">
 						<div class="label col">
               <div class="panel yellow lighten-2">
-                Mã xác nhận: <span class="red-text text-darken-2"><b><%= booking.confirm_code%></b></span>
+                Mã xác nhận: <span class="red-text text-darken-2"><b><%= booking.confirm_code %></b></span>
               </div>
             </div>
 					</div>
+          <div class="row">
+            <div class="col">
+              <%= link_to "Xem chi tiết",booking_user_review_path(booking.id)%>
+            </div>
+          </div>
 			</div>
 				<div class="col s6">
           <div class="row">

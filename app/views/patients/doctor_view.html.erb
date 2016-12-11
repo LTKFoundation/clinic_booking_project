@@ -1,0 +1,14 @@
+<div class="col">
+<% if @patient %>
+  <div class="row">
+    <div class="col s12">
+      <p><b>Người được khám</b></p>
+      <div class="col s6">
+        <%=render partial: "patient_card", locals:{patient: @patient} %>
+      </div>
+  </div>
+<% end %>
+<% if @patient_records %>
+  <%=render partial: "records", locals:{patient_records: @patient_records} %>
+<% end %>
+</div>

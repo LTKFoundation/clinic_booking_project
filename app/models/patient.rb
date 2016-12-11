@@ -25,4 +25,9 @@ class Patient < ApplicationRecord
     now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
   end
 
+  def self.doctor_can_view(doctor_id,patient_id)
+    @patient = find_by_sql ["select * from patients where id in (
+      select patient_id from medic_record_views where doctor_id = ? and patient_id =?)", doctor_id,patient_id]
+  end
+
 end

@@ -37,6 +37,7 @@
                <ul id='dropdownForUser' class='dropdown-content'>
                 <li><%= link_to "Account", edit_user_registration_path %></li>
                 <li><%= link_to "My bookings", view_my_booking_path %></li>
+                <li><%= link_to "My family", patients_path %></li>
                 <li class="divider"></li>
                 <li><%= link_to "Sign out", destroy_user_session_path, :method => 'delete' %></li>
                </ul>
@@ -88,6 +89,7 @@
              <ul id='dropdownMiniForUser' class='dropdown-content'>
                <li><%= link_to "Account", edit_user_registration_path %></li>
                <li><%= link_to "My bookings", view_my_booking_path %></li>
+               <li><%= link_to "My family", patients_path %></li>
                <li class="divider"></li>
                <li><%= link_to "Sign out", destroy_user_session_path, :method => 'delete' %></li>
              </ul>
@@ -149,7 +151,7 @@
         <div class="row">
           <div class="col l6 s12">
             <p class="grey-text text-lighten-4">
-              A little effort in solving a small pain of our society 
+              One little attempt to make modern life a bit easier to live! 
             </p>
           </div>
           <div class="col l3 s12">

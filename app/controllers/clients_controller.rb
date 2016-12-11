@@ -136,7 +136,7 @@ class ClientsController < ApplicationController
           cur_time = timeslot["display"].to_s
           if cur_date.length > 0 && cur_time.length >0
             check_val = timeslot["value"].to_s+" "+timeslot["display"].to_s
-            logger.debug "Prepare to parse DateTime for #{check_val}................."    
+            # logger.debug "Prepare to parse DateTime for #{check_val}................."    
             check_date = DateTime.strptime(check_val, "%d/%m/%Y %I:%M%p") 
             booked_list = Booking.where(gig_id: gig_id,start_at:check_date).where.not(status: "0" ).first
             if booked_list
@@ -155,31 +155,16 @@ class ClientsController < ApplicationController
 		end
 	end
 
-	def roll_array(array,first_pos)
-		@return_arr = []
-		i = 0
-		while i < array.size
-			@return_arr.push(array[first_pos-1])
-			if(first_pos == array.size-1)
-				first_pos = 0
-			else
-				first_pos = first_pos + 1
-			end
-			i = i + 1
-		end
-		@return_arr
-	end
-
 	def print_array(array2dim)
 		i = 0
 		array2dim.each do |array|
 			i = i + 1
-			logger.debug "array "+i.to_s
+			# logger.debug "array "+i.to_s
 			strout = ""
 			array.each do |element|
 				strout = strout + element["display"].to_s + "||"
 			end
-			logger.debug strout
+			# logger.debug strout
 		end
 	end
 

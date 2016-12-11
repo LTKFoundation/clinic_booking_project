@@ -2,19 +2,27 @@
 <div class="row">
   <div class="col s12">
     <div class="row">
+      <div class="input-field col s4">
       <h5>Người được khám</h5>
+          <%= select_tag :patient_list, options_for_select(@patients.collect{|patient|
+           [patient.name,patient.id,
+           {class: "form-control dropdown"}]}), 
+            :include_blank => true,
+            :id => 'patient_list'         
+          %>
+      </div>
     </div>
     <div class="row">
       <div class="input-field col s4">
           Tên <%= text_field_tag :patient_name,"#{booking.patient ? booking.patient.name : booking.user.name}",:required => true %>
       </div>
       <div class="input-field col s4">
-          Ngày sinh<%= date_field_tag :dob, "#{booking.patient ? booking.patient.dob : '01/01/2010'}", class: 'datepicker', placeholder:'01/01/2010', :required => true%>
+          Ngày sinh<%= date_field_tag :dob, "#{booking.patient ? booking.patient.dob : '2010-01-01'}", class: 'datepicker', placeholder:'2010-01-01', :required => true%>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s2">
-        Giới tính<%= select_tag :gender, raw("<option value='1'>Nữ</option><option value='2'>Nam</option>"), :required => true%>
+        Giới tính<%= select_tag :gender, raw("<option value='1'>Nữ</option><option value='2'>Nam</option>"), :required => true, :id => 'gender' %>
       </div>
       <div class="input-field col s6">
           Địa chỉ <%= text_field_tag :address,"#{booking.patient ? booking.patient.address : ''}",:required => true %>
@@ -32,3 +40,29 @@
   </div>
 </div>
 <% end %>
+<script>
+$(document).ready(function() {
+  var patientList = new HashTable();
+  loadPatient(patientList);
+  $("#patient_list").change(function () {
+        var selected = this.value;
+        console.log("selected "+selected);
+        var patient = patientList.getItem(selected);
+        console.log("selected item "+patient);
+        $('input[id=patient_name]').val(patient.name);
+        $('input[id=gender]').val(patient.gender);
+        $('input[id=dob]').val(patient.dob.substring(0,10));
+        $('input[id=address]').val(patient.address);
+    });
+});
+function loadPatient(patientList) {
+  a = gon.patient_list;
+  if (a != null) {
+    for (var i = 0; i < a.length; i++) {
+      var patient = a[i];
+      patientList.setItem(patient.id,patient);
+      console.log("PATIENT:===>"+patient.id+";"+patient.name+";"+patient.gender+";"+patient.dob);
+    }
+  }
+}
+</script>

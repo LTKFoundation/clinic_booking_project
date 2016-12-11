@@ -44,8 +44,15 @@ Rails.application.routes.draw do
   resources :bookings do
     get 'view_checked' => 'bookings#show_checked'
     get 'create_patient' => 'bookings#create_patient'
+    get 'user_review' => 'bookings#user_review'
+    get 'add_prescription' => 'bookings#add_prescription'
   end
-  resources :patients
+  resources :patients do
+    get 'share_patient_info' => 'patients#share_info'
+    get 'add_doctor' => 'patients#add_doctor'
+    get 'remove_doctor' => 'patients#remove_doctor'
+    get 'doctor_view' => 'patients#doctor_view'
+  end
 
   resources :doctors do
     collection do

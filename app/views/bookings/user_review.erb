@@ -1,0 +1,68 @@
+<h5>Thông tin đặt khám</h5>
+<div class="col s12">
+			<div class="row s12">
+        <div class="col s4">
+          Tình trạng: <%= @booking.status == "1" ? "Chưa khám" : "Đã khám" %>
+        </div>
+        <div class="col s4">
+            Bác sĩ khám: <%= link_to @booking.gig.doctor.name,doctor_path(@booking.gig.doctor.id) %>
+        </div>
+			</div>
+      <div class="row s12">
+        <div class="col s12">
+            Địa điểm: <%= link_to @booking.gig.clinic.address, clinic_path(@booking.gig.clinic.id) %>
+        </div>
+      </div>
+      <div class="row s12">
+        <div class="col s12">
+          <%= form_tag patient_share_patient_info_path(@booking.patient.id), :method => 'get',:id => "share_info_form" do %>
+            <%= hidden_field_tag :doctor_id, @booking.gig.doctor.id %>
+            Chia sẻ lịch sử khám chữa bệnh với bác sĩ <%= @booking.gig.doctor.name %>?<%= link_to 'Click here', "", :onclick => "$('#share_info_form').submit()" %>
+          <% end %>
+        </div>
+      </div>
+			<div class="row s12">
+				<div class="col s6">
+					<p><b>Người đặt khám</b></p>
+          <div class="row">
+            <div class="label col">Tên: <%= @booking.patient ? @booking.patient.name : @booking.user.name %></div>
+          </div>
+          <div class="row">
+            <div class="label col">Tuổi: <%= @booking.patient ? @booking.patient.age : '' %></div>
+          </div>
+          <div class="row">
+            <div class="label col">Giới tính: <%= @booking.patient ? @booking.patient.gender_title : '' %></div>
+          </div>
+          <div class="row">
+            <div class="label col">Triệu chứng: <%= @booking.symthom %></div>
+          </div>
+			</div>
+				<div class="col s6">
+					<p><b>Lịch khám</b></p>
+					<div class="row">
+						<div class="label col">Giờ khám: <%= @booking.start_at.strftime("%m/%d/%Y %I:%M%p") %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Giá dịch vụ: <%= number_to_currency(@booking.price, unit: 'VND ', precision: 0) %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Phí đặt cọc: <%= number_to_currency(@booking.deposit, unit: 'VND ', precision: 0)  %></div>
+					</div>
+					<div class="row">
+						<div class="label col">Còn phải trả: <%= number_to_currency(@booking.price - @booking.deposit, unit: 'VND ', precision: 0) %></div>
+					</div>
+			</div>
+	
+</div>
+<script>
+function verify_code(correct_code){
+  inputcode = $('input[id=confirm_code]').val();
+  if(inputcode == correct_code)
+    return true;
+  else
+  {
+    alert("Mã xác nhận không đúng. Xin vui lòng kiểm tra lại!");
+    return false;
+  }
+}
+</script>

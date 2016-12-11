@@ -1,0 +1,43 @@
+<% if patient %>
+<div class="row s12">
+  <div class="col s12">
+    <div class="panel yellow lighten-2">
+      <span class="red-text text-darken-2">
+        <%= booking.user.name %> đã chia sẻ lịch sử khám bệnh của
+        <b> <%= patient.name %> </b>với bác sĩ. <%= link_to "Xem hồ sơ ngay",patient_doctor_view_path(patient.id) %>
+      </span>
+    </div>
+  </div>
+</div>
+<% end %>
+<div class="row s12">
+  <div class="col s6">
+    <p> Người đặt khám</p>
+    <div class="row">
+      <div class="label col">Tên: <%= booking.patient ? booking.patient.name : booking.user.name %></div>
+    </div>
+    <div class="row">
+      <div class="label col">Tuổi: <%= booking.patient ? booking.patient.age : '' %></div>
+    </div>
+    <div class="row">
+      <div class="label col">Giới tính: <%= booking.patient ? booking.patient.gender : '' %></div>
+    </div>
+    <div class="row">
+      <div class="label col">Triệu chứng: <%= booking.symthom %></div>
+    </div>
+</div>
+  <div class="col s6">
+    <p> Lịch khám</p>
+    <div class="row">
+      <div class="label col">Giờ khám <%= booking.start_at.strftime("%m/%d/%Y %I:%M%p") %></div>
+    </div>
+    <div class="row">
+      <div class="label col">Giá dịch vụ <%= number_to_currency(booking.price, unit: 'VND ', precision: 0) %></div>
+    </div>
+    <div class="row">
+      <div class="label col">Phí đặt cọc (hoàn lại) <%= number_to_currency(booking.deposit, unit: 'VND ', precision: 0)  %></div>
+    </div>
+    <div class="row">
+      <div class="label col">Còn phải thu: <%= number_to_currency(booking.price - booking.deposit, unit: 'VND ', precision: 0) %></div>
+    </div>
+</div>

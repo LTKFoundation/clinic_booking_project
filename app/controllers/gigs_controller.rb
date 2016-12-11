@@ -45,13 +45,13 @@ class GigsController < ApplicationController
 					@end_at = schedule[:end_at].to_s
 					@schedule = Schedule.find_or_initialize_by(gig_id: @gig.id,weekday: @weekday)
 					if @schedule
-						logger.debug @weekday+"updated"
+						# logger.debug @weekday+"updated"
 						@schedule.start_at = @start_at
 						@schedule.end_at = @end_at
 						@schedule.save
 					else
 						Schedule.create(:gig_id => @gig.id,:weekday =>@weekday,:start_at =>@start_at,:end_at => @end_at )
-						logger.debug @weekday+"created"
+						# logger.debug @weekday+"created"
 					end
 				end
 				flash[:success] = "Đã cập nhập thông tin thành công"
@@ -187,12 +187,12 @@ class GigsController < ApplicationController
 		i = 0
 		array2dim.each do |array|
 			i = i + 1
-			logger.debug "array "+i.to_s
+			# logger.debug "array "+i.to_s
 			strout = ""
 			array.each do |element|
 				strout = strout + element["display"].to_s + "||"
 			end
-			logger.debug strout
+			# logger.debug strout
 		end
 	end
 
