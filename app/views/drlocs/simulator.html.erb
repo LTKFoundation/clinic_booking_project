@@ -12,6 +12,11 @@
     </div>
     <div class="row">
       <div class="col s12">
+        <label id="user_request_avail"></label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
         <p6>User Address: <label id="user_request_address"></label></h6>
       </div>  
     </div>
@@ -27,6 +32,11 @@
       <%= hidden_field_tag :user_request_id, value: "" %>
       <div class="col s2">
         <%= submit_tag "confirm",class:"btn btn-primary",onclick:"confirmUberBooking(#{current_doctor.id},'#{current_doctor.name}')"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <label id="transaction_status"></label>
       </div>
     </div>
   </div>

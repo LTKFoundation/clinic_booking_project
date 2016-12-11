@@ -7,6 +7,7 @@ var clinic_lat = 0;
 var clinic_lng = 0;
 var clinic_name = "";
 var dr_uber_pool = new HashTable();
+var uber_request_pool = new HashTable();
 var dr_self_marker;
 var dr_self_window;
 var cur_lat = 0;
@@ -75,6 +76,55 @@ function displayUserRequest(lat, lng, user_name){
   google.maps.event.addListener(user_marker, 'click', function() {
     user_window.open(map, user_marker);
   });
+}
+
+function showUserHomeRequest(lat, lng, user_id, user_name, user_phone, user_address, budget) {
+  $('input[id=user_request_lat]').val(lat);
+  $('input[id=user_request_lng]').val(lng);
+  
+  var pos = {
+    lat: lat,
+    lng: lng
+  };
+  var user_marker;
+  if(uber_request_pool.hasItem(user_id))
+  {
+    console.log("New request from: "+user_name);
+    user_marker = uber_request_pool.getItem(user_id);
+    user_marker.setMap(null);
+  }
+  user_marker = createUserRequestMarker(pos, map, user_name, false);
+  
+  uber_request_pool.setItem(user_id,user_marker);
+
+    var contentString = '<div class="clinic col s12"> '+
+'  <div class="card"> '+
+'    <div class="card-content"> '+
+'        <div class="basic-info" style="margin-top: 10px;"> '+
+'          <p> '+
+'            <i class="material-icons">account_circle</i> '+
+'                <b>'+user_name+'</b> '+
+'          </p> '+
+'          <p> '+
+'            <i class="material-icons">settings_phone</i> '+
+'                <b>'+user_phone+'</b> '+
+'          </p> '+
+'          <p> '+
+'            <i class="material-icons">payment</i> '+
+'                '+budget+' '+
+'          </p> '+
+'          <p> '+
+'                <button class="btn btn-primary" onclick="serveThisRequest('+user_id+','+lat+','+lng+',\''+user_name+'\',\''+user_phone+'\',\''+user_address+'\','+budget+')">Serve This</a> '+
+'          </p> '+
+'</div></div></div></div>';
+
+  var user_window = new google.maps.InfoWindow({ content: contentString });
+  google.maps.event.addListener(user_marker, 'click', function() {
+    user_window.open(map, user_marker);
+  });
+  strNo = uber_request_pool.length;
+  document.getElementById('user_request_avail').innerHTML = "<span class='red-text text-darken-2'>There are currently "+
+  strNo+" User requesting for HOME Service</span>";
 }
 
 function showUberDoctor(lat, lng, dr_name, doctor_id, doctor_avatar, cost) {
@@ -222,8 +272,6 @@ function production_initMapForUberDr() {
 
         console.log("NEW loc: lat-"+new_lat+" | lng-"+new_lng);
 
-        if(new_lat!=cur_lat || new_lng != cur_lng)
-        {
           cur_lat = new_lat;
           cur_lng = new_lng;
           console.log("Doctor is at: lat-"+new_lat+" | lng-"+new_lng);
@@ -251,11 +299,6 @@ function production_initMapForUberDr() {
           map.setCenter(new_loc);
           console.log("map set to center at: " + new_pos.coords.latitude + "||" + new_pos.coords.longitude);
           sendLoc(cur_lat,cur_lng);
-        }
-        else
-        {
-          console.log("Doctor is standing still");
-        }
         
         navigator.geolocation.watchPosition(function (position) {
           setMarkerPosition(
@@ -293,7 +336,7 @@ function getAddForUser(pos)
       if (status == google.maps.GeocoderStatus.OK) 
       {
         strAdd = results[0].formatted_address;
-        document.getElementById('user_request_address').innerHTML = "<span class='red-text text-darken-2'>"+strAdd+"</span>";
+        document.getElementById('user_request_address').innerHTML = strAdd;
       } 
       else 
       {
