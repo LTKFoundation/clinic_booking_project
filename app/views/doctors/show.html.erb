@@ -53,6 +53,9 @@
         <!-- Questions list -->
         <% @doctor.questions.answered.each do |question| %>
           <%= render partial: 'shared/question', locals: { question: question }%>
+          <% if current_user = question.user %>
+            <% question.update seen_at: DateTime.now %>
+          <% end %>
         <% end %>
         <% if @doctor.questions.answered.count <= 0 %>
           <p class="timestamp">Không có hoạt động nào</p>

@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: {case_sensitive: false}
 
+  has_many :questions
+
   def image_or_nil
     avatar || "http://media.auswalk.com.au/wp-content/themes/auswalk/img/blank-avatar.svg"
   end

@@ -13,4 +13,8 @@ class Question < ApplicationRecord
   def self.answered
     where('answer IS NOT NULL')
   end
+
+  def self.not_seen
+    where ('seen_at IS NULL')
+  end
 end

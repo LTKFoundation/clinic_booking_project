@@ -33,10 +33,21 @@
                <a class='dropdown-button' href='#' data-activates='dropdownForUser'>
                  <img src="<%=current_user.image_or_nil%>" height="25" width="25">
                  <%= current_user.name %>
+                 <% if answered_count > 0 %>
+                   <span class="new badge red"><%= answered_count %></span>
+                 <% end %>
                </a>
                <ul id='dropdownForUser' class='dropdown-content'>
                 <li><%= link_to "Account", edit_user_registration_path %></li>
                 <li><%= link_to "My bookings", view_my_booking_path %></li>
+                <li>
+                  <a href="<%= first_answered_path %>">
+                    Hỏi đáp
+                    <% if answered_count > 0 %>
+                      <span class="new badge red"><%= answered_count %></span>
+                    <% end %>
+                  </a>
+                </li>
                 <li class="divider"></li>
                 <li><%= link_to "Sign out", destroy_user_session_path, :method => 'delete' %></li>
                </ul>
