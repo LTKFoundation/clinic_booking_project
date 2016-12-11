@@ -22,7 +22,7 @@ class CartsController < ApplicationController
 			if @booking.save
 				redirect_to cart_path(cart.id)
 			else
-				flash.now[:error] = "Không đặt được lịch khám này"
+				flash.now[:alert] = "Không đặt được lịch khám này"
 				redirect_back(fallback_location: doctor_gig_client_view_path(params[:doctor_id],params[:gig_id]))
 			end 
 		
@@ -48,14 +48,14 @@ class CartsController < ApplicationController
 					booking.confirm_code = generate_confirm_code
 					booking.save
 				end
-				flash[:success] = "Đã thanh toán thành công!"
+				flash[:notice] = "Payment Success!"
 				redirect_to show_receipt_cart_path(@cart.id)
 			else
-				flash[:error] = "Đã thanh toán thành công nhưng lỗi"
+				flash[:alert] = "Đã thanh toán thành công nhưng lỗi"
 				redirect_back(fallback_location: cart_path(@cart.id))
 			end
 		else
-			flash[:error] = "Không thanh toán được!!!"
+			flash[:alert] = "Không thanh toán được!!!"
 			redirect_back(fallback_location: cart_path(@cart.id))
 		end
 	end

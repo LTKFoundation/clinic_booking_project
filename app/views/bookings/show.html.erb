@@ -1,10 +1,10 @@
 <h5>Thông tin đặt khám</h5>
-<div class="col s12">
+<div class="col">
   <div class="row s12">
     <% if @booking.status == "1"%>
       <%= form_tag booking_view_checked_path(@booking.id), :method => 'get' do%>
       <div class="row s12">
-      <p class="col s3">Xác nhận mã đặt chỗ:</p>
+        <p class="col s3">Xác nhận mã đặt chỗ:</p>
         <div class="form-control col s4"><%= text_field_tag :confirm_code %></div>
         <%= submit_tag "Kiểm tra", {class: "btn waves-effect waves-light col s2",:name => nil,:onclick => "return verify_code('#{@booking.confirm_code}')"}  %>
       </div>
@@ -25,10 +25,11 @@
         </div>
       </div>
     <% end %>
-    
-			
-
-      <%=render partial: "booking_details", locals:{booking: @booking,patient: @patient} %>
+  <div class="row s12">
+    <div class="col s12">
+    <%=render partial: "booking_details", locals:{booking: @booking,patient: @patient} %>
+    </div>
+  </div>
 </div>
 <script>
 function verify_code(correct_code){
@@ -37,7 +38,7 @@ function verify_code(correct_code){
     return true;
   else
   {
-    alert("Mã xác nhận không đúng. Xin vui lòng kiểm tra lại!");
+    swal("Incorrect code!", "The verification code is not correct!", "error")
     return false;
   }
 }

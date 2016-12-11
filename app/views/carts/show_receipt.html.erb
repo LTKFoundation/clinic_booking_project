@@ -1,5 +1,4 @@
 <div class="row">
-  <h5>BẠN ĐÃ ĐẶT KHÁM THÀNH CÔNG</h5>
 	<% @bookings.each do |booking|%>
      <%=render partial: "shared/cart_item", locals:{booking: booking} %>
      <%=render partial: "shared/add_patient", locals:{booking: booking} %>

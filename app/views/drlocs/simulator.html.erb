@@ -16,28 +16,25 @@
       </div>
     </div>
     <div class="row">
-      <div class="col s5">
-        Name: <label id="user_request_name"></label>
+      <div class="col s6">
+        <div class="card hidden" id="user_request_uber_card">
+          <div class="card-content">
+            <span class="card-title">New request</span>
+            <p><i class="material-icons">person_pin</i><label id="user_request_name"></label></p>
+            <p><i class="material-icons">call</i><label id="user_request_phone"></label></p>
+            <p><i class="material-icons">place</i><label id="user_request_address"></label></p>
+          </div>
+          <div class="card-action" id="card_action_uber_confirm">
+            Confirm now to accept this request<%= submit_tag "confirm",id:"btn_uber_confirm",onclick:"confirmUberBooking(#{current_doctor.id},'#{current_doctor.name}')",:class => "hidden btn btn-small"%>
+          </div>
+        </div>
       </div>
-      <div class="col s5">
-        Phone:<label id="user_request_phone"></label>
-      </div>
+    </div>
       <%= hidden_field_tag :user_request_lat, value: "" %>
       <%= hidden_field_tag :user_request_lng, value: "" %>
       <%= hidden_field_tag :user_request_id, value: "" %>
-    </div>
     <div class="row">
-      <div class="col s12">
-        <p6>Address: <label id="user_request_address"></label></h6>
-      </div>  
-    </div>
-    <div class="row">
-      <div class="col s4">
-        <%= submit_tag "confirm",id:"btn_uber_confirm",onclick:"confirmUberBooking(#{current_doctor.id},'#{current_doctor.name}')",hidden:"true"%>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col s10">
+      <div class="col s10 hidden">
         <label id="transaction_status"></label>
       </div>
     </div>

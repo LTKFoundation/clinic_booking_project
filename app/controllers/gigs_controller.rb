@@ -25,7 +25,7 @@ class GigsController < ApplicationController
 				Schedule.create(:gig_id => @gig.id,:weekday => day[0],:start_at => '',:end_at => '')
 			end
 
-			flash[:success] = "Đã thêm địa chỉ làm việc của bác sĩ"
+			flash[:notice] = "Đã thêm địa chỉ làm việc của bác sĩ"
       redirect_to doctor_gigs_path(current_doctor.id)
     else
       render 'index'
@@ -54,10 +54,10 @@ class GigsController < ApplicationController
 						# logger.debug @weekday+"created"
 					end
 				end
-				flash[:success] = "Đã cập nhập thông tin thành công"
+				flash[:notice] = "Đã cập nhập thông tin thành công"
 				redirect_to doctor_gigs_path(current_doctor.id)
 			else
-				flash[:error] = @gig.errors.full_messages.to_sentence
+				flash[:alert] = @gig.errors.full_messages.to_sentence
 				redirect_to doctor_gigs_path(current_doctor.id)
 			end
 		else
