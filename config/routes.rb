@@ -56,7 +56,7 @@ Rails.application.routes.draw do
       get 'doctor_view' => 'gigs#booking_manage'
     end
     resources :comments
-    resources :questions, only: [ :create, :update, :destroy ]
+    resources :questions
   end
 
   resources :clients, only: [ :show, :create, :update, :destroy ]

@@ -40,13 +40,21 @@
                 <li class="divider"></li>
                 <li><%= link_to "Sign out", destroy_user_session_path, :method => 'delete' %></li>
                </ul>
-            </li>             
+            </li>
           <% else %>
             <% if current_doctor %>
               <% if doctor_gig %>
               <li><%= link_to "My clinic", doctor_gig_doctor_view_path(current_doctor.id,doctor_gig.id)%></li>
               <% end %>
               <li><%= link_to "Home service", before_start_drlocs_path %></li>
+              <li>
+                <a href="<%= doctor_questions_path(current_doctor) %>">
+                  Câu hỏi
+                  <% if noti_count > 0%>
+                    <span class="new badge red"><%= noti_count %></span>
+                  <% end %>
+                </a>
+              </li>
               <!-- Dropdown Trigger -->
                <li>
                  <a class='dropdown-button' href='#' data-activates='dropdownForDoctor'>
@@ -149,7 +157,7 @@
         <div class="row">
           <div class="col l6 s12">
             <p class="grey-text text-lighten-4">
-              A little effort in solving a small pain of our society 
+              A little effort in solving a small pain of our society
             </p>
           </div>
           <div class="col l3 s12">
