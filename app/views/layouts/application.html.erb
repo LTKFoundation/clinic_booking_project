@@ -26,7 +26,6 @@
       <div class="nav-wrapper container">
         <%= link_to 'Datkham.Online', root_path, class: "brand-logo", id: "logo-container" %>
         <ul class="right hide-on-med-and-down">
-          <li><%= link_to "Doctor near me", clinics_path, method: 'get' %></li>
           <% if current_user %>
           <li><%= link_to "Request doctor", uber_doctors_path %></li>
             <li>
@@ -77,7 +76,6 @@
         <!-- TODO : Update mobile menu later -->
         <ul id="nav-mobile" class="side-nav">
           <li class="nav-heading">Booking.doctor</li>
-          <li><%= link_to "Doctor near me", clinics_path, method: 'get' %></li>
           <% if current_user %>
           <li><%= link_to "Request doctor", uber_doctors_path %></li>
             <!-- Dropdown Trigger -->

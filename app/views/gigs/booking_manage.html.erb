@@ -1,4 +1,4 @@
-<h4>Lịch khám</h4>
+<h5>Working dashboard</h5>
 <%= form_for Booking.new do |f|%>
 <%= hidden_field_tag "gig_id", @gig.id %>
 <div class="row">
@@ -6,35 +6,35 @@
     <div class="row">
       <div class="input-field col s5">
           <%= text_field_tag :patient_name,nil,:required => true %>
-          <label>Tên</label>
+          <label>Name</label>
       </div>
       <div class="input-field col s5">
           <%= date_field_tag :dob, '2014-01-01', class: 'datepicker', :required => true%>
-          <label>Ngày sinh</label>
+          <label>Birthday</label>
       </div>
       <div class="input-field col s2">
         <%= select_tag :gender, raw("<option value='1'>Nữ</option><option value='2'>Nam</option>"), :required => true%>
+        <label>Gender</label>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s4">
+      <div class="input-field col s5">
           <%= text_field_tag :start_at,nil,:required => true,:readonly => true, placeholder: ''%>
-          <label>Giờ khám</label>
+          <label>Timeslot</label>
       </div>
-      <div class="input-field col s8">
+      <div class="input-field col s7">
           <%= text_field_tag :address %>
-          <label>Địa chỉ</label>
+          <label>Address</label>
       </div>
     </div>
   </div>
   <div class="col s12">
-    <%= f.button "Thêm nhanh", class: "waves-effect waves-light btn", type: "submit" %>
+    <%= f.button "Add to schedule", class: "waves-effect waves-light btn", type: "submit" %>
     <br><br>
   </div>
 
 </div>
 <% end %>
-<p>Chọn giờ muốn đặt</p>
 <table class="highlight centered responsive-table">
   <% @booking_schedule.each_with_index do |data_row, index| %>
     <% if index == 0 %>

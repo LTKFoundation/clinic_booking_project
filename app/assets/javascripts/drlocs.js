@@ -41,14 +41,14 @@ function serveThisRequest(user_id, lat, lng, user_name, user_phone, user_address
     dr_name = $("input#uber_name").val();
     dr_id = $("input#uber_id").val();
     dr_avatar = $("input#uber_avatar").val();
-    confirm = confirm("Are you sure you want to serve this request for " + budget + "?");
-    if (confirm) {
-        document.getElementById('user_request_name').innerHTML = "<span class='red-text text-darken-2'>" + user_name + "</span>";
-        document.getElementById('user_request_phone').innerHTML = "<span class='red-text text-darken-2'>" + user_phone + "</span>";
-        document.getElementById('user_request_address').innerHTML = "<span class='red-text text-darken-2'>" + user_address + "</span>";
-        document.getElementById('transaction_status').innerHTML = "<span class='green-text text-darken-2'>Request taken, waiting for user confirmation!</span>";
-        App.drlocs.take_request({ command: "take_request", dr_id: dr_id, dr_name: dr_name, user_id: user_id, dr_lat: $("input#uber_lat").val(), dr_lng: $("input#uber_lng").val() });
-    }
+    // confirm = confirm("Are you sure you want to serve this request for " + budget + "?");
+    // if (confirm) {
+    document.getElementById('user_request_name').innerHTML = "<span class='red-text text-darken-2'>" + user_name + "</span>";
+    document.getElementById('user_request_phone').innerHTML = "<span class='red-text text-darken-2'>" + user_phone + "</span>";
+    document.getElementById('user_request_address').innerHTML = "<span class='red-text text-darken-2'>" + user_address + "</span>";
+    document.getElementById('transaction_status').innerHTML = "<span class='green-text text-darken-2'>Request taken, waiting for user confirmation!</span>";
+    App.drlocs.take_request({ command: "take_request", dr_id: dr_id, dr_name: dr_name, user_id: user_id, dr_lat: $("input#uber_lat").val(), dr_lng: $("input#uber_lng").val() });
+    // }
 }
 
 function showUserRequest(lat, lng, dr_id, user_id, user_name, user_phone, user_address) {
@@ -70,7 +70,9 @@ function showUserRequest(lat, lng, dr_id, user_id, user_name, user_phone, user_a
         user_lng_txt.val(lng);
 
         displayUserRequest(lat, lng, user_name);
-        alert("User " + user_name + " . Phone: " + user_phone + " requested your service at address: " + user_address);
+        document.getElementById('transaction_status').innerHTML = "User " + user_name + " . Phone: " + user_phone + " requested your service at address: " + user_address;
+        sweetAlert("New request", "User " + user_name + " . Phone: " + user_phone + " requested your service at address: " + user_address, "success");
+        $("#btn_uber_confirm").prop("hidden", false);
         showRoute($("input#uber_lat").val(), $("input#uber_lng").val(), lat, lng, map);
     }
 }
@@ -86,10 +88,30 @@ function showDoctorTakeMyRequest(dr_id, dr_name, user_id, dr_lat, dr_lng) {
         user_lat = $('input[id=user_request_lat]').val();
         user_lng = $('input[id=user_request_lng]').val();
         showRoute(dr_lat, dr_lng, user_lat, user_lng, uber_map);
-        alert("Doctor " + dr_name + " accepted your request. Can you confirm that he can come now?");
+        sweetAlert("Request accepted!", "Can you confirm that he can come now?", "success");
+        swal({
+                title: "Request accepted!",
+                text: "Can you confirm that he can come now?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK, confirm!",
+                cancelButtonText: "No, I'm busy!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    responseToConfirm(isConfirm)
+                    swal("Confirmed!", "Your doctor is coming.", "success");
+                } else {
+                    responseToConfirm(isConfirm)
+                    swal("Cancelled", "We are sorry for this inconvienance", "error");
+                }
+            });
         // enable confirm button now
-        $("#btn_confirm").prop("hidden", false);
-        $("#btn_reject").prop("hidden", false);
+        // $("#btn_confirm").prop("hidden", false);
+        // $("#btn_reject").prop("hidden", false);
     }
 }
 
@@ -98,9 +120,9 @@ function responseToConfirm(accepted) {
     my_id = $('input[id=user_request_id]').val();
     App.drlocs.response_dr_confirm({ command: "response_dr_confirm", dr_id: dr_id, user_id: my_id, confirmed: accepted });
     if (accepted) {
-        document.getElementById('uber_doctor_confirm').innerHTML = "<span class='red-text green lighten-2'>Confirmed! Doctor is on his way</span>";
+        document.getElementById('uber_doctor_confirm').innerHTML = "Confirmed! Doctor is on his way";
     } else {
-        document.getElementById('uber_doctor_confirm').innerHTML = "<span class='white-text red lighten-2'>You canceled this request :( </span>";
+        document.getElementById('uber_doctor_confirm').innerHTML = "You canceled this request :( ";
     }
 }
 
@@ -108,12 +130,14 @@ function showUserResponse(dr_id, user_id, confirmed) {
     var my_id = $('input[id=uber_id]').val();
     if (my_id == dr_id) {
         if (confirmed) {
-            alert("User confirmed! You can start driving now. Goodluck!");
-            document.getElementById('transaction_status').innerHTML = "<span class='red-text green lighten-2'>User confirmed! You can start driving now. Goodluck!</span>";
+            // alert("User confirmed! You can start driving now. Goodluck!");
+            // document.getElementById('transaction_status').innerHTML = "User confirmed! You can start driving now. Goodluck!";
+            sweetAlert("User confirmed!", "You can start driving now. Goodluck!", "success");
             showRoute($("input#uber_lat").val(), $("input#uber_lng").val(), $('input[id=user_request_lat]').val(), $('input[id=user_request_lng]').val(), map);
         } else {
-            alert("User rejected! We are very sorry for this inconvenience");
-            document.getElementById('transaction_status').innerHTML = "<span class='white-text red lighten-2'>User rejected! We are very sorry for this inconvenience</span>";
+            // alert("User rejected! We are very sorry for this inconvenience");
+            // document.getElementById('transaction_status').innerHTML = "User rejected! We are very sorry for this inconvenience";
+            sweetAlert("User rejected!", "We are very sorry for this inconvenience!", "error");
         }
     }
 }
@@ -127,7 +151,7 @@ function showBookingConfirm(dr_id, user_id, dr_name) {
 
     if (doctor_id == dr_id && my_id == user_id) {
         document.getElementById('uber_doctor_confirm').innerHTML = "<span class='red-text text-darken-2'>Confirmed. Doctor is coming!</span>";
-        alert("Booking confirmed! Doctor " + dr_name + " is on his way.");
+        sweetAlert("Booking confirmed!", "Doctor " + dr_name + " is on his way.", "success");
         user_lat = $('input[id=user_request_lat]').val();
         user_lng = $('input[id=user_request_lng]').val();
         doctor_lat = $('input[id=selected_uber_doctor_lat]').val();
