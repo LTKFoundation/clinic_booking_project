@@ -31,6 +31,30 @@
       </div>
     </div>
   </div>
+
+  <!-- Q&A -->
+  <div class="col s12 m8">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-title">
+          Hỏi đáp
+        </div>
+
+        <!-- Question form -->
+        <%= form_for [@doctor, @doctor.questions.build] do |f| %>
+          <div class="input-field">
+            <%= f.text_area :content, placeholder: "Đặt câu hỏi cho bác sĩ #{ @doctor.name }", class: "materialize-textarea" %>
+          </div>
+          <%= f.submit 'Hỏi', class: 'waves-effect light-wave btn btn-submit' %>
+        <% end %>
+
+        <!-- Questions list -->
+        <% @doctor.questions.each do |question| %>
+          <%= render 'question', { question: question } if question.has_answer? %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- List Comments -->
@@ -130,4 +154,3 @@
   }
 
 </script>
-
