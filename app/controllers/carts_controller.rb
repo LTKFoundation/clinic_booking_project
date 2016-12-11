@@ -63,6 +63,8 @@ class CartsController < ApplicationController
 	def show_receipt
 		@cart = Cart.find_by_id(params[:id])
 		@bookings = Booking.where(:cart_id => @cart.id,:user_id => current_user.id, :status => "1")
+    @patients = Patient.where(:user_id => current_user.id)
+    gon.watch.patient_list = @patients
 	end
 
 	#TODO add payment process to Stripe 

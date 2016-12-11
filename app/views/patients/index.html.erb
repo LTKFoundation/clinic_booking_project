@@ -1,0 +1,11 @@
+<div class="col">
+  <% if @patients %>
+    <div class="row">
+    <% @patients.each do |patient|%>
+      <div class="col s6">
+        <%=render partial: "patient_card", locals:{patient: patient} %>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+</div>

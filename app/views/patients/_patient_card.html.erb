@@ -1,0 +1,17 @@
+  <div class="col s12 m7">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="http://lorempixel.com/100/190/people/3">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>Tên: <%= patient.name %></p>
+          <p>Tuổi: <%= patient.age %></p>
+          <p>Giới tính: <%= patient.gender_title %></p>
+        </div>
+        <div class="card-action">
+          <%=link_to "Xem đầy đủ",patient_path(patient.id)%>
+        </div>
+      </div>
+    </div>
+  </div>

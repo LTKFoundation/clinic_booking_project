@@ -26,7 +26,6 @@
       <div class="nav-wrapper container">
         <%= link_to 'Datkham.Online', root_path, class: "brand-logo", id: "logo-container" %>
         <ul class="right hide-on-med-and-down">
-          <li><%= link_to "Doctor near me", clinics_path, method: 'get' %></li>
           <% if current_user %>
           <li><%= link_to "Request doctor", uber_doctors_path %></li>
             <li>
@@ -37,6 +36,7 @@
                <ul id='dropdownForUser' class='dropdown-content'>
                 <li><%= link_to "Account", edit_user_registration_path %></li>
                 <li><%= link_to "My bookings", view_my_booking_path %></li>
+                <li><%= link_to "My family", patients_path %></li>
                 <li class="divider"></li>
                 <li><%= link_to "Sign out", destroy_user_session_path, :method => 'delete' %></li>
                </ul>
@@ -76,7 +76,6 @@
         <!-- TODO : Update mobile menu later -->
         <ul id="nav-mobile" class="side-nav">
           <li class="nav-heading">Booking.doctor</li>
-          <li><%= link_to "Doctor near me", clinics_path, method: 'get' %></li>
           <% if current_user %>
           <li><%= link_to "Request doctor", uber_doctors_path %></li>
             <!-- Dropdown Trigger -->
@@ -88,6 +87,7 @@
              <ul id='dropdownMiniForUser' class='dropdown-content'>
                <li><%= link_to "Account", edit_user_registration_path %></li>
                <li><%= link_to "My bookings", view_my_booking_path %></li>
+               <li><%= link_to "My family", patients_path %></li>
                <li class="divider"></li>
                <li><%= link_to "Sign out", destroy_user_session_path, :method => 'delete' %></li>
              </ul>
@@ -149,7 +149,7 @@
         <div class="row">
           <div class="col l6 s12">
             <p class="grey-text text-lighten-4">
-              A little effort in solving a small pain of our society 
+              One little attempt to make modern life a bit easier to live! 
             </p>
           </div>
           <div class="col l3 s12">

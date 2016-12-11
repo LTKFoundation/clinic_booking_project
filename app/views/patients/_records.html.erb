@@ -1,0 +1,22 @@
+<% if patient_records.length > 0 %>
+<div class="col s12">
+  <table class="bordered striped">
+    <thead>
+      <tr class="row">
+        <th data-field="date" class="col s2">Ngày khám</th>
+        <th data-field="symthom" class="col s4">Triệu chứng</th>
+        <th data-field="prescript" class="col s6">Điều trị</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% patient_records.each do |record|%>
+    <tr class="row">
+      <td class="col s2"><%= record.start_at.strftime("%d/%m/%Y") %></td>
+      <td class="col s4"><%= record.symthom %></td>
+      <td class="col s6"><%= record.prescription %></td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>

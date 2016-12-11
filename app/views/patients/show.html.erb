@@ -1,0 +1,34 @@
+<div class="col">
+<% if @patient %>
+  <div class="row">
+    <div class="col s12">
+      <p><b>Người được khám</b></p>
+      <div class="col s6">
+        <%=render partial: "patient_card", locals:{patient: @patient} %>
+      </div>
+      <% if @doctors%>
+      <div class="col s6">
+        Bạn đang chia sẻ tất cả thông tin này với các bác sĩ sau
+        <table class="bordered striped">
+          <tbody>
+            <% @doctors.each do |doctor_can_view|%>
+              <tr class="row">
+                <td><%= link_to doctor_can_view.doctor.name,doctor_path(doctor_can_view.doctor.id) %></td>
+                <td>
+                <%= form_tag patient_remove_doctor_path(@patient.id), :method => 'get',:id => "remove_doctor_form" do %>
+                  <%= hidden_field_tag :id, doctor_can_view.id %>       
+                  <%= link_to 'Xoá', "", :onclick => "$('#remove_doctor_form').submit()" %>
+                <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% end %>
+  </div>
+<% end %>
+<% if @patient_records %>
+  <%=render partial: "records", locals:{patient_records: @patient_records} %>
+<% end %>
+</div>

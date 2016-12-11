@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col s12">
-    <div class="row">
+    <div class="row" hidden="true">
       <div class="col s12">
         <h6>You are now available for home service. Service cost is 
             <span class="red-text text-darken-2"><b>
@@ -11,31 +11,33 @@
       </div>
     </div>
     <div class="row">
-      <div class="col s12">
+      <div class="col s12" hidden="true">
         <label id="user_request_avail"></label>
       </div>
     </div>
     <div class="row">
-      <div class="col s12">
-        <p6>User Address: <label id="user_request_address"></label></h6>
-      </div>  
-    </div>
-    <div class="row">
       <div class="col s5">
-        User Name: <label id="user_request_name"></label>
+        Name: <label id="user_request_name"></label>
       </div>
       <div class="col s5">
-        User Phone:<label id="user_request_phone"></label>
+        Phone:<label id="user_request_phone"></label>
       </div>
       <%= hidden_field_tag :user_request_lat, value: "" %>
       <%= hidden_field_tag :user_request_lng, value: "" %>
       <%= hidden_field_tag :user_request_id, value: "" %>
-      <div class="col s2">
-        <%= submit_tag "confirm",class:"btn btn-primary",onclick:"confirmUberBooking(#{current_doctor.id},'#{current_doctor.name}')"%>
-      </div>
     </div>
     <div class="row">
       <div class="col s12">
+        <p6>Address: <label id="user_request_address"></label></h6>
+      </div>  
+    </div>
+    <div class="row">
+      <div class="col s4">
+        <%= submit_tag "confirm",id:"btn_uber_confirm",onclick:"confirmUberBooking(#{current_doctor.id},'#{current_doctor.name}')",hidden:"true"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s10">
         <label id="transaction_status"></label>
       </div>
     </div>

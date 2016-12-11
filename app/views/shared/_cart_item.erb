@@ -8,21 +8,22 @@
 						<div class="label col">Phòng khám: <%= link_to booking.gig.clinic.name, clinic_path(booking.gig.clinic_id) %></div>
 					</div>
 					<div class="row">
-						<div class="label col">Địa chỉ: <%= booking.gig.clinic.address %></div>
-					</div>
-					<div class="row">
 						<div class="label col">Bác sĩ: <%= link_to booking.gig.doctor.name, doctor_path(booking.gig.doctor_id) %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Chuyên khoa: <%= booking.gig.doctor.expertise %></div>
 					</div>
 					<div class="row">
 						<div class="label col">
               <div class="panel yellow lighten-2">
-                Mã xác nhận: <span class="red-text text-darken-2"><b><%= booking.confirm_code%></b></span>
+                Mã xác nhận: <span class="red-text text-darken-2"><b><%= booking.confirm_code %></b></span>
               </div>
             </div>
 					</div>
+          <div class="row">
+            <div class="col">
+              <% if booking %>
+                <%= link_to "Xem chi tiết",booking_user_review_path(booking.id)%>
+              <% end %>
+            </div>
+          </div>
 			</div>
 				<div class="col s6">
           <div class="row">

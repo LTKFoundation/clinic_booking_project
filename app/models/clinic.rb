@@ -37,9 +37,9 @@ class Clinic < ApplicationRecord
 		# @clinics = Clinic.all
     # LongV: load clinic and display gig_id of gig that has schedules set up already. Only clinic has schedules are displayed as bookable to User
     sql_string = "select clinics.latitude, clinics.longtitude, clinics.name, clinics.address, clinics.id, clinics.photos, clinics.phone, "+
-    "gig_doctors.doctor_id, gig_doctors.gig_id, gig_doctors.doctor_name, clinics.expertise,gig_doctors.verified_at, gig_doctors.avatar "+
+    "gig_doctors.doctor_id, gig_doctors.gig_id, gig_doctors.doctor_name, clinics.expertise,gig_doctors.verified_at, gig_doctors.avatar,gig_doctors.description "+
     "from clinics left outer join "+
-    "(select gigs.*,doctors.name as doctor_name,doctors.expertise,doctors.verified_at,doctors.avatar  "+
+    "(select gigs.*,doctors.name as doctor_name,doctors.expertise,doctors.verified_at,doctors.avatar,doctors.description  "+
     "from (select * from gigs join (select distinct gig_id from schedules) as schedules "+ 
     "on gigs.id = schedules.gig_id) as gigs  "+
     "join doctors on gigs.doctor_id = doctors.id) as gig_doctors "+
@@ -48,6 +48,7 @@ class Clinic < ApplicationRecord
     "or upper(clinics.address) like upper('%"+q+"%') "+
     "or upper(gig_doctors.doctor_name) like upper('%"+q+"%') "+
     "or upper(clinics.expertise) like upper('%"+q+"%') "+
+    "or upper(gig_doctors.description) like upper('%"+q+"%') "+
     ";"
     @clinics = Clinic.find_by_sql sql_string 
     # raise sql_string

@@ -1,18 +1,25 @@
 <h5>Doctor available for home service</h>
 <div class="row">
-  <div class="col s2">
-    <h6>Your address:</h6>
-  </div>
   <div class="col s10">
-    <label id="user_request_address"></label>
+    <label id="user_request_address" hidden="true"></label>
   </div>
 </div>
 <div class="row">
   <div class="col s12">
-    <label id="uber_doctor_avais"></label>
+    <label id="uber_doctor_avais" hidden="true"></label>
   </div>
 </div>
-
+<div class="row">
+  <div class="col s6">
+    <label id="uber_doctor_confirm"></label>
+  </div>
+  <div class="col s3">
+    <%= submit_tag "Confirm", id:"btn_confirm", :onclick => "responseToConfirm(true);", :hidden=>"true"%>
+  </div>
+  <div class="col s3">
+    <%= submit_tag "Reject", id:"btn_reject", :onclick => "responseToConfirm(false);", :hidden=>"true"%>
+  </div>
+</div>
 <%= hidden_field_tag :uber_doctor_loc,nil,placeholder:"",class:"form-control"%>
 <%= hidden_field_tag :user_request_id,current_user.id,placeholder:"",class:"form-control"%>
 <%= hidden_field_tag :user_request_name,current_user.name,placeholder:"",class:"form-control"%>
@@ -26,14 +33,11 @@
 
 <div class="row">
   <div class="col s12">
-    <div class="col s4">
+    <div class="col s4" hidden="true">
       <h6>Doctor:</h6> <label id="selected_uber_doctor"></label>
     </div>
-    <div class="col s4">
+    <div class="col s4" hidden="true">
       <h6>Price:</h6> <label id="selected_uber_doctor_price"></label>
-    </div>
-    <div class="col s4">
-      <h6>Status:</h6> <label id="uber_doctor_confirm"></label>
     </div>
     <%= hidden_field_tag :selected_uber_doctor_id,nil,placeholder:"",class:"form-control"%>
     <%= hidden_field_tag :selected_uber_doctor_lat,nil,placeholder:"",class:"form-control"%>
@@ -48,7 +52,7 @@
           <label for="my_budget">My budget</label>
         </div>
         <div class="input-field col s8">
-          <%= text_field_tag :my_symthom,"", placeholder:"describe your symthom here...", class:"form-control"%>
+          <%= text_field_tag :my_symthom," ", placeholder:"describe your symthom here...", class:"form-control", required:"true"%>
           <label for="my_symthom">Symthom</label>
         </div>
       </div>
@@ -57,20 +61,16 @@
 <div class="row">
     <div class="col s12">
       <div class="row">
-        <div class="input-field col s4">
-          <%= submit_tag "Raise Request", class: 'waves-effect waves-light btn-small teal lighten-2', :onclick => "userRaiseRequest();"%>
-        </div>
-        <div class="input-field col s4">
-          <%= submit_tag "Confirm", id:"btn_confirm", class: 'waves-effect waves-light btn-small light-green accent-4', :onclick => "responseToConfirm(true);", hidden: true%>
-        </div>
-        <div class="input-field col s4">
-          <%= submit_tag "Reject", id:"btn_reject", class: 'waves-effect waves-light btn-small red', :onclick => "responseToConfirm(false);", hidden: true%>
+        <div class="col s4">
+          <%= submit_tag "Raise Request", class: "waves-effect waves-light btn green", :onclick => "userRaiseRequest();"%>
         </div>
       </div>
     </div>
 </div>
 <script src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCHC3pq8j8gzrqJhbjcZZALu1_UwYsjhSE&callback=initMapUserViewUber' >
 $(document).ready(function() {
-    initMapUserViewUber();
-  });
+  initMapUserViewUber();
+  $("#btn_confirm").prop("hidden", true);
+  $("#btn_reject").prop("hidden", true);
+});
 </script>

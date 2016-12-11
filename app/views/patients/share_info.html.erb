@@ -1,0 +1,28 @@
+<div class="col">
+<% if @patient %>
+  <div class="row">
+    <div class="col s12">
+      <p><b>Người được khám</b></p>
+      <div class="col s6">
+        <%=render partial: "patient_card", locals:{patient: @patient} %>
+      </div>
+      <div class="col s6">
+        <p class="row">
+          <div class="panel yellow lighten-2 red-text">
+          Bạn sẽ chia sẻ tất cả thông tin này với bác sĩ <%=@doctor.name %>!!!
+          </div>
+        </p>
+        <p class="row">
+          <%= form_tag patient_add_doctor_path(@patient.id), :method => 'get',:id => "add_doctor_form" do %>
+            <%= hidden_field_tag :doctor_id, @doctor.id %>      
+            Nếu bạn chắc chắn về việc này, xin vui lòng bấm vào đây 
+            <%= link_to 'Bấm vào đây', "", :onclick => "$('#add_doctor_form').submit()" %>
+          <% end %>
+        </p>
+      </div>
+  </div>
+<% end %>
+<% if @patient_records %>
+  <%=render partial: "records", locals:{patient_records: @patient_records} %>
+<% end %>
+</div>

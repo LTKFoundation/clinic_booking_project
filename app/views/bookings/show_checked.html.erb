@@ -7,48 +7,17 @@
             <h5 class="col s4"><%= @booking.confirm_code %></h5>
           <% end %>
 			</div>
-			<div class="row s12">
-				<div class="col s6">
-					<p> Người đặt khám</p>
-          <div class="row">
-            <div class="label col">Tên: <%= @booking.patient ? @booking.patient.name : @booking.user.name %></div>
-          </div>
-          <div class="row">
-            <div class="label col">Tuổi: <%= @booking.patient ? @booking.patient.dob : '' %></div>
-          </div>
-          <div class="row">
-            <div class="label col">Giới tính: <%= @booking.patient ? @booking.patient.gender : '' %></div>
-          </div>
-          <div class="row">
-            <div class="label col">Triệu chứng: <%= "@booking.symthom" %></div>
-          </div>
-			</div>
-				<div class="col s6">
-					<p> Lịch khám</p>
-					<div class="row">
-						<div class="label col">Giờ khám <%= @booking.start_at %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Giá dịch vụ <%= number_to_currency(@booking.price, unit: 'VND ', precision: 0) %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Phí đặt cọc (hoàn lại) <%= number_to_currency(@booking.deposit, unit: 'VND ', precision: 0)  %></div>
-					</div>
-					<div class="row">
-						<div class="label col">Còn phải thu: <%= number_to_currency(@booking.price - @booking.deposit, unit: 'VND ', precision: 0) %></div>
-					</div>
-			</div>
+      <%=render partial: "booking_details", locals:{booking: @booking,patient: @patient} %>
 	
+      <div class="row">
+        <div class="input-field col s12">
+
+          <%= form_tag booking_add_prescription_path(@booking.id), :method => 'get',:id => "add_prescription_form" do %>
+            <%= hidden_field_tag :booking_id, @booking.id %>
+            Điều trị: <textarea id="prescription" name="prescription" class="materialize-textarea"></textarea>       
+            <%= link_to 'Thêm thông tin', "", :onclick => "$('#add_prescription_form').submit()" %>
+          <% end %>
+
+        </div>
+      </div>
 </div>
-<script>
-function verify_code(correct_code){
-  inputcode = $('input[id=confirm_code]').val();
-  if(inputcode == correct_code)
-    return true;
-  else
-  {
-    alert("Mã xác nhận không đúng. Xin vui lòng kiểm tra lại!");
-    return false;
-  }
-}
-</script>

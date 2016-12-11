@@ -7,8 +7,8 @@ class BookingsController < ApplicationController
 
   def create
     @gig = Gig.find_by_id(params[:gig_id])
-    @patient = Patient.create(doctor_id: @gig.doctor.id, name: params[:patient_name], dob: params[:dob], gender: params[:gender], address: params[:address])
-    if @patient.save
+    @patient = Patient.find_or_create_by!(doctor_id: @gig.doctor.id, name: params[:patient_name], dob: params[:dob], gender: params[:gender], address: params[:address])
+    if @patient.persisted?
       @booking = Booking.new
       @booking.price =  @gig.price 
       @booking.deposit = @gig.deposit
@@ -17,10 +17,10 @@ class BookingsController < ApplicationController
       @booking.patient_id = @patient.id
       @booking.gig_id = @gig.id
       if @booking.save
-        flash[:success] = "Đặt khám thành công"
+        flash[:notice] = "Booking completed!"
         redirect_back(fallback_location: doctor_gig_doctor_view_path(@gig.doctor.id,@gig.id))
       else
-        flash[:error] = "Không đặt được lịch khám này"
+        flash[:alert] = "Không đặt được lịch khám này"
         redirect_back(fallback_location: doctor_gig_client_view_path(@gig.doctor.id,@gig.id))
       end
     end
@@ -34,8 +34,9 @@ class BookingsController < ApplicationController
     @booking.patient_id = @patient.id
     @booking.symthom = params[:symthom]
     @booking.save
-    flash[:success] = "Đã thêm thông tin người được khám"
-    redirect_to view_my_booking_path
+    flash[:notice] = "Patient information updated"
+    # redirect_to view_my_booking_path
+    redirect_to booking_user_review_path(@booking.id)
   end
   
   def show_checked
@@ -46,5 +47,17 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find_by_id(params[:id])
+    @patient = Patient.doctor_can_view(current_doctor.id,@booking.patient.id).first
+  end
+
+  def user_review
+    @booking = Booking.find_by_id(params[:booking_id])
+  end
+
+  def add_prescription
+    @booking = Booking.find_by_id(params[:booking_id])
+    @booking.prescription = params[:prescription]
+    @booking.save
+    redirect_to booking_path(@booking.id)
   end
 end
