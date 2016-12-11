@@ -6,15 +6,15 @@
   <%= form_tag(clinics_path, method: 'get',remote: true) do %>
   <div class="section">
     <div class="row">
-      <div class="input-field col s8">
+      <div class="input-field col s6 m6">
         <%= text_field_tag :q, nil, class: 'validate', style: 'border-bottom: solid #039be5' %>
         <label for="q">Type to search...</label>
       </div>
-      <div class="input-field col s2">
+      <div class="input-field col s3 m3">
         <input type="checkbox" name="bookable" id="bookable" value="yes">
         <label for="bookable">Bookable</label>
       </div>
-      <div class="input-field col s2" style="vertical-align: middle">
+      <div class="input-field col s3 m3" style="vertical-align: middle">
         <button class="btn waves-effect waves-light black-text" type="submit" style="width:100%">
           <i class="material-icons">search</i>
         </button>

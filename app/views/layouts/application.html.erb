@@ -131,11 +131,14 @@
     <div class="container">
 
       <% if notice %>
-        <p class="alert alert-success"><%= notice %></p>
-      <% end %>
+        <script>$(document).on("turbolinks:load", function(){
+          swal("<%= notice %>");
+        })</script>
+      <% elsif alert  %>
+        <script>$(document).on("turbolinks:load", function(){
+          swal("<%= alert %>");
+        })</script>
 
-      <% if alert  %>
-        <p class="alert alert-danger"><%= alert %></p>
       <% end %>
 
 

@@ -1,46 +1,56 @@
+<div class="col s12">
 <div class="row">
-	<div class="col s6">
-		<p>Thông tin bác sĩ</p>
+	<div class="col s3">
 		<div class="row">
-      <div class="card small">
-        <div class="card-image">
-          <%= image_tag @gig.doctor.avatar, class: 'doctor-avatar' %>
+      <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <%= image_tag @gig.doctor.avatar, class: 'activator' %>
         </div>
-        <div class="card-stacked">
-          <div class="card-content">
-          <p>Tên: <%= @gig.doctor.name%></p>
-          <p>Chuyên khoa: <%= @gig.doctor.expertise %></p>
-          </div>
-          <div class="card-action">
-          <%=link_to "Xem thông tin",doctor_path(@gig.doctor.id)%>
-          </div>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4"><i class="material-icons">account_circle</i><%= @gig.doctor.name%><</span>
+          <p><%=link_to "Xem thông tin",doctor_path(@gig.doctor.id)%></p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">Giới thiệu<i class="material-icons right">close</i></span>
+          <p><i class="material-icons">local_hospital</i><%= @gig.doctor.expertise %></p>
+          <p><%= @gig.doctor.description %></p>
         </div>
       </div>
 		</div>
 	</div>
-	<div class="col s6">
-		<p>Thông tin phòng khám</p>
-		<div class="row">
-				<div class="label col s6">Phòng khám: <%= @gig.clinic.name %></div>
-				<div class="label col s6">Địa chỉ: <%= @gig.clinic.address %></div>
-		</div>
-		<div class="row">
-				<div class="label col s6">Phí dịch vụ<%= number_to_currency(@gig.price, unit: 'VND ', precision: 0) %></div>
-				<div class="label col s6">Phí đặt cọc giữ chỗ<%= number_to_currency(@gig.deposit, unit: 'VND ', precision: 0) %></div>
-		</div>
-		<div class="row">
-			<div class="label col s6">Thời gian khám trung bình (phút)<%= @gig.checkup_duration%></div>
-		</div>
+  <div class="col s1">
+
+  </div>
+	<div class="col s7">
+    <div class="row">
+        <div class="collection">
+          <span>
+            <div class="collection-item">
+              <span class="text-darken-2"><i class="material-icons">home</i><%= link_to @gig.clinic.name, clinic_path(@gig.clinic.id) %>
+              </span>
+            </div>
+            <div class="collection-item">
+              <i class="material-icons">place</i> <%= @gig.clinic.address %>
+            </div>
+            <div class="collection-item">
+              <i class="material-icons">attach_money</i><%= number_to_currency(@gig.price, unit: 'VND ', precision: 0) %>
+            </div>
+            <div class="collection-item">
+              <i class="material-icons">alarm</i><%= @gig.checkup_duration%> minutes
+            </div>
+          </span>
+        </div>
+    </div>
 	</div>
 </div>
-<p>Lịch khám - Bấm vào giờ khám để đặt</p>
-<table class="highlight centered responsive-table">
+</div>
+<table class="highlight centered bordered">
 		<% @booking_schedule.each_with_index do |data_row, index| %>
 			<% if index == 0 %>
 				<thead>
 					<tr>
 						<% data_row.each do |data_col|%>
-							<td><%= data_col["display"] %></td>
+							<th><%= data_col["display"] %></th>
 						<% end %>
 					</tr>
 				</thead>

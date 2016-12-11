@@ -17,7 +17,6 @@ class BookingsController < ApplicationController
       @booking.patient_id = @patient.id
       @booking.gig_id = @gig.id
       if @booking.save
-        flash[:notice] = "Booking completed!"
         redirect_back(fallback_location: doctor_gig_doctor_view_path(@gig.doctor.id,@gig.id))
       else
         flash[:alert] = "Không đặt được lịch khám này"
@@ -35,7 +34,6 @@ class BookingsController < ApplicationController
     @booking.symthom = params[:symthom]
     @booking.save
     flash[:notice] = "Patient information updated"
-    # redirect_to view_my_booking_path
     redirect_to booking_user_review_path(@booking.id)
   end
   
