@@ -1,6 +1,12 @@
+<br>
 <div class="row">
 	<% @bookings.each do |booking|%>
      <%=render partial: "shared/cart_item", locals:{booking: booking} %>
+		 <hr>
+		 <br>
+		 <h5 class="center-align">Additional information</h5>
+		 <br>
+		 <p style="color: #999">Fill out the information of the person that need checkout</p>
      <%=render partial: "shared/add_patient", locals:{booking: booking} %>
 	 <% end %>
 </div>
