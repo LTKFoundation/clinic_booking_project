@@ -1,24 +1,21 @@
-
-<div class="col s12">
 <% if @bookings %>
-  <div class="row s12">
-    <h5 class="col s12">Review before payment</h5>
-  </div>
+    <br>
+    <h3 class="center-align">Checkout reviewing</h3>
+<br>
 	<%= form_for @cart do |cart|%>
 		<% @bookings.each do |booking|%>
-      <div class="row s12">  
-      <%=render partial: "shared/cart_item", locals:{booking: booking} %>
+      <div class="row">
+        <%=render partial: "shared/cart_item", locals:{booking: booking} %>
       </div>
 		<% end %>
-  <div class="row s12">
-    <div class="col">
+  <div class="center-align">
 		<button class="btn waves-effect waves-light" type="submit" name="action">
-				Thanh Toán<i class="material-icons right">send</i>
+				Confirm and pay<i class="material-icons right">send</i>
 		</button>
-    </div>
   </div>
 	<% end %>
 <% else %>
 <p>Bạn chưa chọn lịch khám nào</p>
 <% end %>
-</div>
+
+<br><br>

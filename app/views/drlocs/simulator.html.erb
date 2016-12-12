@@ -1,10 +1,12 @@
-<h5>Hello Dr. <%=current_doctor.name%>! You are now available for home visit service!</h5>
+<br>
+<h5 class="center-align">Congrats! Your home service is now available</h5>
+<p style='color: #999' id="description">Wait for a client raise a request...</p>
 
 <div class="row">
   <div class="col s12">
     <div class="row" hidden="true">
       <div class="col s12">
-        <h6>You are now available for home service. Service cost is 
+        <h6>You are now available for home service. Service cost is
             <span class="red-text text-darken-2"><b>
             <%= number_to_currency(@uberfee.fee, unit: 'VND ', precision: 0) %></b></span>
         </h6>
@@ -16,17 +18,19 @@
       </div>
     </div>
     <div class="row">
-      <div class="col s12">
-        <div class="card hidden" id="user_request_uber_card">
+      <div class="hidden col s12 m6 l6 offset-m3 offset-l3"  id="user_request_uber_card">
+        <p style="color: #999" id="confirm-description">Confirm now to accept this request</p>
+        <div class="card">
           <div class="card-content">
-            <span class="card-title">New request</span>
-            <p><i class="material-icons">person_pin</i><span id="user_request_name"></span></p>
-            <p><i class="material-icons">call</i><span id="user_request_phone"></span></p>
-            <p><i class="material-icons">place</i><span id="user_request_address"></span></p>
+            <span class="card-title"><strong>New request</strong></span>
+            <p><i class="material-icons">person_pin</i>  <span id="user_request_name"></span></p>
+            <p><i class="material-icons">call</i>  <span id="user_request_phone"></span></p>
+            <p><i class="material-icons">place</i>  <span id="user_request_address"></span></p>
           </div>
-          <div class="card-action" id="card_action_uber_confirm">
-            *Confirm now to accept this request<%= submit_tag "confirm",id:"btn_uber_confirm",onclick:"confirmUberBooking(#{current_doctor.id},'#{current_doctor.name}')",:class => "hidden btn btn-small"%>
+          <div class="card-action center-align" id="card_action_uber_confirm">
+            <%= submit_tag "confirm",id:"btn_uber_confirm",onclick:"confirmUberBooking(#{current_doctor.id},'#{current_doctor.name}')",:class => "hidden btn btn-small"%>
           </div>
+
         </div>
       </div>
     </div>
@@ -53,7 +57,7 @@
       <%= hidden_field_tag :uber_avatar, "#{current_doctor.avatar}" %>
       <%= hidden_field_tag :doctor_current_loc,nil,placeholder:"",class:"form-control"%>
 <script>
-$(document).ready(function() {  
+$(document).ready(function() {
   startSimulatorUber();
 });
 </script>

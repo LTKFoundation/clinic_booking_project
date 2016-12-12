@@ -3,12 +3,12 @@
   <div class="col s12">
     <div class="row">
       <div class="input-field col s4">
-      <h5>Người được khám</h5>
+      <p><strong>Người được khám</strong></p>
           <%= select_tag :patient_list, options_for_select(@patients.collect{|patient|
            [patient.name,patient.id,
-           {class: "form-control dropdown"}]}), 
+           {class: "form-control dropdown"}]}),
             :include_blank => true,
-            :id => 'patient_list'         
+            :id => 'patient_list'
           %>
       </div>
     </div>
