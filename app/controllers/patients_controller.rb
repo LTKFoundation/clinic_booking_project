@@ -23,9 +23,8 @@ class PatientsController < ApplicationController
     @share.destroy
     if @share.persisted?
       flash[:alert] = "Đã có lỗi khi thay đổi thông tin. Xin vui lòng thử lại sau"
-    else
-      flash[:notice] = "Đã thay đổi thông tin thành công"
     end
+    
     redirect_to patient_path(params[:patient_id])
   end
 
