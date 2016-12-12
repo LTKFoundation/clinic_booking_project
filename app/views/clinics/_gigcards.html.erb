@@ -1,13 +1,11 @@
 <% if all_clinic%>
-  <% all_clinic.each_slice(2) do |gigs| %>
+  <% all_clinic.each_slice(3) do |gigs| %>
   <div class="row">
-    
     <% gigs.each do |gig| %>
-    <div class="col s12 m6">
+    <div class="col s12 m6 l4">
         <%=render partial: "gigcard", locals:{gig: gig} %>
         </div>
-    <% end %>    
-    
+    <% end %>
   </div>
   <% end %>
 <% end %>
