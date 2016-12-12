@@ -27,7 +27,7 @@
         <%= link_to 'Datkham.Online', root_path, class: "brand-logo", id: "logo-container" %>
         <ul class="right hide-on-med-and-down">
           <% if current_user %>
-          <li><%= link_to "Request doctor", uber_doctors_path %></li>
+          <li><%= link_to "Uber doctor", uber_doctors_path %></li>
             <li>
                <a class='dropdown-button' href='#' data-activates='dropdownForUser'>
                  <img src="<%=current_user.image_or_nil%>" height="25" width="25">
@@ -46,7 +46,8 @@
               <% if doctor_gig %>
               <li><%= link_to "My clinic", doctor_gig_doctor_view_path(current_doctor.id,doctor_gig.id)%></li>
               <% end %>
-              <li><%= link_to "Home service", before_start_drlocs_path %></li>
+              <%#<li><%= link_to "Home service", before_start_drlocs_path %>
+              <li><%= link_to "Home service", before_simulator_drlocs_path %></li>
               <!-- Dropdown Trigger -->
                <li>
                  <a class='dropdown-button' href='#' data-activates='dropdownForDoctor'>
@@ -56,8 +57,6 @@
                <ul id='dropdownForDoctor' class='dropdown-content'>
                   <li><%= link_to "Account", edit_doctor_registration_path %></li>
                   <li><%= link_to "Clinic setup", doctor_gigs_path(current_doctor.id) %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to "Simulate driving", before_simulator_drlocs_path %></li>
                   <li class="divider"></li>
                   <li><%= link_to "Sign out", destroy_doctor_session_path, :method => 'delete' %></li>
                </ul>
@@ -77,7 +76,7 @@
         <ul id="nav-mobile" class="side-nav">
           <li class="nav-heading">Booking.doctor</li>
           <% if current_user %>
-          <li><%= link_to "Request doctor", uber_doctors_path %></li>
+          <li><%= link_to "Uber doctor", uber_doctors_path %></li>
             <!-- Dropdown Trigger -->
              <li>
                <a class='dropdown-button' href='#' data-activates='dropdownMiniForUser'>
@@ -98,7 +97,8 @@
               <% if doctor_gig %>
               <li><%= link_to "My clinic", doctor_gig_doctor_view_path(current_doctor.id,doctor_gig.id)%></li>
               <% end %>
-              <li><%= link_to "Home service", before_start_drlocs_path %></li>
+              <!-- <li><%= link_to "Home service", before_start_drlocs_path %></li>%> -->
+              <li><%= link_to "Home service", before_simulator_drlocs_path %></li>
               <!-- Dropdown Trigger -->
                <li>
                  <a class='dropdown-button' href='#' data-activates='dropdownMiniForDoctor'>
@@ -108,8 +108,6 @@
                <ul id='dropdownMiniForDoctor' class='dropdown-content'>
                   <li><%= link_to "Account", edit_doctor_registration_path %></li>
                   <li><%= link_to "Clinic setup", doctor_gigs_path(current_doctor.id) %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to "Simulate driving", before_simulator_drlocs_path %></li>
                   <li class="divider"></li>
                   <li><%= link_to "Sign out", destroy_doctor_session_path, :method => 'delete' %></li>
                </ul>

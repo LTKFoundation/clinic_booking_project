@@ -1,46 +1,22 @@
-<div class="doctor col s12">
+<div class="col s12">
   <div class="card">
-    <!-- BASIS INFO OF DOCTOR -->
-    <% if gig[6] %>
-    <div class="card-image">
-      <a href="<%= doctor_path(gig[6]) %>">
-        <%= image_tag gig[11]?gig[11]:'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg',
-         class: 'doctor-avatar' %>
-      </a>
+    <div class="card-image waves-effect waves-block waves-light">
+      <% if gig[6] %>
+      <%= image_tag gig[11]?gig[11]:'http://sainathchillapuram.com/BS/mediplus/demos/hospital/html-fullwidth/images/doctors/doctor-bio-img6.jpg',
+      class:"activator"%>
+      <% else %>
+      <%= image_tag gig[7]?gig[7]:'http://classroomclipart.com/images/gallery/Clipart/Architecture/medical-clinic-2-building-clipart-046.jpg',
+      class:"activator"%>
+      <% end %>
     </div>
-    <% else %>
-    <div class="card-image">
-      <a href="<%= clinic_path(gig[4]) %>">
-        <%= image_tag gig[7]?gig[7]:'http://classroomclipart.com/images/gallery/Clipart/Architecture/medical-clinic-2-building-clipart-046.jpg',
-         class: 'doctor-avatar' %>
-      </a>
-    </div>
-    <% end %>
-
     <div class="card-content">
-      <div class="row">
-        <!-- DOCTORS NAME -->
-        <% if gig[6] %>
-        <a href="<%= doctor_path(gig[6]) %>" class="doctor-name">
-          Bác sĩ <%= gig[9] %>
-        </a>
-        <% end %>
-        <div class="basic-info" style="margin-top: 10px;">
-          <!-- LIST OF CLINICS -->
+      <span class="card-title activator grey-text text-darken-4"></span>
           <p class="doctor-clinics">
-            <i class="material-icons">home</i>
-                <%= link_to "#{gig[2]}", clinic_path(gig[4]) %>
+            <i class="material-icons">home</i><%= link_to "#{gig[2]}", clinic_path(gig[4]) %>
           </p>
-          <p class="doctor-clinics">
-            <i class="material-icons">place</i>
-                <%= gig[3] %>
-          </p>
-          <!-- DOCTOR'S EXPERTISE -->
-          <p class="doctor-expertise">
-            <i class="material-icons">local_hospital</i>
-            <%= link_to gig[10] || 'Không có', '', style: 'color: #666' %>
-          </p>
-          <!-- DOCTOR'S VERIFIED MARK -->
+        <p class="doctor-expertise">
+          <i class="material-icons">local_hospital</i><%= link_to gig[10] || 'Không có', '', style: 'color: #666' %>
+      </p>
           <p class="verify-mark">
             <% if gig[11] %>
               <i class="material-icons green-text darken-2">check_circle</i>
@@ -50,13 +26,18 @@
               Chưa xác nhận
             <% end %>
           </p>
-        </div>
-      </div>
     </div>
     <% if gig[5]!=nil%>
       <div class="card-action">
         <%=link_to "Đặt khám ngay", doctor_gig_client_view_path(gig[6],gig[5])%>
       </div>
     <% end %>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Contact details<i class="material-icons right">close</i></span>
+      <p class="doctor-clinics">
+          <i class="material-icons">place</i><%= gig[3] %>
+        </p>
+        <p><i class="material-icons">call</i><%= gig[8]%></p>
+    </div>
   </div>
 </div>
