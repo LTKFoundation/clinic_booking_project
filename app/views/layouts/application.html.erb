@@ -130,7 +130,7 @@
 
       <% if notice %>
         <script>$(document).on("turbolinks:load", function(){
-          swal("<%= notice %>");
+          swal("Succeed!","<%= success %>","success");
         })</script>
       <% elsif alert  %>
         <script>$(document).on("turbolinks:load", function(){
