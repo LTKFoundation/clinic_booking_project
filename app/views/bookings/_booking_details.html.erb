@@ -14,7 +14,7 @@
                 <% if booking.patient %>
                   <span class="red-text text-darken-2">
                     <%= booking.user.name %> has shared medical records of
-                    <b> <%= patient.name %> </b>with you. <%= link_to "View records now",patient_doctor_view_path(patient.id) %>
+                    <b> <%= booking.patient.name %> </b>with you. <%= link_to "View records now",patient_doctor_view_path(booking.patient.id) %>
                   </span>
                 <%end%>
               </div>
