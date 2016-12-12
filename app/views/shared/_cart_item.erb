@@ -11,7 +11,7 @@
               <span class="text-darken-2">
                 <i class="material-icons">alarm_on</i><%= link_to booking.start_at.strftime("%d/%m/%Y at %I:%M%p"),doctor_gig_client_view_path(booking.gig.doctor_id,booking.gig_id) %>
                 <% if booking.status.to_i==2 %>
-                <span class="new badge red" data-badge-caption="Used"></span>
+                <span class="new badge blue" data-badge-caption="Used"></span>
                 <% end %>
               </span>
             </div>

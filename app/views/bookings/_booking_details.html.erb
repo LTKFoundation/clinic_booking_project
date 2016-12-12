@@ -1,16 +1,3 @@
-
-<% if patient %>
-<div class="row s12">
-  <div class="col s12">
-    <div class="panel yellow lighten-2">
-      <span class="red-text text-darken-2">
-        <%= booking.user.name %> đã chia sẻ lịch sử khám bệnh của
-        <b> <%= patient.name %> </b>với bác sĩ. <%= link_to "Xem hồ sơ ngay",patient_doctor_view_path(patient.id) %>
-      </span>
-    </div>
-  </div>
-</div>
-<% end %>
 <div class="row s12">
 				<div class="col s6">
           <div class="card horizontal">
@@ -21,10 +8,15 @@
               <div class="card-content">
                 <p><i class="material-icons">face</i><%= booking.patient ? booking.patient.name : booking.user.name %></p>
                 <p><i class="material-icons">date_range</i><%= booking.patient ? booking.patient.age : '' %> years old
-                <span class="new badge" data-badge-caption="Age"></span>
                 </p>
                 <p><i class="material-icons">accessibility</i><%= booking.patient ? booking.patient.gender_title : '' %></p>
                 <p><i class="material-icons">assignment</i><%= booking.symthom %></p>
+                <% if patient %>
+                  <span class="red-text text-darken-2">
+                    <%= booking.user.name %> has shared medical records of
+                    <b> <%= patient.name %> </b>with you. <%= link_to "View records now",patient_doctor_view_path(patient.id) %>
+                  </span>
+                <%end%>
               </div>
             </div>
           </div>
@@ -35,6 +27,9 @@
               <div class="collection-item">
                 <span class="text-darken-2">
                   <i class="material-icons">alarm_on</i><%= link_to booking.start_at.strftime("%d/%m/%Y at %I:%M%p"),doctor_gig_doctor_view_path(@booking.gig.doctor_id,@booking.gig_id) %>
+                  <% if booking.status.to_i == 2 %>
+                  <span class="new badge blue" data-badge-caption="VERIFIED "+<%=booking.confirm_code%>></span>
+                  <% end %>
                 </span>
               </div>
               <div class="collection-item">

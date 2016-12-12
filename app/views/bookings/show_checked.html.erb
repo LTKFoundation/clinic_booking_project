@@ -1,23 +1,25 @@
-<h1>Thông tin đặt khám</h1>
-<div class="row">
-			<div class="row s12">
-          <% if @booking.status == "2" %>
-          <p class="col s3">Mã đặt chỗ:</p>
-            <i class="material-icons s1">check_circle</i>
-            <h5 class="col s4"><%= @booking.confirm_code %></h5>
-          <% end %>
-			</div>
-      <%=render partial: "booking_details", locals:{booking: @booking,patient: @patient} %>
-	
-      <div class="row">
-        <div class="input-field col s12">
-
-          <%= form_tag booking_add_prescription_path(@booking.id), :method => 'get',:id => "add_prescription_form" do %>
-            <%= hidden_field_tag :booking_id, @booking.id %>
-            Điều trị: <textarea id="prescription" name="prescription" class="materialize-textarea"></textarea>       
-            <%= link_to 'Thêm thông tin', "", :onclick => "$('#add_prescription_form').submit()" %>
-          <% end %>
-
+<h5>Thông tin đặt khám</h5>
+<div class="col">
+  <% if @booking.status == "2" %>
+    <script>$(document).on("turbolinks:load", function(){
+          swal("Correct code!","Booking verified.","success");
+    })</script>
+  <% end %>
+  <div class="row s12">
+    <div class="col s12">
+      <div class="card">
+      <%= form_tag booking_add_prescription_path(@booking.id), :method => 'get',:id => "add_prescription_form" do %>
+        <div class="card-content">
+          <span class="card-title">Treatment info</span>
+          <br><%= hidden_field_tag :booking_id, @booking.id %>
+          Prescription: <textarea id="prescription" name="prescription" class="materialize-textarea"></textarea>       
+          <div class="card-action">
+            <%= link_to 'Update prescription', "", :onclick => "$('#add_prescription_form').submit()",:class => "btn" %>
+          </div>
         </div>
+      <% end %>
       </div>
+    </div>
+  </div>
+  <%=render partial: "booking_details", locals:{booking: @booking,patient: @patient} %>
 </div>

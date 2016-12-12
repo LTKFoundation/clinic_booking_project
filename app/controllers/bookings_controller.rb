@@ -45,7 +45,9 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find_by_id(params[:id])
-    @patient = Patient.doctor_can_view(current_doctor.id,@booking.patient.id).first
+    if @patient
+      @patient = Patient.doctor_can_view(current_doctor.id,@booking.patient.id).first
+    end
   end
 
   def user_review
