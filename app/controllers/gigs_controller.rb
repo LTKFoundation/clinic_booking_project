@@ -54,7 +54,6 @@ class GigsController < ApplicationController
 						# logger.debug @weekday+"created"
 					end
 				end
-				flash[:notice] = "Đã cập nhập thông tin thành công"
 				redirect_to doctor_gigs_path(current_doctor.id)
 			else
 				flash[:alert] = @gig.errors.full_messages.to_sentence

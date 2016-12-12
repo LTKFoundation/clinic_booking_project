@@ -38,6 +38,9 @@
           <i class="material-icons">place</i><%= gig[3] %>
         </p>
         <p><i class="material-icons">call</i><%= gig[8]%></p>
+        <% if gig[6] %>
+        <p><i class="material-icons">perm_identity</i><%= link_to gig[9], doctor_path(gig[6])%></p>
+        <% end %>
     </div>
   </div>
 </div>

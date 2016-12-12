@@ -10,6 +10,9 @@
             <div class="collection-item">
               <span class="text-darken-2">
                 <i class="material-icons">alarm_on</i><%= link_to booking.start_at.strftime("%d/%m/%Y at %I:%M%p"),doctor_gig_client_view_path(booking.gig.doctor_id,booking.gig_id) %>
+                <% if booking.status.to_i==2 %>
+                <span class="new badge red" data-badge-caption="Used"></span>
+                <% end %>
               </span>
             </div>
             <div class="collection-item">
@@ -23,6 +26,11 @@
             <% end %> 
               <span class="new badge" data-badge-caption="Booking fee"></span> 
             </div>
+              <% if booking.patient %>
+              <div class="collection-item">
+                <i class="material-icons">face</i><%= link_to booking.patient.name,patient_path(booking.patient.id)%>
+              </div>
+              <% end %>
           </span>
         </div>
       
@@ -46,7 +54,7 @@
               <div class="collection-item">
                 <i class="material-icons">card_membership</i>
                 <b><%= booking.confirm_code %></b>
-                <span class="new badge red" data-badge-caption="Confirmation code"></span> 
+                <span class="new badge orange" data-badge-caption="Confirmation code"></span> 
               </div>
               <% end %>
               <% if booking.patient %>
