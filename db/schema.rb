@@ -14,8 +14,6 @@ ActiveRecord::Schema.define(version: 20161212092848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "cube"
-  enable_extension "earthdistance"
   enable_extension "unaccent"
 
   create_table "admins", force: :cascade do |t|
@@ -81,7 +79,6 @@ ActiveRecord::Schema.define(version: 20161212092848) do
     t.datetime "verified_at"
     t.integer  "user_id"
     t.string   "expertise"
-    t.index "ll_to_earth(latitude, longtitude)", name: "clinic_loc_index", using: :gist
     t.index ["doctor_id"], name: "index_clinics_on_doctor_id", using: :btree
     t.index ["user_id"], name: "index_clinics_on_user_id", using: :btree
   end
@@ -196,17 +193,12 @@ ActiveRecord::Schema.define(version: 20161212092848) do
 
   create_table "schedules", force: :cascade do |t|
     t.integer  "gig_id"
+    t.text     "start_at"
     t.text     "end_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text     "start_at"
     t.integer  "weekday"
     t.index ["gig_id"], name: "index_schedules_on_gig_id", using: :btree
-  end
-
-  create_table "searches", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

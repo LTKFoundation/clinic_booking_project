@@ -62,7 +62,9 @@ function serveThisRequest(user_id, lat, lng, user_name, user_phone, user_address
     document.getElementById('user_request_address').innerHTML = user_address;
     document.getElementById('transaction_status').innerHTML = "Request taken, waiting for user confirmation!";
     App.drlocs.take_request({ command: "take_request", dr_id: dr_id, dr_name: dr_name, user_id: user_id, dr_lat: $("input#uber_lat").val(), dr_lng: $("input#uber_lng").val() });
+    $("#confirm-description").html("Informed the user and waiting for response...");
     sweetAlert("Request accepted!", "Informing user and waiting for his response...", "success");
+
     // }
 }
 
@@ -127,9 +129,11 @@ function showDoctorTakeMyRequest(dr_id, dr_name, user_id, dr_lat, dr_lng) {
                     responseToConfirm(isConfirm)
                     swal("Confirmed!", "Your doctor is coming.", "success");
                     document.getElementById('user_raise_request_status').innerHTML = "Confirmed! Your doctor is coming.";
+                    $("#user-description").html('The doctor is coming! See the position on the map.')
                 } else {
                     responseToConfirm(isConfirm)
                     swal("Cancelled", "We are sorry for this inconvienance", "error");
+                    $("#user-description").html('Canceled, sorry... Maybe you want to try another request!')
                     document.getElementById('user_raise_request_status').innerHTML = "You cancelled this request. We are sorry for this inconvienance.";
                 }
             });
@@ -156,11 +160,13 @@ function showUserResponse(dr_id, user_id, confirmed) {
         if (confirmed) {
             // alert("User confirmed! You can start driving now. Goodluck!");
             // document.getElementById('transaction_status').innerHTML = "User confirmed! You can start driving now. Goodluck!";
+            $("#confirm-description").html('User confirmed. You can start driving now!');
             sweetAlert("User confirmed!", "You can start driving now. Goodluck!", "success");
             showRoute($("input#uber_lat").val(), $("input#uber_lng").val(), $('input[id=user_request_lat]').val(), $('input[id=user_request_lng]').val(), map);
         } else {
             // alert("User rejected! We are very sorry for this inconvenience");
             // document.getElementById('transaction_status').innerHTML = "User rejected! We are very sorry for this inconvenience";
+            $("#confirm-description").html('Sorry, the user has rejected! Please wait for another request...');
             sweetAlert("User rejected!", "We are very sorry for this inconvenience!", "error");
         }
     }
@@ -203,6 +209,7 @@ function userRaiseRequest() {
     $("#btn_reject").prop("hidden", true);
     App.drlocs.raise_request_uber({ command: "raise_request_uber", lat: lat, lng: lng, user_id: user_id, user_name: user_name, user_phone: user_phone, user_address: user_address, budget: budget, symthom: symthom });
     document.getElementById('user_raise_request_status').innerHTML = "Request created! We will let you know when a doctor accept your request";
+    $("#user-description").html('Raised a request! Wait for a doctor accept your request');
     sweetAlert("Request created!", "We will let you know when a doctor accept your request", "success");
 }
 $(document).on("turbolinks:load", setupMap)

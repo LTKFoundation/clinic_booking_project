@@ -40,7 +40,7 @@
                 <li class="divider"></li>
                 <li><%= link_to "Sign out", destroy_user_session_path, :method => 'delete' %></li>
                </ul>
-            </li>             
+            </li>
           <% else %>
             <% if current_doctor %>
               <% if doctor_gig %>
@@ -130,7 +130,7 @@
 
       <% if notice %>
         <script>$(document).on("turbolinks:load", function(){
-          swal("Succeed!","<%= success %>","success");
+          swal("Succeed!","<%= notice %>","success");
         })</script>
       <% elsif alert  %>
         <script>$(document).on("turbolinks:load", function(){
@@ -150,7 +150,7 @@
         <div class="row">
           <div class="col l6 s12">
             <p class="grey-text text-lighten-4">
-              One little attempt to make modern life a bit easier to live! 
+              One little attempt to make modern life a bit easier to live!
             </p>
           </div>
           <div class="col l3 s12">
