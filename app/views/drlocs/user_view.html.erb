@@ -1,4 +1,4 @@
-<h5>Doctor available for home service</h5>
+<h5>Uber Doctor</h5>
 <div class="row">
   <div class="col s10">
     <label id="user_request_address" hidden="true"></label>
@@ -10,15 +10,15 @@
   </div>
 </div>
 <div class="row">
-  <div class="col s6">
+  <div class="col s12">
     <div class="card hidden" id="uber_take_request_card">
       <div class="card-content">
         <span class="card-title">Doctor info</span>
-        <p><i class="material-icons">person_pin</i><label id="selected_uber_doctor"></label></p>
-        <p><i class="material-icons">attach_money</i><label id="selected_uber_doctor_price"></label></p>
+        <p><i class="material-icons">person_pin</i><span id="selected_uber_doctor"></span></p>
+        <p><i class="material-icons">attach_money</i><span id="selected_uber_doctor_price"></span></p>
       </div>
       <div class="card-action" id="card_action_response_uber">
-        <label id="uber_doctor_confirm"></label>
+        <p id="uber_doctor_confirm"></p>
       </div>
     </div>
   </div>
@@ -42,7 +42,7 @@
   <div id="map-canvas"></div>
 </div>
 <div class="row">
-  <div class="col s6">
+  <div class="col s12">
     <div class="card">
       <div class="card-content">
         <span class="card-title">My request</span>
@@ -53,7 +53,7 @@
         <i class="material-icons">assignment</i>
         <%= text_field_tag :my_symthom," ", placeholder:"describe your symthom here...", class:"form-control"%>
         <span>
-        <span><label id="user_raise_request_status"></label><span>
+        <span id="user_raise_request_status"></span>
       <div class="card-action" id="card_action_response_uber">
         <%= submit_tag "request", class: "btn btn-small", :onclick => "userRaiseRequest();"%>
       </div>

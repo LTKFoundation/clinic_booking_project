@@ -1,4 +1,4 @@
-<h5>Uber Doctor</h5>
+<h5>Hello Dr. <%=current_doctor.name%>! You are now available for home visit service!</h5>
 
 <div class="row">
   <div class="col s12">
@@ -16,16 +16,16 @@
       </div>
     </div>
     <div class="row">
-      <div class="col s6">
+      <div class="col s12">
         <div class="card hidden" id="user_request_uber_card">
           <div class="card-content">
             <span class="card-title">New request</span>
-            <p><i class="material-icons">person_pin</i><label id="user_request_name"></label></p>
-            <p><i class="material-icons">call</i><label id="user_request_phone"></label></p>
-            <p><i class="material-icons">place</i><label id="user_request_address"></label></p>
+            <p><i class="material-icons">person_pin</i><span id="user_request_name"></span></p>
+            <p><i class="material-icons">call</i><span id="user_request_phone"></span></p>
+            <p><i class="material-icons">place</i><span id="user_request_address"></span></p>
           </div>
           <div class="card-action" id="card_action_uber_confirm">
-            Confirm now to accept this request<%= submit_tag "confirm",id:"btn_uber_confirm",onclick:"confirmUberBooking(#{current_doctor.id},'#{current_doctor.name}')",:class => "hidden btn btn-small"%>
+            *Confirm now to accept this request<%= submit_tag "confirm",id:"btn_uber_confirm",onclick:"confirmUberBooking(#{current_doctor.id},'#{current_doctor.name}')",:class => "hidden btn btn-small"%>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
     <div id="map-container">
       <div id="map-canvas"></div>
     </div>
-    <label id="uber_doctor_avais"></label>
+    <label id="uber_doctor_avais" class="hidden"></label>
       <%= hidden_field_tag :uber_lat, value: "" %>
       <%= hidden_field_tag :uber_lng, value: "" %>
       <%= hidden_field_tag :uber_name, "#{current_doctor.name}" %>

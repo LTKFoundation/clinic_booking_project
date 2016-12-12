@@ -120,9 +120,11 @@ function showDoctorTakeMyRequest(dr_id, dr_name, user_id, dr_lat, dr_lng) {
                 if (isConfirm) {
                     responseToConfirm(isConfirm)
                     swal("Confirmed!", "Your doctor is coming.", "success");
+                    document.getElementById('user_raise_request_status').innerHTML = "Confirmed! Your doctor is coming.";
                 } else {
                     responseToConfirm(isConfirm)
                     swal("Cancelled", "We are sorry for this inconvienance", "error");
+                    document.getElementById('user_raise_request_status').innerHTML = "You cancelled this request. We are sorry for this inconvienance.";
                 }
             });
         // enable confirm button now

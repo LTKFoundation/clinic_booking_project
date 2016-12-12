@@ -1,10 +1,9 @@
 <div class="col s12">
-  <div class="row s12">
       <div class="row">
         <div class="col s6 m6">
           <div class="card">
             <div class="card-content ">
-              <span class="card-title">Thông tin đặt khám</span>
+              <span class="card-title">Clinic info</span>
               <p><i class="material-icons">account_circle</i><%= link_to @booking.gig.doctor.name,doctor_path(@booking.gig.doctor.id) %></p>
               <p><i class="material-icons">place</i><%= link_to @booking.gig.clinic.address, clinic_path(@booking.gig.clinic.id) %></p>
               <p><i class="material-icons">check_circle</i><%= @booking.status == "1" ? "Chưa khám" : "Đã khám" %></p>
@@ -12,14 +11,37 @@
             <div class="card-action">
               <%= form_tag patient_share_patient_info_path(@booking.patient.id), :method => 'get',:id => "share_info_form" do %>
                 <%= hidden_field_tag :doctor_id, @booking.gig.doctor.id %>
-                 <%= link_to "Cho phép bác sĩ #{@booking.gig.doctor.name} xem lịch sử khám?", "", :onclick => "$('#share_info_form').submit()" %>
+                 <%= link_to "Share medical history with Dr. #{@booking.gig.doctor.name}?", "", :onclick => "$('#share_info_form').submit()" %>
               <% end %>
             </div>
           </div>
         </div>
 				<div class="col s6">
+          <div class="card horizontal">
+            <div class="card-image">
+              <img src="http://lorempixel.com/100/190/people/3">
+            </div>
+            <div class="card-stacked">
+              <div class="card-content">
+                <h5><%= link_to "Patient info",patient_path(@booking.patient.id)%></h5>
+                <p><i class="material-icons">face</i><%= @booking.patient ? @booking.patient.name : @booking.user.name %></p>
+                <p><i class="material-icons">date_range</i><%= @booking.patient ? @booking.patient.age : '' %> years old
+                </p>
+                <p><i class="material-icons">accessibility</i><%= @booking.patient ? @booking.patient.gender_title : '' %></p>
+                <p><i class="material-icons">assignment</i><%= @booking.symthom %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+			<div class="row s12">
+
+				<div class="col s6">
           <div class="collection">
             <span>
+              <div class="collection-item">
+                <h5>Booking info</h5>
+              </div>
               <div class="collection-item">
                 <span class="text-darken-2">
                   <i class="material-icons">alarm_on</i><%= link_to @booking.start_at.strftime("%m/%d/%Y at %I:%M%p"),doctor_gig_client_view_path(@booking.gig.doctor_id,@booking.gig_id) %>
@@ -43,25 +65,6 @@
             </span>
           </div>
 		  	</div>
-      </div>
-			<div class="row s12">
-				<div class="col s6">
-          <div class="card horizontal">
-            <div class="card-image">
-              <img src="http://lorempixel.com/100/190/people/3">
-            </div>
-            <div class="card-stacked">
-              <div class="card-content">
-                <p><i class="material-icons">face</i><%= @booking.patient ? @booking.patient.name : @booking.user.name %></p>
-                <p><i class="material-icons">date_range</i><%= @booking.patient ? @booking.patient.age : '' %> years old
-                <span class="new badge" data-badge-caption="Age"></span>
-                </p>
-                <p><i class="material-icons">accessibility</i><%= @booking.patient ? @booking.patient.gender_title : '' %></p>
-                <p><i class="material-icons">assignment</i><%= @booking.symthom %></p>
-              </div>
-            </div>
-    </div>
-  </div>
 </div>
 <script>
 function verify_code(correct_code){

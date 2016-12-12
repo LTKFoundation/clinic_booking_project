@@ -1,10 +1,12 @@
 <div class="col">
 
   <div class="row s12">
-    <div class="col s5">
-      
+    <div class="col s6">
         <div class="collection">
           <span>
+          <div class="collection-item">
+          <h5>Booking details</h5>
+          </div>
             <div class="collection-item">
               <span class="text-darken-2">
                 <i class="material-icons">alarm_on</i><%= link_to booking.start_at.strftime("%d/%m/%Y at %I:%M%p"),doctor_gig_client_view_path(booking.gig.doctor_id,booking.gig_id) %>
@@ -25,10 +27,13 @@
         </div>
       
     </div>
-    <div class="col s7">
+    <div class="col s6">
       
           <div class="collection">
             <span>
+            <div class="collection-item">
+            <h5>Clinic details</h5>
+            </div>
               <div class="collection-item">
                 <span class="text-darken-2">
                   <i class="material-icons">home</i><%= link_to booking.gig.clinic.name, clinic_path(booking.gig.clinic_id) %>
@@ -41,7 +46,7 @@
               <div class="collection-item">
                 <i class="material-icons">card_membership</i>
                 <b><%= booking.confirm_code %></b>
-                <span class="new badge" data-badge-caption="Confirmation code"></span> 
+                <span class="new badge red" data-badge-caption="Confirmation code"></span> 
               </div>
               <% end %>
               <% if booking.patient %>
