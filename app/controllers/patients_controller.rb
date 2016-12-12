@@ -10,7 +10,7 @@ class PatientsController < ApplicationController
   def add_doctor
     @share = MedicRecordView.find_or_create_by!(patient_id: params[:patient_id], doctor_id: params[:doctor_id])
     if @share.persisted?
-      flash[:notice] = "Đã chia sẻ thông tin thành công"
+      # flash[:notice] = "Đã chia sẻ thông tin thành công"
       redirect_to patient_path(params[:patient_id])
     else
       flash[:alert] = "Đã có lỗi khi chia sẻ thông tin. Xin vui lòng thử lại sau"

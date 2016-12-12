@@ -11,7 +11,7 @@
                 </p>
                 <p><i class="material-icons">accessibility</i><%= booking.patient ? booking.patient.gender_title : '' %></p>
                 <p><i class="material-icons">assignment</i><%= booking.symthom %></p>
-                <% if patient %>
+                <% if booking.patient %>
                   <span class="red-text text-darken-2">
                     <%= booking.user.name %> has shared medical records of
                     <b> <%= patient.name %> </b>with you. <%= link_to "View records now",patient_doctor_view_path(patient.id) %>
